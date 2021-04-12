@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Primary;
 import javax.sql.DataSource;
 
 @Configuration
-public class Ei1021EspaciosNaturalesConfiguration {
+public class EI1027EspaciosNaturalesConfiguration {
     // Configura l'accés a la base de dades (DataSource)
     // a partir de les propietats a src/main/resources/applications.properties
     // que comencen pel prefix spring.datasource
