@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+  <title>Gestionar ciudadanos</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+  <h1>Lista de ciudadanos</h1>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>DNI</th>
+      <th>Nombre</th>
+      <th>Apellidos</th>
+      <th>Edad</th>
+      <th>Calle</th>
+      <th>Número</th>
+      <th>CP</th>
+      <th>Población</th>
+      <th>Teléfono</th>
+      <th>Email</th>
+      <th>Código</th>
+      <th>Pin</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="ciudadano: ${ciudadanos}">
+      <td th:text="${ciudadano.dni}"></td>
+      <td th:text="${ciudadano.nombre}"></td>
+      <td th:text="${ciudadano.apellidos}"></td>
+      <td th:text="${{ciudadano.edad}}"></td>
+      <td th:text="${{ciudadano.calle}}"></td>
+      <td th:text="${{ciudadano.numero}}"></td>
+      <td th:text="${{ciudadano.cp}}"></td>
+      <td th:text="${{ciudadano.poblacion}}"></td>
+      <td th:text="${{ciudadano.telefono}}"></td>
+      <td th:text="${{ciudadano.email}}"></td>
+      <td th:text="${{ciudadano.codigo}}"></td>
+      <td th:text="${{ciudadano.pin}}"></td>
+      <td> <a th:href="@{/ciudadano/update/{dni}(dni=${ciudadano.dni})}" class="btn btn-warning" role="button">Edita</a></td>
+      <td><a th:href="@{/ciudadano/delete/{dni}(dni=${ciudadano.dni})}" class="btn btn-danger" role="button">Esborra</a></td>
+    </tr>
+    </tbody>
+  </table>
+  <p>
+    <a href="add" class="btn btn-success" role="button">Afegeix classificació</a>
+  </p>
+  <p>
+    <a class="btn btn-link" href="/">Tornar</a>
+  </p>
+</div>
+</body>
+</html>
