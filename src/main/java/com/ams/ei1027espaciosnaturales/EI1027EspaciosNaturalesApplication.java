@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Ei1027EspaciosNaturalesApplication {
+public class EI1027EspaciosNaturalesApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Ei1027EspaciosNaturalesApplication.class, args);
+        SpringApplication.run(EI1027EspaciosNaturalesApplication.class, args);
     }
 
 }
