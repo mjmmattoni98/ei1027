@@ -36,14 +36,14 @@
       <td th:text="${{ciudadano.edad}}"></td>
       <td th:text="${{ciudadano.calle}}"></td>
       <td th:text="${{ciudadano.numero}}"></td>
-      <td th:text="${{ciudadano.cp}}"></td>
+      <td th:text="${{ciudadano.codigoPostal}}"></td>
       <td th:text="${{ciudadano.poblacion}}"></td>
       <td th:text="${{ciudadano.telefono}}"></td>
       <td th:text="${{ciudadano.email}}"></td>
       <td th:text="${{ciudadano.codigo}}"></td>
       <td th:text="${{ciudadano.pin}}"></td>
-      <td> <a th:href="@{/ciudadano/update/{dni}(dni=${ciudadano.dni})}" class="btn btn-warning" role="button">Edita</a></td>
-      <td><a th:href="@{/ciudadano/delete/{dni}(dni=${ciudadano.dni})}" class="btn btn-danger" role="button">Esborra</a></td>
+      <td> <a th:href="@{/ciudadano/update/{dni}(dni=${ciudadano.dni})}" class="btn btn-warning" role="button">Editar</a></td>
+      <td><a th:href="@{/ciudadano/delete/{dni}(dni=${ciudadano.dni})}" class="btn btn-danger" role="button">Borrar</a></td>
     </tr>
     </tbody>
   </table>
