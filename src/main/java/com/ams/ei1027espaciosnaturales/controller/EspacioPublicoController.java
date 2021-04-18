@@ -27,7 +27,7 @@ public class EspacioPublicoController {
     // Listar los espacios publicos
     @RequestMapping("/list")
     public String listEspacioPublico(Model model) {
-        model.addAttribute("espacioPublico", espacioPublicoDAO.getEspacioPublico());
+        model.addAttribute("espaciosPublicos", espacioPublicoDAO.getEspacioPublico());
         return "espacioPublico/list";
     }
 

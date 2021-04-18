@@ -55,7 +55,7 @@ public class CiudadanoController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String processUpdateSubmit(@ModelAttribute("nadador") Ciudadano c,
+    public String processUpdateSubmit(@ModelAttribute("ciudadano") Ciudadano c,
                                       BindingResult bindingResult) {
         if (bindingResult.hasErrors()) return "ciudadano/update";
         ciudadanoDAO.updateCiudadano(c);
