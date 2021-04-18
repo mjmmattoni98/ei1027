@@ -2,7 +2,6 @@ package com.ams.ei1027espaciosnaturales.controller;
 
 
 import com.ams.ei1027espaciosnaturales.dao.EspacioPublicoDAO;
-import com.ams.ei1027espaciosnaturales.model.Ciudadano;
 import com.ams.ei1027espaciosnaturales.model.EspacioPublico;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,18 +20,18 @@ public class EspacioPublicoController {
     private EspacioPublicoDAO espacioPublicoDAO;
 
     @Autowired
-    public void setCiudadanoDAO(EspacioPublicoDAO e) {
+    public void setEspacioPublicoDAO(EspacioPublicoDAO e) {
         this.espacioPublicoDAO = e;
     }
 
-    // Listar los ciudadanos
+    // Listar los espacios publicos
     @RequestMapping("/list")
     public String listEspacioPublico(Model model) {
         model.addAttribute("espacioPublico", espacioPublicoDAO.getEspacioPublico());
         return "espacioPublico/list";
     }
 
-    // Los siguientes dos metodos gestionan la inserción de un ciudadano
+    // Los siguientes dos metodos gestionan la inserción de un espacio publico
     @RequestMapping(value = "/add")
     public String addEspacioPublico(Model model) {
         model.addAttribute("espacioPublico", new EspacioPublico());
@@ -49,10 +48,10 @@ public class EspacioPublicoController {
         return "redirect:list";
     }
 
-    // Los siguientes dos metodos gestionan la modificacion de un ciudadano
+    // Los siguientes dos metodos gestionan la modificacion de un espacio publico
     @RequestMapping(value = "/update/{nombre}", method = RequestMethod.GET)
     public String updateEspacioPublico(Model model, @PathVariable String nombre) {
-        model.addAttribute("ciudadano", espacioPublicoDAO.getEspacioPublico(nombre));
+        model.addAttribute("espacioPublico", espacioPublicoDAO.getEspacioPublico(nombre));
         return "espacioPublico/update";
     }
 
