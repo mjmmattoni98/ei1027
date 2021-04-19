@@ -88,8 +88,8 @@ public class EspacioPublico {
     	this.orientacion = orientacion;
     }
 
-    public void setIdMunicipio(int id) {
-    	this.idMunicipio = id;
+    public void setIdMunicipio(int idMunicipio) {
+    	this.idMunicipio = idMunicipio;
     }
 
     public void setTAcceso(String tAcceso) {

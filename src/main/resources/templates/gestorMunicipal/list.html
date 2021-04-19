@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+  <title>Gestionar Gestores Municipales</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+  <h1>Lista de gestores municipales</h1>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>DNI</th>
+      <th>Nombre</th>
+      <th>Apellidos</th>
+      <th>ID Municipio</th>
+      <th>Usuario</th>
+      <th>Password</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="gestorMunicipal: ${gestoresMunicipales}">
+      <td th:text="${gestorMunicipal.dni}"></td>
+      <td th:text="${gestorMunicipal.nombre}"></td>
+      <td th:text="${gestorMunicipal.apellidos}"></td>
+      <td th:text="${gestorMunicipal.idMunicipio}"></td>
+      <td th:text="${gestorMunicipal.usuario}"></td>
+      <td th:text="${gestorMunicipal.password}"></td>
+      <td> <a th:href="@{/gestorMunicipal/update/{dni}(dni=${gestorMunicipal.dni})}" class="btn btn-warning" role="button">Editar</a></td>
+      <td><a th:href="@{/gestorMunicipal/delete/{dni}(dni=${gestorMunicipal.dni})}" class="btn btn-danger" role="button">Borrar</a></td>
+    </tr>
+    </tbody>
+  </table>
+  <p>
+    <a href="add" class="btn btn-success" role="button">Agregar gestor municipal</a>
+  </p>
+  <p>
+    <a class="btn btn-link" href="/">Volver</a>
+  </p>
+</div>
+</body>
+</html>

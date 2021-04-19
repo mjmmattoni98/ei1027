@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+  <title>Gestionar Municipios</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+  <h1>Lista de municipios</h1>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Provincia</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="municipio: ${municipios}">
+      <td th:text="${municipio.id}"></td>
+      <td th:text="${municipio.nombre}"></td>
+      <td th:text="${municipio.provincia}"></td>
+      <td> <a th:href="@{/municipio/update/{id}(id=${municipio.id})}" class="btn btn-warning" role="button">Editar</a></td>
+      <td><a th:href="@{/municipio/delete/{id}(id=${municipio.id})}" class="btn btn-danger" role="button">Borrar</a></td>
+    </tr>
+    </tbody>
+  </table>
+  <p>
+    <a href="add" class="btn btn-success" role="button">Agregar municipios</a>
+  </p>
+  <p>
+    <a class="btn btn-link" href="/">Volver</a>
+  </p>
+</div>
+</body>
+</html>

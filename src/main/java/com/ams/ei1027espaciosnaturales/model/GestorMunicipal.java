@@ -4,7 +4,7 @@ public class GestorMunicipal {
     private String dni;
     private String nombre;
     private String apellidos;
-    private int id;
+    private int idMunicipio;
     private String usuario;
     private String password;
 
@@ -35,12 +35,12 @@ public class GestorMunicipal {
         this.apellidos = apellidos;
     }
 
-    public int getId() {
-        return id;
+    public int getIdMunicipio() {
+        return idMunicipio;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdMunicipio(int idMunicipio) {
+        this.idMunicipio = idMunicipio;
     }
 
     public String getUsuario() {
@@ -65,7 +65,7 @@ public class GestorMunicipal {
                 "dni='" + dni + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", apellidos='" + apellidos + '\'' +
-                ", id=" + id +
+                ", idMunicipio=" + idMunicipio +
                 ", usuario='" + usuario + '\'' +
                 ", password='" + password + '\'' +
                 '}';
