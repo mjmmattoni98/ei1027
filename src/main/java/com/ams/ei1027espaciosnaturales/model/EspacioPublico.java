@@ -5,13 +5,13 @@ public class EspacioPublico {
     private String localizacionGeografica;
     private String tEspacio;
     private String tSuelo;
+    private String tAcceso;
     private String descripcion;
     private int longitud;
     private int anchura;
     private String orientacion;
-    private int id;
-    private String tAcceso;
-    
+    private int idMunicipio;
+
     public EspacioPublico(){
     	
     }
@@ -48,8 +48,8 @@ public class EspacioPublico {
     	return this.orientacion;
     }
 
-    public int getId() {
-    	return this.id;
+    public int getIdMunicipio() {
+    	return this.idMunicipio;
     }
 
     public String getTAcceso() {
@@ -88,12 +88,27 @@ public class EspacioPublico {
     	this.orientacion = orientacion;
     }
 
-    public void setId(int id) {
-    	this.id = id;
+    public void setIdMunicipio(int id) {
+    	this.idMunicipio = id;
     }
 
     public void setTAcceso(String tAcceso) {
     	this.tAcceso = tAcceso;
     }
 
+    @Override
+    public String toString() {
+        return "EspacioPublico{" +
+                "nombre='" + nombre + '\'' +
+                ", localizacionGeografica='" + localizacionGeografica + '\'' +
+                ", tEspacio='" + tEspacio + '\'' +
+                ", tSuelo='" + tSuelo + '\'' +
+                ", tAcceso='" + tAcceso + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", longitud=" + longitud +
+                ", anchura=" + anchura +
+                ", orientacion='" + orientacion + '\'' +
+                ", idMunicipio=" + idMunicipio +
+                '}';
+    }
 }

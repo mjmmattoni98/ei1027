@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <title>Gestionar Espacios Públicos</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <h1>Lista de espacios públicos</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Localización Geográfica</th>
+            <th>Tipo Espacio</th>
+            <th>Tipo Suelo</th>
+            <th>Tipo Acceso</th>
+            <th>Descripcion</th>
+            <th>Longitud</th>
+            <th>Anchura</th>
+            <th>Orientación</th>
+            <th>ID Municipio</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="espacioPublico: ${espaciosPublicos}">
+            <td th:text="${espacioPublico.nombre}"></td>
+            <td th:text="${espacioPublico.localizacionGeografica}"></td>
+            <td th:text="${espacioPublico.tEspacio}"></td>
+            <td th:text="${espacioPublico.tSuelo}"></td>
+            <td th:text="${espacioPublico.tAcceso}"></td>
+            <td th:text="${espacioPublico.descripcion}"></td>
+            <td th:text="${espacioPublico.longitud}"></td>
+            <td th:text="${espacioPublico.anchura}"></td>
+            <td th:text="${espacioPublico.orientacion}"></td>
+            <td th:text="${espacioPublico.idMunicipio}"></td>
+            <td> <a th:href="@{/espacioPublico/update/{nombre}(nombre=${espacioPublico.nombre})}" class="btn btn-warning" role="button">Editar</a></td>
+            <td><a th:href="@{/espacioPublico/delete/{nombre}(nombre=${espacioPublico.nombre})}" class="btn btn-danger" role="button">Borrar</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <p>
+        <a href="add" class="btn btn-success" role="button">Agregar espacio público</a>
+    </p>
+    <p>
+        <a class="btn btn-link" href="/">Volver</a>
+    </p>
+</div>
+</body>
+</html>

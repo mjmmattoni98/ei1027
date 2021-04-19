@@ -20,7 +20,7 @@ public final class EspacioPublicoRowMapper implements RowMapper<EspacioPublico> 
     	espaciopublico.setLongitud(resultSet.getInt("longitud"));
     	espaciopublico.setAnchura(resultSet.getInt("anchura"));
     	espaciopublico.setOrientacion(resultSet.getString("orientacion"));
-    	espaciopublico.setId(resultSet.getInt("id"));
+    	espaciopublico.setIdMunicipio(resultSet.getInt("id"));
     	espaciopublico.setTAcceso(resultSet.getString("acceso"));
         return espaciopublico;
     }

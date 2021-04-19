@@ -32,7 +32,7 @@ public class EspacioPublicoDAO {
                 e.getLongitud(),
                 e.getAnchura(),
                 e.getOrientacion(),
-                e.getId()
+                e.getIdMunicipio()
         );
     }
 
@@ -56,7 +56,7 @@ public class EspacioPublicoDAO {
                 e.getLongitud(),
                 e.getAnchura(),
                 e.getOrientacion(),
-                e.getId()
+                e.getIdMunicipio()
         );
     }
 
