@@ -3,9 +3,9 @@ package com.ams.ei1027espaciosnaturales.model;
 public class EspacioPublico {
     private String nombre;
     private String localizacionGeografica;
-    private String tEspacio;
-    private String tSuelo;
-    private String tAcceso;
+    private TipoEspacio tEspacio;
+    private TipoSuelo tSuelo;
+    private TipoAcceso tAcceso;
     private String descripcion;
     private int longitud;
     private int anchura;
@@ -25,11 +25,11 @@ public class EspacioPublico {
     }
     
     public String getTEspacio() {
-    	return this.tEspacio;
+    	return this.tEspacio.getValue();
     }
 
     public String getTSuelo() {
-    	return this.tSuelo;
+    	return this.tSuelo.getValue();
     }
     
     public String getDescripcion() {
@@ -53,7 +53,7 @@ public class EspacioPublico {
     }
 
     public String getTAcceso() {
-    	return this.tAcceso;
+    	return this.tAcceso.getValue();
     }
     
     public void setNombre(String nombre) {
@@ -65,11 +65,11 @@ public class EspacioPublico {
     }
     
     public void setTEspacio(String tEspacio) {
-    	this.tEspacio = tEspacio;
+    	this.tEspacio = TipoEspacio.stringToTipo(tEspacio);
     }
 
     public void setTSuelo(String tSuelo) {
-    	this.tSuelo = tSuelo;;
+    	this.tSuelo = TipoSuelo.stringToTipo(tSuelo);;
     }
     
     public void setDescripcion(String descripcion) {
@@ -93,7 +93,7 @@ public class EspacioPublico {
     }
 
     public void setTAcceso(String tAcceso) {
-    	this.tAcceso = tAcceso;
+    	this.tAcceso = TipoAcceso.stringToTipo(tAcceso);
     }
 
     @Override

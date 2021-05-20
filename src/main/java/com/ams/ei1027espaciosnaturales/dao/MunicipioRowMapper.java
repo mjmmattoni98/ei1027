@@ -15,7 +15,6 @@ public final class MunicipioRowMapper implements RowMapper<Municipio> {
     	municipio.setId(resultSet.getInt("id"));
     	municipio.setNombre(resultSet.getString("nombre"));
     	municipio.setProvincia(resultSet.getString("provincia"));
- 
         return municipio;
     }
 }
