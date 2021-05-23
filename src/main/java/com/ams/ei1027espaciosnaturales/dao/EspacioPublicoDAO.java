@@ -42,11 +42,11 @@ public class EspacioPublicoDAO {
     }
 
     public void deleteEspacioPublicoNombre(String nombre) {
-        jdbcTemplate.update("DELETE FROM espacio_publico WHERE dni=?", nombre);
+        jdbcTemplate.update("DELETE FROM espacio_publico WHERE nombre=?", nombre);
     }
 
     public void updateEspacioPublico(EspacioPublico e) {
-        jdbcTemplate.update("UPDATE espacio_publico SET localizacion_geografica=?, t_espacio=?, t_suelo=?, t_acceso=?, descripcion=?, longitud=?, anchura=?, orientacion=?, id=? WHERE nombre=?",
+        jdbcTemplate.update("UPDATE espacio_publico SET nombre=?, localizacion_geografica=?, t_espacio=?, t_suelo=?, t_acceso=?, descripcion=?, longitud=?, anchura=?, orientacion=?, id=? WHERE nombre=?",
         		e.getNombre(),
                 e.getLocalicacionGeografica(),
                 e.getTEspacio(),
@@ -56,7 +56,8 @@ public class EspacioPublicoDAO {
                 e.getLongitud(),
                 e.getAnchura(),
                 e.getOrientacion(),
-                e.getIdMunicipio()
+                e.getIdMunicipio(),
+                e.getNombre()
         );
     }
 
@@ -73,7 +74,7 @@ public class EspacioPublicoDAO {
         }
     }
 
-    public List<EspacioPublico> getEspacioPublico() {
+    public List<EspacioPublico> getEspaciosPublicos() {
         try {
             return jdbcTemplate.query("SELECT * FROM espacio_publico",
                     new EspacioPublicoRowMapper()

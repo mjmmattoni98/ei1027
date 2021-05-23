@@ -1,5 +1,7 @@
 package com.ams.ei1027espaciosnaturales.model;
 
+import org.jetbrains.annotations.NotNull;
+
 public enum TipoAcceso {
     ABIERTO("abierto"),
     RESTRINGIDO("restringido"),
@@ -15,7 +17,7 @@ public enum TipoAcceso {
         return this.value;
     }
 
-    public static TipoAcceso stringToTipo(@org.jetbrains.annotations.NotNull String tipo){
+    public static TipoAcceso stringToTipo(@NotNull String tipo){
         TipoAcceso tipoAcceso;
         switch (tipo){
             case "abierto":

@@ -1,5 +1,7 @@
 package com.ams.ei1027espaciosnaturales.model;
 
+import org.jetbrains.annotations.NotNull;
+
 public enum EstadoReserva {
     PENDIENTE_USO("pendiente de uso", "PU"),
     EN_USO("en uso", "EU"),
@@ -24,7 +26,7 @@ public enum EstadoReserva {
         return this.id;
     }
 
-    public static EstadoReserva stringToTipo(@org.jetbrains.annotations.NotNull String id){
+    public static EstadoReserva stringToTipo(@NotNull String id){
         EstadoReserva estadoReserva;
         switch (id){
             case "PU":

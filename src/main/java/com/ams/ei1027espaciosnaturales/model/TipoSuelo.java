@@ -1,5 +1,7 @@
 package com.ams.ei1027espaciosnaturales.model;
 
+import org.jetbrains.annotations.NotNull;
+
 public enum TipoSuelo {
     ARENA("arena"),
     ROCA("roca"),
@@ -15,7 +17,7 @@ public enum TipoSuelo {
         return this.value;
     }
 
-    public static TipoSuelo stringToTipo(@org.jetbrains.annotations.NotNull String tipo){
+    public static TipoSuelo stringToTipo(@NotNull String tipo){
         TipoSuelo tipoSuelo;
         switch (tipo){
             case "arena":

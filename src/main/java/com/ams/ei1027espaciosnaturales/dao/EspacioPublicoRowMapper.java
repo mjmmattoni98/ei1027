@@ -11,17 +11,18 @@ public final class EspacioPublicoRowMapper implements RowMapper<EspacioPublico> 
 
     @Override
     public EspacioPublico mapRow(ResultSet resultSet, int rowNum) throws SQLException {
-    	EspacioPublico espaciopublico = new EspacioPublico();
-    	espaciopublico.setNombre(resultSet.getString("nombre"));
-    	espaciopublico.setLocalicacionGeografica(resultSet.getString("localizaciónGeografica"));
-    	espaciopublico.setTEspacio(resultSet.getString("tEspacio"));
-    	espaciopublico.setTSuelo(resultSet.getString("tSuelo"));
-    	espaciopublico.setDescripcion(resultSet.getString("descripcion"));
-    	espaciopublico.setLongitud(resultSet.getInt("longitud"));
-    	espaciopublico.setAnchura(resultSet.getInt("anchura"));
-    	espaciopublico.setOrientacion(resultSet.getString("orientacion"));
-    	espaciopublico.setIdMunicipio(resultSet.getInt("id"));
-    	espaciopublico.setTAcceso(resultSet.getString("acceso"));
-        return espaciopublico;
+    	EspacioPublico espacioPublico = new EspacioPublico();
+    	espacioPublico.setNombre(resultSet.getString("nombre"));
+    	espacioPublico.setLocalicacionGeografica(resultSet.getString("localizaciónGeografica"));
+    	espacioPublico.setTEspacio(resultSet.getString("tEspacio"));
+    	espacioPublico.setTSuelo(resultSet.getString("tSuelo"));
+    	espacioPublico.setDescripcion(resultSet.getString("descripcion"));
+    	espacioPublico.setLongitud(resultSet.getInt("longitud"));
+    	espacioPublico.setAnchura(resultSet.getInt("anchura"));
+    	espacioPublico.setOrientacion(resultSet.getString("orientacion"));
+    	espacioPublico.setIdMunicipio(resultSet.getInt("id"));
+    	espacioPublico.setTAcceso(resultSet.getString("acceso"));
+
+        return espacioPublico;
     }
 }

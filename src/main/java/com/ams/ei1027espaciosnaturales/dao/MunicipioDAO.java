@@ -39,8 +39,9 @@ public class MunicipioDAO {
     }
 
     public void updateMunicipio(Municipio m) {
-        jdbcTemplate.update("UPDATE municipio SET nombre=?, provincia=? WHERE id=?",
-        		m.getNombre(),
+        jdbcTemplate.update("UPDATE municipio SET id=?, nombre=?, provincia=? WHERE id=?",
+        		m.getId(),
+                m.getNombre(),
         		m.getProvincia(),
         		m.getId()
         );
@@ -59,7 +60,7 @@ public class MunicipioDAO {
         }
     }
 
-    public List<Municipio> getMunicipio() {
+    public List<Municipio> getMunicipios() {
         try {
             return jdbcTemplate.query("SELECT * FROM municipio",
                     new MunicipioRowMapper()

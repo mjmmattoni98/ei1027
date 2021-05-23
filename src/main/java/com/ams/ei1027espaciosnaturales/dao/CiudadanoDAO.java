@@ -50,7 +50,8 @@ public class CiudadanoDAO {
 
     public void updateCiudadano(Ciudadano c) {
         //TODO throws PSQLException para la edad
-        jdbcTemplate.update("UPDATE Ciudadano SET nombre=?, apellidos=?, edad=?, calle=?, numero=?, cp=?, poblacion=?, telefono=?, email=?, codigo=?, pin=? WHERE dni=?",
+        jdbcTemplate.update("UPDATE Ciudadano SET dni=?, nombre=?, apellidos=?, edad=?, calle=?, numero=?, cp=?, poblacion=?, telefono=?, email=?, codigo=?, pin=? WHERE dni=?",
+                c.getDni(),
                 c.getNombre(),
                 c.getApellidos(),
                 c.getEdad(),

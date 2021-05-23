@@ -26,8 +26,8 @@ public class MunicipioController {
 
     // Listar los municipios
     @RequestMapping("/list")
-    public String listMunicipio(Model model) {
-        model.addAttribute("municipios", municipioDAO.getMunicipio());
+    public String listMunicipios(Model model) {
+        model.addAttribute("municipios", municipioDAO.getMunicipios());
         return "municipio/list";
     }
 

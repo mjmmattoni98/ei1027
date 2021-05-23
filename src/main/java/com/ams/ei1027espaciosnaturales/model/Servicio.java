@@ -3,13 +3,9 @@ package com.ams.ei1027espaciosnaturales.model;
 public class Servicio {
     private String tipo;
     private String descripcion;
+    private boolean isEstacional;
 
     public Servicio(){
-    }
-
-    public Servicio(String tipo, String descripcion){
-        this.tipo = tipo;
-        this.descripcion = descripcion;
     }
 
     public String getTipo() {
@@ -26,6 +22,14 @@ public class Servicio {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public boolean getIsEstacional(){
+        return this.isEstacional;
+    }
+
+    public void setEstacional(boolean isEstacional){
+        this.isEstacional = isEstacional;
     }
 
     @Override

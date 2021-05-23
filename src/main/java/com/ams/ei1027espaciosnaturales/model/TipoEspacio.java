@@ -1,5 +1,7 @@
 package com.ams.ei1027espaciosnaturales.model;
 
+import org.jetbrains.annotations.NotNull;
+
 public enum TipoEspacio {
     PLAYA("playa"),
     RIO("río"),
@@ -18,7 +20,7 @@ public enum TipoEspacio {
         return this.value;
     }
 
-    public static TipoEspacio stringToTipo(@org.jetbrains.annotations.NotNull String tipo){
+    public static TipoEspacio stringToTipo(@NotNull String tipo){
         TipoEspacio tipoEspacio;
         switch (tipo){
             case "playa":
