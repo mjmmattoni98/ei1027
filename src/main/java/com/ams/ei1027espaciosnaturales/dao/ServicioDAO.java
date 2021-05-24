@@ -89,7 +89,7 @@ public class ServicioDAO {
         }
     }
 
-    public List<Servicio> getMunicipios(boolean isEstacional) {
+    public List<Servicio> getServicios(boolean isEstacional) {
         try {
             if (isEstacional)
                 return jdbcTemplate.query("SELECT * FROM servicio_estacional",
