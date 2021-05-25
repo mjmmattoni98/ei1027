@@ -25,8 +25,7 @@ public class ServicioController {
     // Listar los servicios
     @RequestMapping("/list")
     public String listServicios(Model model) {
-        model.addAttribute("servicos_permanentes", servicioDAO.getServicios(false));
-        model.addAttribute("servicos_estacionales", servicioDAO.getServicios(true));
+        model.addAttribute("servicos", servicioDAO.getServicios());
         return "servicios/list";
     }
 
@@ -48,9 +47,9 @@ public class ServicioController {
     }
 
     // Los siguientes dos metodos gestionan la modificacion de un servicio
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-    public String updateServicio(Model model, @PathVariable int id) {
-        // model.addAttribute("servicio", servicioDAO.getServicio());
+    @RequestMapping(value = "/update/{tipo}/{supertipo}", method = RequestMethod.GET)
+    public String updateServicio(Model model, @PathVariable String tipo, @PathVariable String supertipo) {
+        model.addAttribute("servicio", servicioDAO.getServicio(tipo, supertipo));
         return "servicio/update";
     }
 
@@ -62,9 +61,9 @@ public class ServicioController {
         return "redirect:list";
     }
 
-    @RequestMapping(value = "/delete/{id}")
-    public String processDeleteServicio(@PathVariable int id) {
-        // servicioDAO.deleteServicio(id);
+    @RequestMapping(value = "/delete/{tipo}/{supertipo}")
+    public String processDeleteServicio(@PathVariable String tipo, @PathVariable String supertipo) {
+         servicioDAO.deleteServicio(tipo, supertipo);
         return "redirect:../list";
     }
 }

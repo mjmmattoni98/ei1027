@@ -3,7 +3,7 @@ package com.ams.ei1027espaciosnaturales.model;
 public class Servicio {
     private String tipo;
     private String descripcion;
-    private boolean isEstacional;
+    private String supertipo;  // Si es permanente (P) o estacional (E)
 
     public Servicio(){
     }
@@ -24,12 +24,12 @@ public class Servicio {
         this.descripcion = descripcion;
     }
 
-    public boolean getIsEstacional(){
-        return this.isEstacional;
+    public String getSupertipo(){
+        return this.supertipo;
     }
 
-    public void setEstacional(boolean isEstacional){
-        this.isEstacional = isEstacional;
+    public void setSupertipo(String supertipo){
+        this.supertipo = supertipo;
     }
 
     @Override
@@ -37,6 +37,7 @@ public class Servicio {
         return "Servicio{" +
                 "tipo='" + tipo + '\'' +
                 ", descripcion='" + descripcion + '\'' +
+                ", supertipo='" + supertipo + '\'' +
                 '}';
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Repository
@@ -21,7 +22,7 @@ public class ServicioDAO {
     }
 
     public void addServicio(Servicio s) {
-        if(s.getIsEstacional())
+        if(s.getSupertipo().equals("E"))
             jdbcTemplate.update("INSERT INTO servicio_estacional VALUES(?,?)",
                     s.getTipo(),
                     s.getDescripcion()
@@ -34,7 +35,7 @@ public class ServicioDAO {
     }
 
     public void deleteServicio(Servicio s) {
-        if(s.getIsEstacional())
+        if(s.getSupertipo().equals("E"))
             jdbcTemplate.update("DELETE FROM servicio_estacional WHERE tipo=?",
                     s.getTipo()
             );
@@ -44,8 +45,8 @@ public class ServicioDAO {
             );
     }
 
-    public void deleteServicio(String tipo, boolean isEstacional) {
-        if(isEstacional)
+    public void deleteServicio(String tipo, String supertipo) {
+        if(supertipo.equals("E"))
             jdbcTemplate.update("DELETE FROM servicio_estacional WHERE tipo=?",
                     tipo
             );
@@ -56,7 +57,7 @@ public class ServicioDAO {
     }
 
     public void updateServicio(Servicio s) {
-        if(s.getIsEstacional())
+        if(s.getSupertipo().equals("E"))
             jdbcTemplate.update("UPDATE servicio_estacional SET tipo=?, descripcion=? WHERE tipo=?",
                     s.getTipo(),
                     s.getDescripcion(),
@@ -70,9 +71,9 @@ public class ServicioDAO {
             );
     }
 
-    public Servicio getServicio(String tipo, boolean isEstacional) {
+    public Servicio getServicio(String tipo, String supertipo) {
         try {
-            if (isEstacional)
+            if (supertipo.equals("E"))
                 return jdbcTemplate .queryForObject(
                         "SELECT * FROM servicio_estacional WHERE tipo=?",
                         new ServicioRowMapper(),
@@ -89,15 +90,22 @@ public class ServicioDAO {
         }
     }
 
-    public List<Servicio> getServicios(boolean isEstacional) {
+    public List<Servicio> getServicios() {
         try {
-            if (isEstacional)
-                return jdbcTemplate.query("SELECT * FROM servicio_estacional",
-                        new ServicioRowMapper()
-                );
-            return jdbcTemplate.query("SELECT * FROM servicio_permanente",
+            List<Servicio> serviciosEstacional = jdbcTemplate.query("SELECT * FROM servicio_estacional",
                     new ServicioRowMapper()
             );
+            for (Servicio s : serviciosEstacional)
+                s.setSupertipo("E");
+            List<Servicio> serviciosPermanentes = jdbcTemplate.query("SELECT * FROM servicio_permanente",
+                    new ServicioRowMapper()
+            );
+            for (Servicio s : serviciosPermanentes)
+                s.setSupertipo("P");
+
+            List<Servicio> servicios = new LinkedList<>(serviciosEstacional);
+            servicios.addAll(serviciosPermanentes);
+            return servicios;
         } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }

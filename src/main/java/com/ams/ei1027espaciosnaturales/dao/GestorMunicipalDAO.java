@@ -38,7 +38,7 @@ public class GestorMunicipalDAO {
         );
     }
 
-    public void deleteGestorMunicipalDni(String dni) {
+    public void deleteGestorMunicipal(String dni) {
         jdbcTemplate.update("DELETE FROM gestor_municipal WHERE dni=?", dni);
     }
 
