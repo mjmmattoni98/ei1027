@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestionar Servicios Estacionales</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <h2>Nueva asignación de servicio a un espacio</h2>
+    <form class="form-horizontal" action="#" th:action="@{/espacio_servicio_estacional/add}"
+          th:object="${espacio_servicio_estacional}" method="post">
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="nombre">Nombre del espacio:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="nombre" th:field="*{nombre}" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="tipo">Tipo de servicio:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="tipo" th:field="*{tipo}" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="fechaIni">Fecha de inicio:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="fechaIni" th:field="*{fechaIni}" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="horaIni">Hora de inicio:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="horaIni" th:field="*{horaIni}" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="fechaFin">Fecha de finalización:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="fechaFin" th:field="*{fechaFin}" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="horaFin">Hora de finalización:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="horaFin" th:field="*{horaFin}" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="lugarContratacion">Lugar de contratacion:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="lugarContratacion" th:field="*{lugarContratacion}" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-offset-2 col-sm-4">
+                <button type="submit" class="btn btn-primary">Asignar servicio estacional</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <title>Gestionar Servicios Estacionales</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <h1>Lista de servicios estacionales</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nombre espacio</th>
+            <th>Tipo de servicio</th>
+            <th>Fecha de inicio</th>
+            <th>Hora de inicio</th>
+            <th>Fecha fin</th>
+            <th>Hora fin</th>
+            <th>Lugar de contratación</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="espacio_servicio_estacional: ${espacios_servicios_estacionales}">
+            <td th:text="${espacio_servicio_estacional.nombre}"></td>
+            <td th:text="${espacio_servicio_estacional.tipo}"></td>
+            <td th:text="${espacio_servicio_estacional.fechaIni}"></td>
+            <td th:text="${espacio_servicio_estacional.horaIni}"></td>
+            <td th:text="${espacio_servicio_estacional.fechaFin}"></td>
+            <td th:text="${espacio_servicio_estacional.horaFin}"></td>
+            <td th:text="${espacio_servicio_estacional.lugarContratacion}"></td>
+            <td><a th:href="@{/espacio_servicio_estacional/update/{nombre}(nombre=${espacio_servicio_estacional.nombre})/
+            {tipo}(tipo=${espacio_servicio_estacional.tipo})/{fechaIni}(fechaIni=${espacio_servicio_estacional.fechaIni})/
+            {fechaFin}(fechaFin=${espacio_servicio_estacional.fechaFin})}" class="btn btn-warning" role="button">Editar</a></td>
+            <td><a th:href="@{/espacio_servicio_estacional/delete/{nombre}(nombre=${espacio_servicio_estacional.nombre})/
+            {tipo}(tipo=${espacio_servicio_estacional.tipo})/{fechaIni}(fechaIni=${espacio_servicio_estacional.fechaIni})/
+            {fechaFin}(fechaFin=${espacio_servicio_estacional.fechaFin})}" class="btn btn-danger" role="button">Borrar</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <p>
+        <a href="add" class="btn btn-success" role="button">Asignar un servicio permanente</a>
+    </p>
+    <p>
+        <a class="btn btn-link" href="/">Volver</a>
+    </p>
+</div>
+</body>
+</html>
