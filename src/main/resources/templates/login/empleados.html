@@ -1,46 +1,52 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Login</title>
     <meta charset="UTF-8"/>
     <link rel="stylesheet"
-            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
 <body>
-<div class="container">
-    <h2>Acceso</h2>
+<div class="form-group justify-content-center row p-2">>
+    <h1 class="row justify-content-center">S.A.N.A.</h1>
+</div>
+
+<div class="form-group container p-3 border col-sm-3">
+    <div class="form-group justify-content-center row p-2">>
+        <h2 class="row justify-content-center">Acceso Empleados</h2>
+    </div>
     <form class="form-horizontal" action="#" th:action="@{/login/empleados}"
           th:object="${user}" method="post">
 
-        <div class="from-group row">
-            <label class="control-label col-sm-2" for="usuario">Usuario:</label>
-            <div class="col-sm-4">
+        <div class="from-group row p-2">
+            <label class="control-label col-sm-3" for="usuario">Usuario:</label>
+            <div class="col-sm-9">
                 <input type="text" class="form-control" id="usuario" th:field="*{username}" />
             </div>
             <div class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
         </div>
 
-        <div class="from-group row">
-            <label class="control-label col-sm-2" for="password">Contraseña:</label>
-            <div class="col-sm-4">
+        <div class="from-group row p-2">
+            <label class="control-label col-sm-3" for="password">Contraseña:</label>
+            <div class="col-sm-9">
                 <input type="text" class="form-control" id="password" th:field="*{password}" />
             </div>
             <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
         </div>
 
-        <div>
-            <label class="control-label col-sm-3" for="gestor">Gestor Municipal</label>
+        <div class="from-group row">
+            <label class="control-label col-sm-5" for="gestor">Gestor Municipal</label>
             <input class="control-label col-sm-1" type="radio" id="gestor" name="tipoTrabajador" value="gestor" checked/>
-            <label class="control-label col-sm-3" for="controlador">Personal de Control</label>
+            <label class="control-label col-sm-5" for="controlador">Personal de Control</label>
             <input class="control-label col-sm-1" type="radio" id="controlador" name="tipoTrabajador" value="gestor"/>
         </div>
 
-        <div class="form-group row">
-            <div class="col-sm-offset-2 col-sm-4">
-                <button type="submit" class="btn btn-primary">Acceder</button>
-            </div>
+        <div class="row form-group justify-content-center">
+            <button type="submit" class="btn btn-primary">Acceder</button>
         </div>
-</form>
+
+    </form>
 </div>
+
 </body>
 </html>
