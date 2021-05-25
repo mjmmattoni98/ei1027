@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/servicio")
+@RequestMapping("/servicios")
 public class ServicioController {
 
     private ServicioDAO servicioDAO;
@@ -25,7 +25,7 @@ public class ServicioController {
     // Listar los servicios
     @RequestMapping("/list")
     public String listServicios(Model model) {
-        model.addAttribute("servicos", servicioDAO.getServicios());
+        model.addAttribute("servicios", servicioDAO.getServicios());
         return "servicios/list";
     }
 
@@ -33,14 +33,14 @@ public class ServicioController {
     @RequestMapping(value = "/add")
     public String addServicio(Model model) {
         model.addAttribute("servicio", new Servicio());
-        return "servicio/add";
+        return "servicios/add";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddServicio(@ModelAttribute("servicio") Servicio s,
                                       BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "servicio/add";
+            return "servicios/add";
         }
         servicioDAO.addServicio(s);
         return "redirect:list";
@@ -50,13 +50,13 @@ public class ServicioController {
     @RequestMapping(value = "/update/{tipo}/{supertipo}", method = RequestMethod.GET)
     public String updateServicio(Model model, @PathVariable String tipo, @PathVariable String supertipo) {
         model.addAttribute("servicio", servicioDAO.getServicio(tipo, supertipo));
-        return "servicio/update";
+        return "servicios/update";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String processUpdateSubmit(@ModelAttribute("servicio") Servicio s,
                                       BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) return "servicio/update";
+        if (bindingResult.hasErrors()) return "servicios/update";
         servicioDAO.updateServicio(s);
         return "redirect:list";
     }
