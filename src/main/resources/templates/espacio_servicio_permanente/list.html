@@ -22,8 +22,8 @@
         <tr th:each="espacio_servicio_permanente: ${espacio_servicio_permanentes}">
             <td th:text="${espacio_servicio_permanente.tipo}"></td>
             <td th:text="${espacio_servicio_permanente.descripcion}"></td>
-            <td><a th:href="@{/espacio_servicio_permanente/update/{tipo}(nombre=${servicio.tipo})}" class="btn btn-warning" role="button">Editar</a></td>
-            <td><a th:href="@{/espacio_servicio_permanente/delete/{tipo}(nombre=${servicio.tipo})}" class="btn btn-danger" role="button">Borrar</a></td>
+            <td><a th:href="@{/espacio_servicio_permanente/update/{nombre}(nombre=${espacio_servicio_permanente.nombre})/{tipo}(tipo=${espacio_servicio_permanente.tipo})}" class="btn btn-warning" role="button">Editar</a></td>
+            <td><a th:href="@{/espacio_servicio_permanente/delete/{nombre}(nombre=${espacio_servicio_permanente.nombre})/{tipo}(tipo=${espacio_servicio_permanente.tipo})}" class="btn btn-danger" role="button">Borrar</a></td>
         </tr>
         </tbody>
     </table>
