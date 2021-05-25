@@ -29,7 +29,7 @@
         <div class="from-group row p-2">
             <label class="control-label col-sm-3" for="password">Contraseña:</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="password" th:field="*{password}" />
+                <input type="password" class="form-control" id="password" th:field="*{password}" />
             </div>
             <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
         </div>
@@ -38,7 +38,7 @@
             <label class="control-label col-sm-5" for="gestor">Gestor Municipal</label>
             <input class="control-label col-sm-1" type="radio" id="gestor" name="tipoTrabajador" value="gestor" checked/>
             <label class="control-label col-sm-5" for="controlador">Personal de Control</label>
-            <input class="control-label col-sm-1" type="radio" id="controlador" name="tipoTrabajador" value="gestor"/>
+            <input class="control-label col-sm-1" type="radio" id="controlador" name="tipoTrabajador" value="controlador"/>
         </div>
 
         <div class="row form-group justify-content-center">
