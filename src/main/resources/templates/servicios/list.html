@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <title>Gestionar Servicios</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <h1>Lista de servicios</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Supertipo (P / E)</th>
+            <th>Tipo de servicio</th>
+            <th>Descripcion</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="servicio: ${servicios}">
+            <td th:text="${servicio.supertipo}"></td>
+            <td th:text="${servicio.tipo}"></td>
+            <td th:text="${servicio.descripcion}"></td>
+            <td><a th:href="@{/servicio/update/{tipo}(nombre=${servicio.tipo})}" class="btn btn-warning" role="button">Editar</a></td>
+            <td><a th:href="@{/servicio/delete/{tipo}(nombre=${servicio.tipo})}" class="btn btn-danger" role="button">Borrar</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <p>
+        <a href="add" class="btn btn-success" role="button">Dar de alta un servicio</a>
+    </p>
+    <p>
+        <a class="btn btn-link" href="/">Volver</a>
+    </p>
+</div>
+</body>
+</html>
