@@ -16,11 +16,11 @@ public class FakeInternalUserProvider implements UserDAO {
     public FakeInternalUserProvider() {
         BasicPasswordEncryptor encryptor = new BasicPasswordEncryptor();
 
-        // Usuario de prueba - gestormunicipal1
+        // Usuario de prueba - gestormu1
         UserInterno gestormunicipal1 = new UserInterno();
-        gestormunicipal1.setUsername("gestormunicipal1");
-        gestormunicipal1.setPassword(encryptor.encryptPassword("gestormunicipal1"));
-        knownUsers.put("gestormunicipal1", gestormunicipal1);
+        gestormunicipal1.setUsername("gestorm1");
+        gestormunicipal1.setPassword(encryptor.encryptPassword("gestorm1"));
+        knownUsers.put("gestorm1", gestormunicipal1);
     }
 
     @Override
