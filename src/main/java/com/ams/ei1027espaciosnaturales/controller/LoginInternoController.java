@@ -42,25 +42,25 @@ public class LoginInternoController {
     @Autowired
     private UserDAO userDao;
 
-    @RequestMapping("/login/empleados")
+    @RequestMapping("/empleados")
     public String login(Model model) {
         model.addAttribute("user", new UserInterno());
-        return "/login/empleados";
+        return "/empleados";
     }
 
-    @RequestMapping(value="/login/empleados", method= RequestMethod.POST)
+    @RequestMapping(value="/empleados", method= RequestMethod.POST)
     public String checkLogin(@ModelAttribute("user") UserInterno user,
                              BindingResult bindingResult, HttpSession session) {
         UserInternoValidator userValidator = new UserInternoValidator();
         userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
-            return "login/empleados";
+            return "empleados";
         }
         // Comprobar que el login es el correcto intentando cargar el usuario
         user = userDao.loadUserByUsername(user.getUsername(), user.getPassword());
         if (user == null) {
             bindingResult.rejectValue("password", "badpw", "Contrasenya incorrecta");
-            return "login/empleados";
+            return "empleados";
         }
         // Autenticado correctamente. Guardamos los datos en la sesión
         session.setAttribute("user", user);

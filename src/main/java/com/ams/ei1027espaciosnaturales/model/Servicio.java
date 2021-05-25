@@ -3,7 +3,7 @@ package com.ams.ei1027espaciosnaturales.model;
 public class Servicio {
     private String tipo;
     private String descripcion;
-    private String supertipo;  // Si es permanente (P) o estacional (E)
+    private String supertipo = "P";  // Si es permanente (P) o estacional (E)
 
     public Servicio(){
     }

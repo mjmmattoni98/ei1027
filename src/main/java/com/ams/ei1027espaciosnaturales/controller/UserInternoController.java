@@ -20,17 +20,17 @@ public class UserInternoController {
         this.userDAO = userDao;
     }
 
-    @RequestMapping("/list")
-    public String listUsuariosInternos(HttpSession session, Model model) {
+    @RequestMapping("/gestor")
+    public String inicioGestor(HttpSession session, Model model) {
         if (session.getAttribute("user") == null) {
             model.addAttribute("user", new UserInterno());
 
-            session.setAttribute("nextUrl", "/empleados/list");
+            session.setAttribute("nextUrl", "/login/gestor");
 
-            return "login/empleados";
+            return "empleados";
         }
-        model.addAttribute("users", userDAO.listAllUsers());
-        return "login/list";
+//        model.addAttribute("users", userDAO.listAllUsers());
+        return "login/gestor";
     }
 
 }

@@ -7,6 +7,7 @@
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
 <body>
+<!--Cambiar el nombre de este fichero a login_empleados-->
 <div class="form-group justify-content-center row p-2">>
     <h1 class="row justify-content-center">S.A.N.A.</h1>
 </div>
@@ -15,7 +16,7 @@
     <div class="form-group justify-content-center row p-2">>
         <h2 class="row justify-content-center">Acceso Empleados</h2>
     </div>
-    <form class="form-horizontal" action="#" th:action="@{/login/empleados}"
+    <form class="form-horizontal" action="#" th:action="@{/empleados}"
           th:object="${user}" method="post">
 
         <div class="from-group row p-2">

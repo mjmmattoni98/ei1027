@@ -24,8 +24,8 @@
             <td th:text="${servicio.supertipo}"></td>
             <td th:text="${servicio.tipo}"></td>
             <td th:text="${servicio.descripcion}"></td>
-            <td><a th:href="@{/servicio/update/{tipo}(nombre=${servicio.tipo})}" class="btn btn-warning" role="button">Editar</a></td>
-            <td><a th:href="@{/servicio/delete/{tipo}(nombre=${servicio.tipo})}" class="btn btn-danger" role="button">Borrar</a></td>
+            <td><a th:href="@{/servicios/update/{tipo}/{supertipo}(tipo=${servicio.tipo}, supertipo=${servicio.supertipo})}" class="btn btn-warning" role="button">Editar</a></td>
+            <td><a th:href="@{/servicios/delete/{tipo}/{supertipo}(tipo=${servicio.tipo}, supertipo=${servicio.supertipo})}" class="btn btn-danger" role="button">Borrar</a></td>
         </tr>
         </tbody>
     </table>
