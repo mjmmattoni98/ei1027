@@ -29,7 +29,7 @@ public class UserInternoController {
 
             return "empleados";
         }
-//        model.addAttribute("users", userDAO.listAllUsers());
+        model.addAttribute("users", userDAO.listAllUsers());
         return "login/gestor";
     }
 

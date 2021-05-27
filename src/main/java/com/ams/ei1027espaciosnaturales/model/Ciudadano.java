@@ -1,7 +1,6 @@
 package com.ams.ei1027espaciosnaturales.model;
 
 public class Ciudadano {
-
     private String dni; // Identificador
     private String nombre;
     private String apellidos;
@@ -64,7 +63,7 @@ public class Ciudadano {
     }
 
     public void setDni(String dni) {
-        this.dni = dni;
+        this.dni = dni.toUpperCase();
     }
 
     public int getPin() {
@@ -112,7 +111,7 @@ public class Ciudadano {
     }
 
     public void setCodigo(String codigo) {
-        this.codigo = codigo;
+        this.codigo = codigo.toUpperCase();
     }
 
     @Override

@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
 <head>
-  <title>Gestionar ciudadanos</title>
+  <title>Actualizar ciudadano</title>
   <meta charset="UTF-8" />
   <link rel="stylesheet"
         href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/espacios_naturales.css"
+        th:href="@{/css/espacios_naturales.css}"/>
 </head>
 <body>
-<div class="container">
+<div class="container" layout:fragment="content">
   <h2>Actualiza ciudadano</h2>
   <form class="form-horizontal" action="#" th:action="@{/ciudadano/update}"
         th:object="${ciudadano}" method="post">
@@ -36,7 +39,7 @@
     <div class="form-group row">
       <label class="control-label col-sm-2" for="edad">Edad:</label>
       <div class="col-sm-4">
-        <input type="number" class="form-control" id="edad" th:field="*{edad}"/>
+        <input type="number" th:class="${#fields.hasErrors('edad')} ? needcorrection" class="form-control" id="edad" min="18" th:min="18" value="18" th:value="18" th:field="*{edad}"/>
       </div>
     </div>
 
@@ -50,14 +53,14 @@
     <div class="form-group row">
       <label class="control-label col-sm-2" for="numero">Número:</label>
       <div class="col-sm-4">
-        <input type="number" class="form-control" id="numero" th:field="*{numero}"/>
+        <input type="number" class="form-control" id="numero" min="1" th:min="1" th:field="*{numero}"/>
       </div>
     </div>
 
     <div class="form-group row">
       <label class="control-label col-sm-2" for="cp">CP:</label>
       <div class="col-sm-4">
-        <input type="number" class="form-control" id="cp" th:field="*{codigoPostal}"/>
+        <input type="number" class="form-control" id="cp" min="1" th:min="1" th:field="*{codigoPostal}"/>
       </div>
     </div>
 
@@ -85,7 +88,7 @@
     <div class="form-group row">
       <label class="control-label col-sm-2" for="codigo">Código:</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="codigo" th:field="*{codigo}"/>
+        <input type="text" class="form-control" id="codigo" maxlength="10" th:maxlength="10" th:field="*{codigo}"/>
       </div>
     </div>
 
@@ -103,6 +106,6 @@
     </div>
 
   </form>
-</div>
+  </div>
 </body>
 </html>

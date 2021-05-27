@@ -1,35 +1,42 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<html xmlns:th="http://www.thymeleaf.org" lang="es" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
 <head>
   <title>Gestionar ciudadanos</title>
   <meta charset="UTF-8" />
   <link rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/espacios_naturales.css"
+        th:href="@{/css/espacios_naturales.css}"/>
 </head>
 <body>
-<div class="container">
-  <h1>Lista de ciudadanos</h1>
-  <table class="table table-striped">
+<div class="container" layout:fragment="content">
+    <h1>Lista de ciudadanos</h1>
+    <div th:if="${#lists.isEmpty(ciudadanos)}">
+      No hi ha nadadors en la base de dades
+    </div>
+    <table class="table table-striped" th:unless="${#lists.isEmpty(ciudadanos)}">
     <thead>
     <tr>
-      <th>DNI</th>
-      <th>Nombre</th>
-      <th>Apellidos</th>
-      <th>Edad</th>
-      <th>Calle</th>
-      <th>Número</th>
-      <th>CP</th>
-      <th>Población</th>
-      <th>Teléfono</th>
-      <th>Email</th>
-      <th>Código</th>
-      <th>Pin</th>
-      <th></th>
-      <th></th>
+      <th scope="col">DNI</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellidos</th>
+      <th scope="col">Edad</th>
+      <th scope="col">Calle</th>
+      <th scope="col">Número</th>
+      <th scope="col">CP</th>
+      <th scope="col">Población</th>
+      <th scope="col">Teléfono</th>
+      <th scope="col">Email</th>
+      <th scope="col">Código</th>
+      <th scope="col">Pin</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="ciudadano: ${ciudadanos}">
+<!--    <tr th:each="ciudadano: ${#list.sort(ciudadanos)}">-->
       <td th:text="${ciudadano.dni}"></td>
       <td th:text="${ciudadano.nombre}"></td>
       <td th:text="${ciudadano.apellidos}"></td>
@@ -53,6 +60,6 @@
   <p>
     <a class="btn btn-link" href="/">Volver</a>
   </p>
-</div>
+  </div>
 </body>
 </html>

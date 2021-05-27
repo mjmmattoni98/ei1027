@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
 <head>
     <title>Login</title>
     <meta charset="UTF-8"/>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="/css/espacios_naturales.css"
+          th:href="@{/css/espacios_naturales.css}"/>
 </head>
 <body>
+<div layout:fragment="content">
 <!--Cambiar el nombre de este fichero a login_empleados-->
 <div class="form-group justify-content-center row p-2">>
     <h1 class="row justify-content-center">S.A.N.A.</h1>
@@ -48,6 +53,6 @@
 
     </form>
 </div>
-
+</div>
 </body>
 </html>
