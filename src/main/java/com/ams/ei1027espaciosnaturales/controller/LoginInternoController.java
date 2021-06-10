@@ -29,7 +29,7 @@ class UserInternoValidator implements Validator {
             errors.rejectValue("username", "campo usuario vacio", "Introduce un usuario");
         }
         if (user.getPassword().length() == 0) {
-            errors.rejectValue("password", "campo contrasenya vacio", "Introduce una contrasenya");
+            errors.rejectValue("password", "campo contraseña vacio", "Introduce una contraseña");
         }
     }
 
@@ -65,9 +65,12 @@ public class LoginInternoController {
         // Autenticado correctamente. Guardamos los datos en la sesión
         session.setAttribute("user", user);
 
-        String nextUrl = (String) session.getAttribute("nextUrl");
+        System.out.println("----------------------------PATATA------------------------------------------------");
+        String nextUrl = user.getUrlMainPage();
+        System.out.println(user.getUrlMainPage());
         if (nextUrl != null) {
             session.removeAttribute("nextUrl");
+            System.out.println("--------------------------------------------PATATA-PATATA-------------------------------------------");
             return "redirect:" + nextUrl;
         }
 

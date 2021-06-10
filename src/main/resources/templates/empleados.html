@@ -40,13 +40,6 @@
             <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
         </div>
 
-        <div class="from-group row">
-            <label class="control-label col-sm-5" for="gestor">Gestor Municipal</label>
-            <input class="control-label col-sm-1" type="radio" id="gestor" name="tipoTrabajador" value="gestor" checked/>
-            <label class="control-label col-sm-5" for="controlador">Personal de Control</label>
-            <input class="control-label col-sm-1" type="radio" id="controlador" name="tipoTrabajador" value="controlador"/>
-        </div>
-
         <div class="row form-group justify-content-center">
             <button type="submit" class="btn btn-primary">Acceder</button>
         </div>
