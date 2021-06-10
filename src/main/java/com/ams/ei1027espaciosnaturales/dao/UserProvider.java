@@ -32,6 +32,12 @@ public class UserProvider implements UserDAO {
                 user.setPassword(encryptor.encryptPassword(user.getPassword()));
                 knownUsers.put(user.getUsername(), user);
             }
+            userInternos = jdbcTemplate.query("SELECT dni as usuario, pin as contraseña FROM ciudadano;", new UserInternoRowMapper());
+            for(UserInterno user : userInternos){
+                user.setRol("ciudadano");
+                user.setPassword(encryptor.encryptPassword(user.getPassword()));
+                knownUsers.put(user.getUsername(), user);
+            }
 
         }catch (EmptyResultDataAccessException e){}
 
