@@ -71,7 +71,7 @@ public class LoginInternoController {
         if (nextUrl != null) {
             session.removeAttribute("nextUrl");
             System.out.println("--------------------------------------------PATATA-PATATA-------------------------------------------");
-            return "redirect:" + nextUrl;
+            return "redirect:/" + nextUrl;
         }
 
         return "redirect:/";

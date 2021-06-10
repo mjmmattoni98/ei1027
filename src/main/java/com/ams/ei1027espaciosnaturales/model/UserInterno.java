@@ -1,6 +1,8 @@
 package com.ams.ei1027espaciosnaturales.model;
 
-public class UserInterno {
+import java.io.Serializable;
+
+public class UserInterno implements Serializable {
 
     String username;
     String password;
