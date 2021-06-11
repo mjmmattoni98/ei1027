@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -14,14 +14,18 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-item nav-link" href="añadirMunicipios.html">Datos de los gestores <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="añadirServicios.html">Añadir servicios</a>
-            <a class="nav-item nav-link" href="datosGestores.html">Añadir municipios</a>
+            <a class="nav-item nav-link" href="datosGestores">Datos de los gestores <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="anadirServicios">Añadir servicios</a>
+            <a class="nav-item nav-link" href="anadirMunicipios">Añadir municipios</a>
             <a class="nav-item nav-link active">Lista de Espacios</a>
         </div>
     </div>
 </nav>
-
+<div class="row justify-content-end p-3 m-2">
+    <p class="col-sm-2">Autenticado como Gestor</p>
+    <button type="submit" class="btn btn-primary col-sm-1">Salir</button>
+</div>
+<div th:replace="gestorMunicipal/list"></div>
 
 </body>
 </html>

@@ -30,7 +30,7 @@ public class UserInterno implements Serializable {
 
     public String getUrlMainPage() {
         if(this.rol.equals("gestor"))
-            return "login/gestor";
+            return "responsable/anadirMunicipios";
         if(this.rol.equals("controlador"))
             return "controlador/main";
         if(this.rol.equals("ciudadano"))
