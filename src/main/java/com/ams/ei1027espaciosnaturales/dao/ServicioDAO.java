@@ -51,6 +51,8 @@ public class ServicioDAO {
                     tipo
             );
         else
+            System.out.println(tipo);
+            System.out.println(supertipo);
             jdbcTemplate.update("DELETE FROM servicio_permanente WHERE tipo=?",
                     tipo
             );

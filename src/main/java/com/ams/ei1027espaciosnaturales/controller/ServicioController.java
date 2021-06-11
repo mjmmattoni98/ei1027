@@ -72,7 +72,7 @@ public class ServicioController {
         System.out.println(user.getRol());
         if(user.getRol().equals("gestor")){
             System.out.println("entro?");
-            return "redirect: /responsable/anadirServicios";
+            return "redirect:../../../responsable/anadirServicios";
         }
         return "redirect:../list";
     }
