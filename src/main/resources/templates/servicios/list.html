@@ -22,15 +22,15 @@
         <tbody>
         <tr th:each="servicio: ${servicios}">
             <td th:text="${servicio.supertipo}"></td>
-            <td th:text="${servicio.tipo}"></td>
             <td th:text="${servicio.descripcion}"></td>
+            <td th:text="${servicio.tipo}"></td>
             <td><a th:href="@{/servicios/update/{tipo}/{supertipo}(tipo=${servicio.tipo}, supertipo=${servicio.supertipo})}" class="btn btn-warning" role="button">Editar</a></td>
             <td><a th:href="@{/servicios/delete/{tipo}/{supertipo}(tipo=${servicio.tipo}, supertipo=${servicio.supertipo})}" class="btn btn-danger" role="button">Borrar</a></td>
         </tr>
         </tbody>
     </table>
     <p>
-        <a href="add" class="btn btn-success" role="button">Dar de alta un servicio</a>
+        <a href="/servicios/add" class="btn btn-success" role="button">Dar de alta un servicio</a>
     </p>
     <p>
         <a class="btn btn-link" href="/">Volver</a>

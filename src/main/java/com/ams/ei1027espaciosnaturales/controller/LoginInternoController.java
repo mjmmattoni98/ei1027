@@ -65,12 +65,9 @@ public class LoginInternoController {
         // Autenticado correctamente. Guardamos los datos en la sesión
         session.setAttribute("user", user);
 
-        System.out.println("----------------------------PATATA------------------------------------------------");
         String nextUrl = user.getUrlMainPage();
-        System.out.println(user.getUrlMainPage());
         if (nextUrl != null) {
             session.removeAttribute("nextUrl");
-            System.out.println("--------------------------------------------PATATA-PATATA-------------------------------------------");
             return "redirect:/" + nextUrl;
         }
 

@@ -2,6 +2,7 @@ package com.ams.ei1027espaciosnaturales.controller;
 
 import com.ams.ei1027espaciosnaturales.dao.ServicioDAO;
 import com.ams.ei1027espaciosnaturales.model.Servicio;
+import com.ams.ei1027espaciosnaturales.model.UserInterno;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/servicios")
@@ -62,8 +65,15 @@ public class ServicioController {
     }
 
     @RequestMapping(value = "/delete/{tipo}/{supertipo}")
-    public String processDeleteServicio(@PathVariable String tipo, @PathVariable String supertipo) {
+    public String processDeleteServicio(@PathVariable String tipo, @PathVariable String supertipo, HttpSession session) {
          servicioDAO.deleteServicio(tipo, supertipo);
+        UserInterno user = (UserInterno) session.getAttribute("user");
+        System.out.println(user);
+        System.out.println(user.getRol());
+        if(user.getRol().equals("gestor")){
+            System.out.println("entro?");
+            return "redirect: /responsable/anadirServicios";
+        }
         return "redirect:../list";
     }
 }
