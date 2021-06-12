@@ -1,6 +1,5 @@
 package com.ams.ei1027espaciosnaturales.dao;
 
-
 import com.ams.ei1027espaciosnaturales.model.Ciudadano;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -34,8 +33,8 @@ public class CiudadanoDAO {
                 c.getPoblacion(),
                 c.getTelefono(),
                 c.getEmail(),
-                c.getCodigo(),
-                c.getPin()
+                c.getUsuario(),
+                c.getPassword()
         );
     }
 
@@ -50,7 +49,8 @@ public class CiudadanoDAO {
 
     public void updateCiudadano(Ciudadano c) {
         //TODO throws PSQLException para la edad
-        jdbcTemplate.update("UPDATE Ciudadano SET dni=?, nombre=?, apellidos=?, edad=?, calle=?, numero=?, cp=?, poblacion=?, telefono=?, email=?, codigo=?, pin=? WHERE dni=?",
+        jdbcTemplate.update("UPDATE Ciudadano SET dni=?, nombre=?, apellidos=?, edad=?, calle=?, numero=?, cp=?, " +
+                        "poblacion=?, telefono=?, email=?, usuario=?, password=? WHERE dni=?",
                 c.getDni(),
                 c.getNombre(),
                 c.getApellidos(),
@@ -61,8 +61,8 @@ public class CiudadanoDAO {
                 c.getPoblacion(),
                 c.getTelefono(),
                 c.getEmail(),
-                c.getCodigo(),
-                c.getPin(),
+                c.getUsuario(),
+                c.getPassword(),
                 c.getDni()
         );
     }

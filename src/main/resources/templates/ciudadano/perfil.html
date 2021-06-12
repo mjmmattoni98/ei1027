@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+    <title>Perfil</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/espacios_naturales.css"
+          th:href="@{/css/espacios_naturales.css}"/>
+</head>
+<body>
+<div class="container" layout:fragment="content">
+    <h2>Tu perfil de ciudadano</h2>
+    <table class="table table-striped">
+        <tbody>
+        <tr>
+            <td>DNI:</td>
+            <td th:text="${ciudadano.dni}"></td>
+        </tr>
+        <tr>
+            <td>Nombre:</td>
+            <td th:text="${ciudadano.nombre}"></td>
+        </tr>
+        <tr>
+            <td>Apellidos:</td>
+            <td th:text="${ciudadano.apellidos}"></td>
+        </tr>
+        <tr>
+            <td>Edad:</td>
+            <td th:text="${ciudadano.edad}"></td>
+        </tr>
+        <tr>
+            <td>Calle:</td>
+            <td th:text="${ciudadano.calle}"></td>
+        </tr>
+        <tr>
+            <td>Número:</td>
+            <td th:text="${ciudadano.numero}"></td>
+        </tr>
+        <tr>
+            <td>Codigo postal:</td>
+            <td th:text="${ciudadano.codigoPostal}"></td>
+        </tr>
+        <tr>
+            <td>Población:</td>
+            <td th:text="${ciudadano.poblacion}"></td>
+        </tr>
+        <tr>
+            <td>Teléfono:</td>
+            <td th:text="${ciudadano.telefono}"></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td th:text="${ciudadano.email}"></td>
+        </tr>
+        <tr>
+            <td>Usuario:</td>
+            <td th:text="${ciudadano.usuario}"></td>
+        </tr>
+        <tr>
+            <td>Contraseña:</td>
+            <td th:text="${ciudadano.password}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <p>
+        <a class="btn btn-link" href="/">Volver a la página principal</a>
+    </p>
+</div>
+</body>
+</html>

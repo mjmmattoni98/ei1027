@@ -3,10 +3,10 @@ package com.ams.ei1027espaciosnaturales.model;
 import java.io.Serializable;
 
 public class UserInterno implements Serializable {
-
-    String username;
-    String password;
-    String rol;
+    private String username;
+    private String password;
+    private String rol;
+    private String dni;
 
     public String getUsername() {
         return username;
@@ -28,15 +28,19 @@ public class UserInterno implements Serializable {
 
     public void setRol(String rol){ this.rol = rol;}
 
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
     public String getUrlMainPage() {
         if(this.rol.equals("gestor"))
-            return "responsable/anadirMunicipios";
-        if(this.rol.equals("controlador"))
-            return "controlador/main";
+            return "espacioPublico/list";
         if(this.rol.equals("ciudadano"))
-            return "ciudadano/main";
-
-        return null;
-
+            return "ciudadano/perfil";
+        return "/";
     }
 }

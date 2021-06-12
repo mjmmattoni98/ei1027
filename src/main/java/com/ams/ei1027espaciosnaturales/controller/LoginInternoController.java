@@ -2,6 +2,8 @@ package com.ams.ei1027espaciosnaturales.controller;
 
 import com.ams.ei1027espaciosnaturales.dao.UserDAO;
 import com.ams.ei1027espaciosnaturales.model.UserInterno;
+import org.apache.catalina.User;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,14 +17,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpSession;
 
 class UserInternoValidator implements Validator {
-
     @Override
-    public boolean supports(Class<?> cls) {
+    public boolean supports(@NotNull Class<?> cls) {
         return UserInterno.class.isAssignableFrom(cls);
     }
 
     @Override
-    public void validate(Object o, Errors errors) {
+    public void validate(@NotNull Object o, @NotNull Errors errors) {
 
         UserInterno user = (UserInterno) o;
         if (user.getUsername().length() == 0) {
@@ -32,9 +33,7 @@ class UserInternoValidator implements Validator {
             errors.rejectValue("password", "campo contraseña vacio", "Introduce una contraseña");
         }
     }
-
 }
-
 
 @Controller
 public class LoginInternoController {
@@ -42,36 +41,40 @@ public class LoginInternoController {
     @Autowired
     private UserDAO userDao;
 
-    @RequestMapping("/empleados")
-    public String login(Model model) {
-        model.addAttribute("user", new UserInterno());
-        return "/empleados";
+    @RequestMapping("/login")
+    public String login(Model model, HttpSession session) {
+        if (session.getAttribute("user") == null){
+            model.addAttribute("user", new UserInterno());
+            return "login";
+        }
+        UserInterno user = (UserInterno) session.getAttribute("user");
+        throw new EspaciosNaturalesException("Ya estás logueado", "AlreadyLogIn", "../" + user.getUrlMainPage());
     }
 
-    @RequestMapping(value="/empleados", method= RequestMethod.POST)
+    @RequestMapping(value="/login", method= RequestMethod.POST)
     public String checkLogin(@ModelAttribute("user") UserInterno user,
                              BindingResult bindingResult, HttpSession session) {
         UserInternoValidator userValidator = new UserInternoValidator();
         userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
-            return "empleados";
+            return "login";
         }
         // Comprobar que el login es el correcto intentando cargar el usuario
         user = userDao.loadUserByUsername(user.getUsername(), user.getPassword());
         if (user == null) {
             bindingResult.rejectValue("password", "badpw", "Contrasenya incorrecta");
-            return "empleados";
+            return "login";
         }
         // Autenticado correctamente. Guardamos los datos en la sesión
         session.setAttribute("user", user);
 
         String nextUrl = user.getUrlMainPage();
-        if (nextUrl != null) {
-            session.removeAttribute("nextUrl");
-            return "redirect:/" + nextUrl;
-        }
+//        if (nextUrl != null) {
+//            session.removeAttribute("nextUrl");
+//            return "redirect:/" + nextUrl;
+//        }
 
-        return "redirect:/";
+        return "redirect:/" + nextUrl;
     }
 
     @RequestMapping("/logout")
@@ -79,5 +82,4 @@ public class LoginInternoController {
         session.invalidate();
         return "redirect:/";
     }
-
 }

@@ -21,8 +21,8 @@ public final class CiudadanoRowMapper implements RowMapper<Ciudadano> {
         ciudadano.setTelefono(resultSet.getString("telefono"));
         ciudadano.setEmail(resultSet.getString("email"));
         ciudadano.setDni(resultSet.getString("dni"));
-        ciudadano.setCodigo(resultSet.getString("codigo"));
-        ciudadano.setPin(resultSet.getInt("pin"));
+        ciudadano.setUsuario(resultSet.getString("usuario"));
+        ciudadano.setPassword(resultSet.getString("password"));
         return ciudadano;
     }
 }

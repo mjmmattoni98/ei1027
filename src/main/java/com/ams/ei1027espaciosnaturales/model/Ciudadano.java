@@ -11,8 +11,10 @@ public class Ciudadano {
     private String poblacion;
     private String telefono;
     private String email;
-    private String codigo;
-    private int pin; // Pin de acceso
+    private String usuario;
+    private String password; // Pin de acceso
+    private static final int MIN_RANGE = 1000;
+    private static final int MAX_RANGE = 9999;
 
     public Ciudadano() {
         super();
@@ -66,12 +68,12 @@ public class Ciudadano {
         this.dni = dni.toUpperCase();
     }
 
-    public int getPin() {
-        return pin;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPin(int pin) {
-        this.pin = pin;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getCalle() {
@@ -106,12 +108,24 @@ public class Ciudadano {
         this.poblacion = poblacion;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo.toUpperCase();
+    public void setUsuario(String usuario) {
+        this.usuario = usuario.toUpperCase();
+    }
+
+    public void generateRandomPin(){
+        int nuevoPin = (int) Math.floor(Math.random() * (MAX_RANGE - MIN_RANGE + 1) + MIN_RANGE);
+        setPassword(Integer.toString(nuevoPin));
+    }
+
+    public void createCodigo(){
+        String nuevoCodigo = this.nombre.substring(0, 2)
+                .concat(this.apellidos.substring(0, 2))
+                .concat(this.dni.substring(6, 9));
+        setUsuario(nuevoCodigo);
     }
 
     @Override
@@ -127,8 +141,8 @@ public class Ciudadano {
                 ", poblacion='" + poblacion + '\'' +
                 ", telefono='" + telefono + '\'' +
                 ", email='" + email + '\'' +
-                ", codigo='" + codigo + '\'' +
-                ", pin=" + pin +
+                ", usuario='" + usuario + '\'' +
+                ", password=" + password +
                 '}';
     }
 }

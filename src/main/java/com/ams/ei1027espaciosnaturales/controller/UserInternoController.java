@@ -5,9 +5,7 @@ import com.ams.ei1027espaciosnaturales.model.UserInterno;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
 
@@ -55,7 +53,7 @@ public class UserInternoController {
 
             session.setAttribute("nextUrl", "/responsable/anadirMunicipios");
 
-            return "empleados";
+            return "login";
         }
         model.addAttribute("users", municipioDAO.getMunicipios());
         return "/responsable/anadirMunicipios";
@@ -68,7 +66,7 @@ public class UserInternoController {
 
             session.setAttribute("nextUrl", "/responsable/anadirServicios");
 
-            return "empleados";
+            return "login";
         }
         model.addAttribute("servicios", servicioDAO.getServicios());
         return "/responsable/anadirServicios";
@@ -81,7 +79,7 @@ public class UserInternoController {
 
             session.setAttribute("gestoresMunicipales", gestorDao.getGestoresMunicipales());
 
-            return "empleados";
+            return "login";
         }
         model.addAttribute("users", userDAO.listAllUsers());
         return "/responsable/datosGestores";
@@ -94,7 +92,7 @@ public class UserInternoController {
 
             session.setAttribute("nextUrl", "/responsable/listaEspacios");
 
-            return "empleados";
+            return "login";
         }
         model.addAttribute("users", espacioDao.getEspaciosPublicos());
         return "/responsable/listaEspacios";

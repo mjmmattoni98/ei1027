@@ -1,15 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<html xmlns:th="http://www.thymeleaf.org" lang="es" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
 <head>
     <title>Gestionar Espacios Públicos</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/espacios_naturales.css"
+          th:href="@{/css/espacios_naturales.css}"/>
 </head>
 <body>
-<div class="container">
+<div class="container" layout:fragment="content">
     <h1>Lista de espacios públicos</h1>
-    <table class="table table-striped">
+    <div th:if="${#lists.isEmpty(espaciosPublicos)}">
+        No hay espacios públicos registrados aún.
+    </div>
+    <table class="table table-striped" th:unless="${#lists.isEmpty(espaciosPublicos)}">
         <thead>
         <tr>
             <th>Nombre</th>

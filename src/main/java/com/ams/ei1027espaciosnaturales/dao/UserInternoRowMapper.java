@@ -11,8 +11,8 @@ public class UserInternoRowMapper implements RowMapper<UserInterno> {
     public UserInterno mapRow(ResultSet rs, int i) throws SQLException{
         UserInterno userInterno = new UserInterno();
         userInterno.setUsername(rs.getString("usuario"));
-        userInterno.setPassword(rs.getString("contraseña"));
+        userInterno.setPassword(rs.getString("password"));
+        userInterno.setDni(rs.getString("dni"));
         return userInterno;
     }
-
 }

@@ -13,7 +13,7 @@
 <div class="container" layout:fragment="content">
     <h1>Lista de ciudadanos</h1>
     <div th:if="${#lists.isEmpty(ciudadanos)}">
-      No hi ha nadadors en la base de dades
+      No hay ciudadanos registrados aún.
     </div>
     <table class="table table-striped" th:unless="${#lists.isEmpty(ciudadanos)}">
     <thead>
@@ -28,8 +28,8 @@
       <th scope="col">Población</th>
       <th scope="col">Teléfono</th>
       <th scope="col">Email</th>
-      <th scope="col">Código</th>
-      <th scope="col">Pin</th>
+      <th scope="col">Usuario</th>
+      <th scope="col">Password</th>
       <th scope="col"></th>
       <th scope="col"></th>
     </tr>
@@ -47,8 +47,8 @@
       <td th:text="${ciudadano.poblacion}"></td>
       <td th:text="${ciudadano.telefono}"></td>
       <td th:text="${ciudadano.email}"></td>
-      <td th:text="${ciudadano.codigo}"></td>
-      <td th:text="${ciudadano.pin}"></td>
+      <td th:text="${ciudadano.usuario}"></td>
+      <td th:text="${ciudadano.password}"></td>
       <td> <a th:href="@{/ciudadano/update/{dni}(dni=${ciudadano.dni})}" class="btn btn-warning" role="button">Editar</a></td>
       <td><a th:href="@{/ciudadano/delete/{dni}(dni=${ciudadano.dni})}" class="btn btn-danger" role="button">Borrar</a></td>
     </tr>

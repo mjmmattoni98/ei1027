@@ -14,7 +14,7 @@ public class GestorMunicipalRowMapper implements RowMapper<GestorMunicipal> {
         gestorMunicipal.setNombre(resultSet.getString("nombre"));
         gestorMunicipal.setApellidos(resultSet.getString("apellidos"));
         gestorMunicipal.setUsuario(resultSet.getString("usuario"));
-        gestorMunicipal.setPassword(resultSet.getString("contraseña"));
+        gestorMunicipal.setPassword(resultSet.getString("password"));
         gestorMunicipal.setIdMunicipio(resultSet.getInt("id"));
 
         return gestorMunicipal;

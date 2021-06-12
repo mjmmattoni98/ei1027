@@ -1,6 +1,5 @@
 package com.ams.ei1027espaciosnaturales.dao;
 
-import com.ams.ei1027espaciosnaturales.model.GestorMunicipal;
 import com.ams.ei1027espaciosnaturales.model.UserInterno;
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,7 @@ import java.util.*;
 @Repository
 public class UserProvider implements UserDAO {
 
-    private BasicPasswordEncryptor encryptor = new BasicPasswordEncryptor();
+    private final BasicPasswordEncryptor encryptor = new BasicPasswordEncryptor();
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -22,24 +21,27 @@ public class UserProvider implements UserDAO {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public HashMap<String, UserInterno> getUserList(){
-        HashMap<String, UserInterno> knownUsers = new HashMap<>();
+    public Map<String, UserInterno> getUserList(){
+        Map<String, UserInterno> knownUsers = new HashMap<>();
 
         try {
-            List<UserInterno> userInternos = jdbcTemplate.query("SELECT usuario, contraseña FROM gestor_municipal;", new UserInternoRowMapper());
+            List<UserInterno> userInternos = jdbcTemplate.query("SELECT usuario, password, dni FROM gestor_municipal;",
+                    new UserInternoRowMapper());
             for(UserInterno user : userInternos){
                 user.setRol("gestor");
                 user.setPassword(encryptor.encryptPassword(user.getPassword()));
                 knownUsers.put(user.getUsername(), user);
             }
-            userInternos = jdbcTemplate.query("SELECT dni as usuario, pin as contraseña FROM ciudadano;", new UserInternoRowMapper());
+
+            userInternos = jdbcTemplate.query("SELECT usuario, password, dni FROM ciudadano;",
+                    new UserInternoRowMapper());
             for(UserInterno user : userInternos){
                 user.setRol("ciudadano");
                 user.setPassword(encryptor.encryptPassword(user.getPassword()));
                 knownUsers.put(user.getUsername(), user);
             }
 
-        }catch (EmptyResultDataAccessException e){}
+        }catch (EmptyResultDataAccessException ignored){}
 
         return  knownUsers;
     }
@@ -52,14 +54,12 @@ public class UserProvider implements UserDAO {
             return null;
         }
 
-
         if (encryptor.checkPassword(password, user.getPassword())) {
-            System.out.println("llega hasta aqui");
+//            System.out.println("llega hasta aqui");
             return user;
         } else {
             return null;
         }
-
     }
 
     @Override

@@ -43,7 +43,7 @@ public class GestorMunicipalDAO {
     }
 
     public void updateGestorMunicipal(GestorMunicipal g) {
-        jdbcTemplate.update("UPDATE gestor_municipal SET dni=?, nombre=?, apellidos=?, usuario=?, contraseña=?, id=? WHERE dni=?",
+        jdbcTemplate.update("UPDATE gestor_municipal SET dni=?, nombre=?, apellidos=?, usuario=?, password=?, id=? WHERE dni=?",
                 g.getDni(),
                 g.getNombre(),
                 g.getApellidos(),
