@@ -5,9 +5,6 @@ public class Servicio {
     private String descripcion;
     private String supertipo = "P";  // Si es permanente (P) o estacional (E)
 
-    public Servicio(){
-    }
-
     public String getTipo() {
         return tipo;
     }

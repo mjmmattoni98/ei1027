@@ -4,9 +4,6 @@ public class EspacioServicioPermanente {
     private String nombre;
     private String tipo;
 
-    public EspacioServicioPermanente() {
-    }
-
     public String getNombre() {
         return nombre;
     }

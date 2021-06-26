@@ -5,10 +5,6 @@ public class Municipio {
     private String nombre;
     private String provincia;
 
-    public Municipio(){
-
-    }
-
     public int getId() {
         return id;
     }

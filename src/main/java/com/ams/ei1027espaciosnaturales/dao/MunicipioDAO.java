@@ -3,6 +3,7 @@ package com.ams.ei1027espaciosnaturales.dao;
 import com.ams.ei1027espaciosnaturales.model.Municipio;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -21,9 +22,8 @@ public class MunicipioDAO {
         jdbcTemplate = new JdbcTemplate(ds);
     }
 
-    public void addMunicipio(Municipio m) {
-        jdbcTemplate.update("INSERT INTO municipio VALUES(?,?,?)",
-                m.getId(),
+    public void addMunicipio(Municipio m) throws DuplicateKeyException {
+        jdbcTemplate.update("INSERT INTO municipio(nombre, provincia) VALUES(?,?)",
                 m.getNombre(),
                 m.getProvincia()
         );
@@ -49,7 +49,7 @@ public class MunicipioDAO {
 
     public Municipio getMunicipio(int id) {
         try {
-            return jdbcTemplate .queryForObject(
+            return jdbcTemplate.queryForObject(
                     "SELECT * FROM municipio WHERE id=?",
                     new MunicipioRowMapper(),
                     id

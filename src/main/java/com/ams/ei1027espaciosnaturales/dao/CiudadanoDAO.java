@@ -2,6 +2,7 @@ package com.ams.ei1027espaciosnaturales.dao;
 
 import com.ams.ei1027espaciosnaturales.model.Ciudadano;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -20,7 +21,7 @@ public class CiudadanoDAO {
         jdbcTemplate = new JdbcTemplate(ds);
     }
 
-    public void addCiudadano(Ciudadano c) {
+    public void addCiudadano(Ciudadano c) throws DuplicateKeyException {
         //TODO throws PSQLException para la edad
         jdbcTemplate.update("INSERT INTO Ciudadano VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",
                 c.getDni(),
@@ -49,9 +50,8 @@ public class CiudadanoDAO {
 
     public void updateCiudadano(Ciudadano c) {
         //TODO throws PSQLException para la edad
-        jdbcTemplate.update("UPDATE Ciudadano SET dni=?, nombre=?, apellidos=?, edad=?, calle=?, numero=?, cp=?, " +
+        jdbcTemplate.update("UPDATE Ciudadano SET nombre=?, apellidos=?, edad=?, calle=?, numero=?, cp=?, " +
                         "poblacion=?, telefono=?, email=?, usuario=?, password=? WHERE dni=?",
-                c.getDni(),
                 c.getNombre(),
                 c.getApellidos(),
                 c.getEdad(),

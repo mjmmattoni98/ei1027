@@ -1,9 +1,13 @@
 package com.ams.ei1027espaciosnaturales.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalTime;
 
 public class FranjaHoraria {
+    @DateTimeFormat(pattern = "HH:mm:ss.SSS")
     private LocalTime inicio;
+    @DateTimeFormat(pattern = "HH:mm:ss.SSS")
     private LocalTime fin;
     private String espacioPublico;
 

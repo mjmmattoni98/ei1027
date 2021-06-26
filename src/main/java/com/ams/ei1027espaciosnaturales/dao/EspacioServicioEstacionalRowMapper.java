@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class EspacioServicioEstacionalRowMapper implements RowMapper<EspacioServicioEstacional> {
+public final class EspacioServicioEstacionalRowMapper implements RowMapper<EspacioServicioEstacional> {
 
     @Override
     public EspacioServicioEstacional mapRow(@NotNull ResultSet resultSet, int i) throws SQLException {

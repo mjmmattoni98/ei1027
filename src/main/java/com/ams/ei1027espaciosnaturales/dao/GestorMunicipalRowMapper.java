@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class GestorMunicipalRowMapper implements RowMapper<GestorMunicipal> {
+public final class GestorMunicipalRowMapper implements RowMapper<GestorMunicipal> {
     @Override
     public GestorMunicipal mapRow(ResultSet resultSet, int i) throws SQLException {
         GestorMunicipal gestorMunicipal = new GestorMunicipal();

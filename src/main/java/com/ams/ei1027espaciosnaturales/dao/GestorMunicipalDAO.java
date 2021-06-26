@@ -1,8 +1,8 @@
 package com.ams.ei1027espaciosnaturales.dao;
 
-import com.ams.ei1027espaciosnaturales.model.Ciudadano;
 import com.ams.ei1027espaciosnaturales.model.GestorMunicipal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -20,8 +20,7 @@ public class GestorMunicipalDAO {
         jdbcTemplate = new JdbcTemplate(ds);
     }
 
-    public void addGestorMunicipal(GestorMunicipal g) {
-        //TODO throws PSQLException para la edad
+    public void addGestorMunicipal(GestorMunicipal g) throws DuplicateKeyException {
         jdbcTemplate.update("INSERT INTO gestor_municipal VALUES(?,?,?,?,?,?)",
                 g.getDni(),
                 g.getNombre(),
@@ -43,8 +42,8 @@ public class GestorMunicipalDAO {
     }
 
     public void updateGestorMunicipal(GestorMunicipal g) {
-        jdbcTemplate.update("UPDATE gestor_municipal SET dni=?, nombre=?, apellidos=?, usuario=?, password=?, id=? WHERE dni=?",
-                g.getDni(),
+        jdbcTemplate.update("UPDATE gestor_municipal SET nombre=?, apellidos=?, usuario=?, password=?, id=? " +
+                        "WHERE dni=?",
                 g.getNombre(),
                 g.getApellidos(),
                 g.getUsuario(),

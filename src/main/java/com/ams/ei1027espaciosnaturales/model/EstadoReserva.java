@@ -3,12 +3,12 @@ package com.ams.ei1027espaciosnaturales.model;
 import org.jetbrains.annotations.NotNull;
 
 public enum EstadoReserva {
-    PENDIENTE_USO("pendiente de uso", "PU"),
-    EN_USO("en uso", "EU"),
-    FIN_USO("fin de uso", "FU"),
-    CANCELADA_CIUDADANO("cancelada por ciudadano", "CCI"),
-    CANCELADA_CONTROLADOR("cancelada por controlador", "CCO"),
-    CANCELADA_GESTOR_MUNICIPAL("cancelada por gestor municipal", "CGM");
+    PENDIENTE_USO("pendiente de uso", "pendienteUso"),
+    EN_USO("en uso", "enUso"),
+    FIN_USO("fin de uso", "finUso"),
+    CANCELADA_CIUDADANO("cancelada por ciudadano", "canceladaCiudadano"),
+    CANCELADA_CONTROLADOR("cancelada por controlador", "canceladaControlador"),
+    CANCELADA_GESTOR_MUNICIPAL("cancelada por gestor municipal", "canceladaGestorMunicipal");
 
     private final String value;
     private final String id;
@@ -29,22 +29,22 @@ public enum EstadoReserva {
     public static EstadoReserva stringToTipo(@NotNull String id){
         EstadoReserva estadoReserva;
         switch (id){
-            case "PU":
+            case "pendienteUso":
                 estadoReserva = PENDIENTE_USO;
                 break;
-            case "EU":
+            case "enUso":
                 estadoReserva = EN_USO;
                 break;
-            case "FU":
+            case "finUso":
                 estadoReserva = FIN_USO;
                 break;
-            case "CCI":
+            case "canceladaCiudadano":
                 estadoReserva = CANCELADA_CIUDADANO;
                 break;
-            case "CCO":
+            case "canceladaControlador":
                 estadoReserva = CANCELADA_CONTROLADOR;
                 break;
-            case "CGM":
+            case "canceladaGestorMunicipal":
                 estadoReserva = CANCELADA_GESTOR_MUNICIPAL;
                 break;
             default:

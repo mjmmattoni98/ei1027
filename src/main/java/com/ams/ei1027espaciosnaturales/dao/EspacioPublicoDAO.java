@@ -3,6 +3,7 @@ package com.ams.ei1027espaciosnaturales.dao;
 import com.ams.ei1027espaciosnaturales.model.EspacioPublico;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -21,7 +22,7 @@ public class EspacioPublicoDAO {
         jdbcTemplate = new JdbcTemplate(ds);
     }
 
-    public void addEspacioPublico(EspacioPublico e) {
+    public void addEspacioPublico(EspacioPublico e) throws DuplicateKeyException {
         jdbcTemplate.update("INSERT INTO espacio_publico VALUES(?,?,?,?,?,?,?,?,?,?)",
                 e.getNombre(),
                 e.getLocalicacionGeografica(),
@@ -46,8 +47,8 @@ public class EspacioPublicoDAO {
     }
 
     public void updateEspacioPublico(EspacioPublico e) {
-        jdbcTemplate.update("UPDATE espacio_publico SET nombre=?, localizacion_geografica=?, t_espacio=?, t_suelo=?, t_acceso=?, descripcion=?, longitud=?, anchura=?, orientacion=?, id=? WHERE nombre=?",
-        		e.getNombre(),
+        jdbcTemplate.update("UPDATE espacio_publico SET localizacion_geografica=?, t_espacio=?, t_suelo=?, " +
+                        "t_acceso=?, descripcion=?, longitud=?, anchura=?, orientacion=?, id=? WHERE nombre=?",
                 e.getLocalicacionGeografica(),
                 e.getTEspacio(),
                 e.getTSuelo(),

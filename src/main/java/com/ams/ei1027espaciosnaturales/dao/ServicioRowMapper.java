@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ServicioRowMapper implements RowMapper<Servicio>{
+public final class ServicioRowMapper implements RowMapper<Servicio>{
     @Override
     public Servicio mapRow(ResultSet resultSet, int i) throws SQLException {
         Servicio servicio = new Servicio();

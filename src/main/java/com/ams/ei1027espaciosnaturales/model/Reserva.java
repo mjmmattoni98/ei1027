@@ -1,18 +1,28 @@
 package com.ams.ei1027espaciosnaturales.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Reserva {
     private int numReserva;
+    @DateTimeFormat(pattern = "HH:mm:ss.SSS")
     private LocalTime horaAcceso;
+    @DateTimeFormat(pattern = "HH:mm:ss.SSS")
     private LocalTime horaSalida;
+    //    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     private LocalDate fechaAcceso;
+    //    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     private LocalDate fechaCreacion;
     private int numPersonas;
     private EstadoReserva estado;
     private String dni;
+    @DateTimeFormat(pattern = "HH:mm:ss.SSS")
     private LocalTime inicioFranjaHoraria;
+    @DateTimeFormat(pattern = "HH:mm:ss.SSS")
     private LocalTime finFranjaHoraria;
     private String espacioPublico;
     private int zona;

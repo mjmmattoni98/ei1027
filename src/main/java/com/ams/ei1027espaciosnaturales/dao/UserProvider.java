@@ -25,7 +25,8 @@ public class UserProvider implements UserDAO {
         Map<String, UserInterno> knownUsers = new HashMap<>();
 
         try {
-            List<UserInterno> userInternos = jdbcTemplate.query("SELECT usuario, password, dni FROM gestor_municipal;",
+            List<UserInterno> userInternos = jdbcTemplate.query("SELECT usuario, password, dni " +
+                            "FROM gestor_municipal;",
                     new UserInternoRowMapper());
             for(UserInterno user : userInternos){
                 user.setRol("gestor");

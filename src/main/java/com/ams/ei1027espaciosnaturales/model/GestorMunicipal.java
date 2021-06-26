@@ -8,9 +8,6 @@ public class GestorMunicipal {
     private String usuario;
     private String password;
 
-    public GestorMunicipal() {
-    }
-
     public String getDni() {
         return dni;
     }

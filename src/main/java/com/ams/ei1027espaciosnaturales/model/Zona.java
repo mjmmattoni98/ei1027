@@ -4,7 +4,7 @@ public class Zona {
     private int id;
     private int capacidad;
     private int ocupacion;
-    private int nombreEspacioPublico;
+    private String nombreEspacioPublico;
 
     public int getId() {
         return id;
@@ -30,11 +30,11 @@ public class Zona {
         this.ocupacion = ocupacion;
     }
 
-    public int getNombreEspacioPublico() {
+    public String getNombreEspacioPublico() {
         return nombreEspacioPublico;
     }
 
-    public void setNombreEspacioPublico(int nombreEspacioPublico) {
+    public void setNombreEspacioPublico(String nombreEspacioPublico) {
         this.nombreEspacioPublico = nombreEspacioPublico;
     }
 

@@ -1,9 +1,13 @@
 package com.ams.ei1027espaciosnaturales.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 public class Email {
     private int id;
+    //    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     private LocalDate fecha;
     private String remitente;
     private String destinatario;

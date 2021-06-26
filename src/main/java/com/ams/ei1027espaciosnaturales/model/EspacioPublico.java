@@ -12,8 +12,6 @@ public class EspacioPublico {
     private String orientacion;
     private int idMunicipio;
 
-    public EspacioPublico(){}
-    
     public String getNombre() {
     	return this.nombre;
     }

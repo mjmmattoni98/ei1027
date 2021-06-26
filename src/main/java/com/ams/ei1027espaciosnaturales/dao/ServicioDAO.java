@@ -1,8 +1,8 @@
 package com.ams.ei1027espaciosnaturales.dao;
 
-import com.ams.ei1027espaciosnaturales.model.Municipio;
 import com.ams.ei1027espaciosnaturales.model.Servicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -21,7 +21,7 @@ public class ServicioDAO {
         jdbcTemplate = new JdbcTemplate(ds);
     }
 
-    public void addServicio(Servicio s) {
+    public void addServicio(Servicio s) throws DuplicateKeyException {
         if(s.getSupertipo().equals("E"))
             jdbcTemplate.update("INSERT INTO servicio_estacional VALUES(?,?)",
                     s.getTipo(),
@@ -51,8 +51,6 @@ public class ServicioDAO {
                     tipo
             );
         else
-            System.out.println(tipo);
-            System.out.println(supertipo);
             jdbcTemplate.update("DELETE FROM servicio_permanente WHERE tipo=?",
                     tipo
             );
@@ -60,14 +58,12 @@ public class ServicioDAO {
 
     public void updateServicio(Servicio s) {
         if(s.getSupertipo().equals("E"))
-            jdbcTemplate.update("UPDATE servicio_estacional SET tipo=?, descripcion=? WHERE tipo=?",
-                    s.getTipo(),
+            jdbcTemplate.update("UPDATE servicio_estacional SET descripcion=? WHERE tipo=?",
                     s.getDescripcion(),
                     s.getTipo()
             );
         else
-            jdbcTemplate.update("UPDATE servicio_permanente SET tipo=?, descripcion=? WHERE tipo=?",
-                    s.getTipo(),
+            jdbcTemplate.update("UPDATE servicio_permanente SET descripcion=? WHERE tipo=?",
                     s.getDescripcion(),
                     s.getTipo()
             );
@@ -94,17 +90,21 @@ public class ServicioDAO {
 
     public List<Servicio> getServicios() {
         try {
+            //Leemos todos los servicios estacionales
             List<Servicio> serviciosEstacional = jdbcTemplate.query("SELECT * FROM servicio_estacional",
                     new ServicioRowMapper()
             );
             for (Servicio s : serviciosEstacional)
                 s.setSupertipo("E");
+
+            //Leemos todos los servicios permanentes
             List<Servicio> serviciosPermanentes = jdbcTemplate.query("SELECT * FROM servicio_permanente",
                     new ServicioRowMapper()
             );
             for (Servicio s : serviciosPermanentes)
                 s.setSupertipo("P");
 
+            //Juntamos todos los servicios en una misma lista
             List<Servicio> servicios = new LinkedList<>(serviciosEstacional);
             servicios.addAll(serviciosPermanentes);
             return servicios;

@@ -2,6 +2,7 @@ package com.ams.ei1027espaciosnaturales.dao;
 
 import com.ams.ei1027espaciosnaturales.model.EspacioServicioPermanente;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -19,7 +20,7 @@ public class EspacioServicioPermanenteDAO {
         jdbcTemplate = new JdbcTemplate(ds);
     }
 
-    public void addEspacioServicioPermanente(EspacioServicioPermanente e) {
+    public void addEspacioServicioPermanente(EspacioServicioPermanente e) throws DuplicateKeyException {
         jdbcTemplate.update("INSERT INTO espacio_servicio_permanente VALUES(?,?)",
                 e.getNombre(),
                 e.getTipo()
@@ -40,14 +41,14 @@ public class EspacioServicioPermanenteDAO {
         );
     }
 
-    public void updateEspacioServicioPermanente(EspacioServicioPermanente e) {
-        jdbcTemplate.update("UPDATE espacio_servicio_permanente SET nombre=?, tipo=? WHERE nombre=? AND tipo=?",
-                e.getNombre(),
-                e.getTipo(),
-                e.getNombre(),
-                e.getTipo()
-        );
-    }
+//    public void updateEspacioServicioPermanente(EspacioServicioPermanente e) {
+//        jdbcTemplate.update("UPDATE espacio_servicio_permanente SET nombre=?, tipo=? WHERE nombre=? AND tipo=?",
+//                e.getNombre(),
+//                e.getTipo(),
+//                e.getNombre(),
+//                e.getTipo()
+//        );
+//    }
 
     public EspacioServicioPermanente getEspacioServicioPermanente(String nombre, String tipo) {
         try {

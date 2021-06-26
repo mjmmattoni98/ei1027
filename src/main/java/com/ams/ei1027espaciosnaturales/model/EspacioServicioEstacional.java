@@ -18,8 +18,6 @@ public class EspacioServicioEstacional {
     private LocalTime horaFin;
     private String lugarContratacion;
 
-    public EspacioServicioEstacional(){}
-
     public String getNombre() {
         return nombre;
     }

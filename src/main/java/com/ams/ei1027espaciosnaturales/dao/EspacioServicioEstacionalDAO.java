@@ -2,6 +2,7 @@ package com.ams.ei1027espaciosnaturales.dao;
 
 import com.ams.ei1027espaciosnaturales.model.EspacioServicioEstacional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -21,7 +22,7 @@ public class EspacioServicioEstacionalDAO {
         jdbcTemplate = new JdbcTemplate(ds);
     }
 
-    public void addEspacioServicioEstacional(EspacioServicioEstacional e) {
+    public void addEspacioServicioEstacional(EspacioServicioEstacional e) throws DuplicateKeyException {
         jdbcTemplate.update("INSERT INTO espacio_servicio_estacional VALUES(?,?,?,?,?,?,?)",
                 e.getNombre(),
                 e.getTipo(),
@@ -34,7 +35,8 @@ public class EspacioServicioEstacionalDAO {
     }
 
     public void deleteEspacioServicioEstacional(EspacioServicioEstacional e) {
-        jdbcTemplate.update("DELETE FROM espacio_servicio_estacional WHERE nombre=? AND tipo=? AND fecha_inicio=? and hora_inicio=?",
+        jdbcTemplate.update("DELETE FROM espacio_servicio_estacional WHERE nombre=? AND tipo=? AND " +
+                        "fecha_inicio=? AND hora_inicio=?",
                 e.getNombre(),
                 e.getTipo(),
                 e.getFechaIni(),
@@ -42,8 +44,10 @@ public class EspacioServicioEstacionalDAO {
         );
     }
 
-    public void deleteEspacioServicioEstacional(String nombre, String tipo, LocalDate fechaInicio, LocalTime horaInicio) {
-        jdbcTemplate.update("DELETE FROM espacio_servicio_estacional WHERE nombre=? AND tipo=? AND fecha_inicio=? and hora_inicio=?",
+    public void deleteEspacioServicioEstacional(String nombre, String tipo, LocalDate fechaInicio,
+                                                LocalTime horaInicio) {
+        jdbcTemplate.update("DELETE FROM espacio_servicio_estacional WHERE nombre=? AND tipo=? AND " +
+                        "fecha_inicio=? AND hora_inicio=?",
                 nombre,
                 tipo,
                 fechaInicio,
@@ -52,11 +56,8 @@ public class EspacioServicioEstacionalDAO {
     }
 
     public void updateEspacioServicioEstacional(EspacioServicioEstacional e) {
-        jdbcTemplate.update("UPDATE espacio_servicio_estacional SET nombre=?, tipo=?, fecha_inicio=?, hora_inicio=?, fecha_fin=?, hora_fin=?, lugar_contratacion=? WHERE nombre=? AND tipo=? AND fecha_inicio=? AND hora_inicio=?",
-                e.getNombre(),
-                e.getTipo(),
-                e.getFechaIni(),
-                e.getHoraIni(),
+        jdbcTemplate.update("UPDATE espacio_servicio_estacional SET fecha_fin=?, hora_fin=?, " +
+                        "lugar_contratacion=? WHERE nombre=? AND tipo=? AND fecha_inicio=? AND hora_inicio=?",
                 e.getFechaFin(),
                 e.getHoraFin(),
                 e.getLugarContratacion(),
@@ -67,10 +68,12 @@ public class EspacioServicioEstacionalDAO {
         );
     }
 
-    public EspacioServicioEstacional getEspacioServicioEstacional(String nombre, String tipo, LocalDate fechaInicio, LocalTime horaInicio) {
+    public EspacioServicioEstacional getEspacioServicioEstacional(String nombre, String tipo, LocalDate fechaInicio,
+                                                                  LocalTime horaInicio) {
         try {
             return jdbcTemplate .queryForObject(
-                    "SELECT * FROM espacio_servicio_estacional WHERE nombre=? AND tipo=? AND fecha_inicio=? AND hora_inicio=?",
+                    "SELECT * FROM espacio_servicio_estacional WHERE nombre=? AND tipo=? AND fecha_inicio=? AND" +
+                            " hora_inicio=?",
                     new EspacioServicioEstacionalRowMapper(),
                     nombre,
                     tipo,
