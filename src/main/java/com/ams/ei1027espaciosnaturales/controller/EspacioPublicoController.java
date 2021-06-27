@@ -5,6 +5,8 @@ import com.ams.ei1027espaciosnaturales.dao.EspacioPublicoDAO;
 import com.ams.ei1027espaciosnaturales.model.EspacioPublico;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -44,7 +46,16 @@ public class EspacioPublicoController {
         if (bindingResult.hasErrors()) {
             return "espacioPublico/add";
         }
-        espacioPublicoDAO.addEspacioPublico(e);
+        try {
+            espacioPublicoDAO.addEspacioPublico(e);
+        }
+        catch (DuplicateKeyException exception){
+            throw new EspaciosNaturalesException("Ya existe un espacio público con el mismo nombre",
+                    "CPDuplicada", "espacioPublico/add");
+        }
+        catch (DataAccessException exception){
+            throw new EspaciosNaturalesException("Error accediendo a la base de datos", "ErrorAccidiendoDatos", "/");
+        }
         return "redirect:list";
     }
 

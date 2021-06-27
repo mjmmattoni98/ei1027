@@ -4,6 +4,8 @@ import com.ams.ei1027espaciosnaturales.dao.CiudadanoDAO;
 import com.ams.ei1027espaciosnaturales.model.Ciudadano;
 import com.ams.ei1027espaciosnaturales.model.UserInterno;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -61,7 +63,15 @@ public class CiudadanoController {
 
         c.createCodigo();
         c.generateRandomPin();
-        ciudadanoDAO.addCiudadano(c);
+        try{
+            ciudadanoDAO.addCiudadano(c);
+        }
+        catch (DuplicateKeyException e){
+            throw new EspaciosNaturalesException("Ya existe un ciudadano con el mismo DNI", "CPDuplicada", "ciudadano/add");
+        }
+        catch (DataAccessException e){
+            throw new EspaciosNaturalesException("Error accediendo a la base de datos", "ErrorAccidiendoDatos", "/");
+        }
         return "redirect:/ciudadano/perfil";
     }
 

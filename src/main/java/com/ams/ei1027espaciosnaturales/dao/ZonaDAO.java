@@ -20,7 +20,7 @@ public class ZonaDAO {
         jdbcTemplate = new JdbcTemplate(ds);
     }
 
-    public void addZona(Zona zona) throws DuplicateKeyException {
+    public void addZona(Zona zona) {
         jdbcTemplate.update("INSERT INTO zona(capacidad, nombre) VALUES(?,?)",
                 zona.getCapacidad(),
                 zona.getNombreEspacioPublico()

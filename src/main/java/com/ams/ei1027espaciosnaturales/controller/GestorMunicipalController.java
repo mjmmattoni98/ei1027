@@ -5,6 +5,8 @@ import com.ams.ei1027espaciosnaturales.dao.ServicioDAO;
 import com.ams.ei1027espaciosnaturales.model.GestorMunicipal;
 import com.ams.ei1027espaciosnaturales.model.Servicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,7 +45,16 @@ public class GestorMunicipalController {
         if (bindingResult.hasErrors()) {
             return "gestorMunicipal/add";
         }
-        gestorMunicipalDAO.addGestorMunicipal(gm);
+        try {
+            gestorMunicipalDAO.addGestorMunicipal(gm);
+        }
+        catch (DuplicateKeyException e){
+            throw new EspaciosNaturalesException("Ya existe un gestor municipal con el mismo DNI",
+                    "CPDuplicada", "gestorMunicipal/add");
+        }
+        catch (DataAccessException e){
+            throw new EspaciosNaturalesException("Error accediendo a la base de datos", "ErrorAccidiendoDatos", "/");
+        }
         return "redirect:list";
     }
 

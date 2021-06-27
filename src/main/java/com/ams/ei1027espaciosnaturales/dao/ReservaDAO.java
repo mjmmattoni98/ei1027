@@ -20,9 +20,9 @@ public class ReservaDAO {
         jdbcTemplate = new JdbcTemplate(ds);
     }
 
-    public void addReserva(Reserva reserva) throws DuplicateKeyException {
-        jdbcTemplate.update("INSERT INTO reserva VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",
-                reserva.getNumReserva(),
+    public void addReserva(Reserva reserva) {
+        jdbcTemplate.update("INSERT INTO reserva(hora_acceso, hora_salida, fecha_acceso, fecha_creacion, " +
+                        "num_personas, estado, dni, hora_inicio, hora_fin, nombre, id) VALUES(?,?,?,?,?,?,?,?,?,?,?)",
                 reserva.getHoraAcceso(),
                 reserva.getHoraSalida(),
                 reserva.getFechaAcceso(),
@@ -48,7 +48,7 @@ public class ReservaDAO {
 
     public void updateReserva(Reserva reserva) {
         jdbcTemplate.update("UPDATE reserva SET hora_acceso=?, hora_salida=?, fecha_acceso=?, fecha_creacion=?," +
-                        "num_presonas=?, estado=?, dni=?, hora_inicio=?, hora_fin=?, nombre=?, id=? WHERE num_reserva=?",
+                        "num_personas=?, estado=?, dni=?, hora_inicio=?, hora_fin=?, nombre=?, id=? WHERE num_reserva=?",
                 reserva.getHoraAcceso(),
                 reserva.getHoraSalida(),
                 reserva.getFechaAcceso(),

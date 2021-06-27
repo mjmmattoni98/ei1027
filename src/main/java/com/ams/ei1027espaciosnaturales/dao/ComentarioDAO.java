@@ -20,7 +20,7 @@ public class ComentarioDAO {
         jdbcTemplate = new JdbcTemplate(ds);
     }
 
-    public void addComentario(Comentario comentario) throws DuplicateKeyException {
+    public void addComentario(Comentario comentario) {
         jdbcTemplate.update("INSERT INTO comentario(descripcion, nombre) VALUES(?,?)",
                 comentario.getDescripcion(),
                 comentario.getEspacioPublico()

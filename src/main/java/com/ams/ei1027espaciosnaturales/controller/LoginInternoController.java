@@ -2,7 +2,6 @@ package com.ams.ei1027espaciosnaturales.controller;
 
 import com.ams.ei1027espaciosnaturales.dao.UserDAO;
 import com.ams.ei1027espaciosnaturales.model.UserInterno;
-import org.apache.catalina.User;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -4,6 +4,8 @@ import com.ams.ei1027espaciosnaturales.dao.ServicioDAO;
 import com.ams.ei1027espaciosnaturales.model.Servicio;
 import com.ams.ei1027espaciosnaturales.model.UserInterno;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -45,7 +47,15 @@ public class ServicioController {
         if (bindingResult.hasErrors()) {
             return "servicios/add";
         }
-        servicioDAO.addServicio(s);
+        try {
+            servicioDAO.addServicio(s);
+        }
+        catch (DuplicateKeyException e){
+            throw new EspaciosNaturalesException("Ya existe el servicio", "CPDuplicada", "servicios/add");
+        }
+        catch (DataAccessException e){
+            throw new EspaciosNaturalesException("Error accediendo a la base de datos", "ErrorAccidiendoDatos", "/");
+        }
         return "redirect:list";
     }
 

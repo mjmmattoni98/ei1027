@@ -22,7 +22,7 @@ public class MunicipioDAO {
         jdbcTemplate = new JdbcTemplate(ds);
     }
 
-    public void addMunicipio(Municipio m) throws DuplicateKeyException {
+    public void addMunicipio(Municipio m) {
         jdbcTemplate.update("INSERT INTO municipio(nombre, provincia) VALUES(?,?)",
                 m.getNombre(),
                 m.getProvincia()

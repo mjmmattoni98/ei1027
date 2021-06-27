@@ -3,6 +3,8 @@ package com.ams.ei1027espaciosnaturales.controller;
 import com.ams.ei1027espaciosnaturales.dao.EspacioServicioPermanenteDAO;
 import com.ams.ei1027espaciosnaturales.model.EspacioServicioPermanente;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,24 +44,33 @@ public class EspacioServicioPermanenteController {
         if (bindingResult.hasErrors()) {
             return "espacio_servicio_permanente/add";
         }
-        espacioServicioPermanenteDAO.addEspacioServicioPermanente(esp);
+        try {
+            espacioServicioPermanenteDAO.addEspacioServicioPermanente(esp);
+        }
+        catch (DuplicateKeyException e){
+            throw new EspaciosNaturalesException("Ya existe el servicio permanente en el espacio público",
+                    "CPDuplicada", "espacio_servicio_permanente/add");
+        }
+        catch (DataAccessException e){
+            throw new EspaciosNaturalesException("Error accediendo a la base de datos", "ErrorAccidiendoDatos", "/");
+        }
         return "redirect:list";
     }
 
     // Los siguientes dos metodos gestionan la modificacion de un servicio permanente asignado a un espacio
-    @RequestMapping(value = "/update/{nombre}/{tipo}", method = RequestMethod.GET)
-    public String updateEspacioServicioPermanente(Model model, @PathVariable String nombre, @PathVariable String tipo) {
-        model.addAttribute("espacio_servicio_permanente", espacioServicioPermanenteDAO.getEspacioServicioPermanente(nombre, tipo));
-        return "espacio_servicio_permanente/update";
-    }
-
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String processUpdateSubmit(@ModelAttribute("espacio_servicio_permanente") EspacioServicioPermanente esp,
-                                      BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) return "espacio_servicio_permanente/update";
-        espacioServicioPermanenteDAO.updateEspacioServicioPermanente(esp);
-        return "redirect:list";
-    }
+//    @RequestMapping(value = "/update/{nombre}/{tipo}", method = RequestMethod.GET)
+//    public String updateEspacioServicioPermanente(Model model, @PathVariable String nombre, @PathVariable String tipo) {
+//        model.addAttribute("espacio_servicio_permanente", espacioServicioPermanenteDAO.getEspacioServicioPermanente(nombre, tipo));
+//        return "espacio_servicio_permanente/update";
+//    }
+//
+//    @RequestMapping(value = "/update", method = RequestMethod.POST)
+//    public String processUpdateSubmit(@ModelAttribute("espacio_servicio_permanente") EspacioServicioPermanente esp,
+//                                      BindingResult bindingResult) {
+//        if (bindingResult.hasErrors()) return "espacio_servicio_permanente/update";
+//        espacioServicioPermanenteDAO.updateEspacioServicioPermanente(esp);
+//        return "redirect:list";
+//    }
 
     @RequestMapping(value = "/delete/{nombre}/{tipo}")
     public String processDeleteEspacioServicioPermanente(@PathVariable String nombre, @PathVariable String tipo) {

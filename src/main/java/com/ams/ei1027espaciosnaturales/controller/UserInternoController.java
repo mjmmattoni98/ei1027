@@ -44,10 +44,8 @@ public class UserInternoController {
         this.municipioDAO = municipioDao;
     }
 
-
-
     @RequestMapping("/anadirMunicipios")
-    public String inicioGestorAñadirMunicipios(HttpSession session, Model model) {
+    public String inicioGestorAnyadirMunicipios(HttpSession session, Model model) {
         if (session.getAttribute("user") == null) {
             model.addAttribute("user", new UserInterno());
 
@@ -60,7 +58,7 @@ public class UserInternoController {
     }
 
     @RequestMapping("/anadirServicios")
-    public String inicioGestorAñadirServicios(HttpSession session, Model model) {
+    public String inicioGestorAnyadirServicios(HttpSession session, Model model) {
         if (session.getAttribute("user") == null) {
             model.addAttribute("user", new UserInterno());
 

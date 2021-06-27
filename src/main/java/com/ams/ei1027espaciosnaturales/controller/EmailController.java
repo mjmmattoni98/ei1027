@@ -1,8 +1,9 @@
 package com.ams.ei1027espaciosnaturales.controller;
 
+import com.ams.ei1027espaciosnaturales.dao.EmailDAO;
 import com.ams.ei1027espaciosnaturales.dao.MunicipioDAO;
+import com.ams.ei1027espaciosnaturales.model.Email;
 import com.ams.ei1027espaciosnaturales.model.Municipio;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
@@ -15,40 +16,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/municipio")
-public class MunicipioController {
-
-    private MunicipioDAO municipioDAO;
+@RequestMapping("/email")
+public class EmailController {
+    private EmailDAO emailDAO;
 
     @Autowired
-    public void setMunicipioDAO(MunicipioDAO m) {
-        this.municipioDAO = m;
+    public void setEmailDAO(EmailDAO e) {
+        this.emailDAO = e;
     }
 
-    // Listar los municipios
-    @RequestMapping("/list")
-    public String listMunicipios(Model model) {
-        model.addAttribute("municipios", municipioDAO.getMunicipios());
-        return "municipio/list";
+    //TODO comprobar como hacer para pasar el email del destinatario para listar los emails
+    @RequestMapping("/list/{destinatario}")
+    public String listEmails(Model model, @PathVariable String destinatario) {
+        model.addAttribute("emails", emailDAO.getEmails(destinatario));
+        return "email/list";
     }
 
-    // Los siguientes dos metodos gestionan la inserción de un municipio	
     @RequestMapping(value = "/add")
-    public String addMunicipio(Model model) {
-        model.addAttribute("municipio", new Municipio());
-        return "municipio/add";
+    public String addEmail(Model model) {
+        model.addAttribute("email", new Email());
+        return "email/add";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processAddMunicipio(@ModelAttribute("municipio") Municipio m,
+    public String processAddEmail(@ModelAttribute("email") Email e,
                                       BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "municipio/add";
+            return "email/add";
         }
         try {
-            municipioDAO.addMunicipio(m);
+            emailDAO.addEmail(e);
         }
-        catch (DataAccessException e){
+        catch (DataAccessException exception){
             throw new EspaciosNaturalesException("Error accediendo a la base de datos", "ErrorAccidiendoDatos", "/");
         }
         return "redirect:list";
@@ -56,22 +55,22 @@ public class MunicipioController {
 
     // Los siguientes dos metodos gestionan la modificacion de un municipio
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-    public String updateMunicipio(Model model, @PathVariable int id) {
-        model.addAttribute("municipio", municipioDAO.getMunicipio(id));
-        return "municipio/update";
+    public String updateEmail(Model model, @PathVariable int id) {
+        model.addAttribute("email", emailDAO.getEmail(id));
+        return "email/update";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String processUpdateSubmit(@ModelAttribute("municipio") Municipio m,
+    public String processUpdateSubmit(@ModelAttribute("email") Email e,
                                       BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) return "municipio/update";
-        municipioDAO.updateMunicipio(m);
+        if (bindingResult.hasErrors()) return "email/update";
+        emailDAO.updateEmail(e);
         return "redirect:list";
     }
 
     @RequestMapping(value = "/delete/{id}")
-    public String processDeleteMunicipio(@PathVariable int id) {
-       municipioDAO.deleteMunicipio(id);
+    public String processDeleteEmail(@PathVariable int id) {
+        emailDAO.deleteEmail(id);
         return "redirect:../list";
     }
 }

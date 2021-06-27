@@ -21,7 +21,7 @@ public class ImagenDAO {
         jdbcTemplate = new JdbcTemplate(ds);
     }
 
-    public void addImagen(Imagen imagen) throws DuplicateKeyException {
+    public void addImagen(Imagen imagen) {
         jdbcTemplate.update("INSERT INTO imagen(archivo, nombre) VALUES(?,?)",
                 imagen.getArchivo(),
                 imagen.getEspacioPublico()

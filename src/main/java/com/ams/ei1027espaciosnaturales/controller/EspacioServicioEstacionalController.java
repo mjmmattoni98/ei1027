@@ -3,6 +3,8 @@ package com.ams.ei1027espaciosnaturales.controller;
 import com.ams.ei1027espaciosnaturales.dao.EspacioServicioEstacionalDAO;
 import com.ams.ei1027espaciosnaturales.model.EspacioServicioEstacional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -45,7 +47,16 @@ public class EspacioServicioEstacionalController {
         if (bindingResult.hasErrors()) {
             return "espacio_servicio_estacional/add";
         }
-        espacioServicioEstacionalDAO.addEspacioServicioEstacional(ese);
+        try {
+            espacioServicioEstacionalDAO.addEspacioServicioEstacional(ese);
+        }
+        catch (DuplicateKeyException e){
+            throw new EspaciosNaturalesException("Ya existe el servicio estacional en el esapcio público",
+                    "CPDuplicada", "espacio_servicio_estacional/add");
+        }
+        catch (DataAccessException e){
+            throw new EspaciosNaturalesException("Error accediendo a la base de datos", "ErrorAccidiendoDatos", "/");
+        }
         return "redirect:list";
     }
 

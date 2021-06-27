@@ -21,7 +21,7 @@ public class EmailDAO {
         jdbcTemplate = new JdbcTemplate(ds);
     }
 
-    public void addEmail(Email email) throws DuplicateKeyException {
+    public void addEmail(Email email) {
         jdbcTemplate.update("INSERT INTO email(fecha, remitente, destinatario, asunto, cuerpo) VALUES(?,?,?,?,?)",
                 email.getFecha(),
                 email.getRemitente(),
@@ -64,10 +64,11 @@ public class EmailDAO {
         }
     }
 
-    public List<Email> getEmails() {
+    public List<Email> getEmails(String destinatario) {
         try {
-            return jdbcTemplate.query("SELECT * FROM email",
-                    new EmailRowMapper()
+            return jdbcTemplate.query("SELECT * FROM email WHERE destinatario=?",
+                    new EmailRowMapper(),
+                    destinatario
             );
         } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();

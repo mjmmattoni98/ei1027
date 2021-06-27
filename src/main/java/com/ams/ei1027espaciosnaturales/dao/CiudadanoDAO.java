@@ -2,6 +2,7 @@ package com.ams.ei1027espaciosnaturales.dao;
 
 import com.ams.ei1027espaciosnaturales.model.Ciudadano;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
