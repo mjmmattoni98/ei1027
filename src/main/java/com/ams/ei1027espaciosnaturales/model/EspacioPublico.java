@@ -16,15 +16,19 @@ public class EspacioPublico {
     	return this.nombre;
     }
     
-    public String getLocalicacionGeografica() {
+    public String getLocalizacionGeografica() {
     	return this.localizacionGeografica;
     }
     
     public String getTEspacio() {
+        if (this.tEspacio == null)
+            return "";
     	return this.tEspacio.getValue();
     }
 
     public String getTSuelo() {
+        if (this.tSuelo == null)
+            return "";
     	return this.tSuelo.getValue();
     }
     
@@ -49,6 +53,8 @@ public class EspacioPublico {
     }
 
     public String getTAcceso() {
+        if (this.tAcceso == null)
+            return "";
     	return this.tAcceso.getValue();
     }
     

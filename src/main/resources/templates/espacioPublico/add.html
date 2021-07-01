@@ -18,7 +18,7 @@
                 <input type="text" class="form-control" id="nombre" th:field="*{nombre}" />
             </div>
         </div>
-
+<!--TODO encontrar porque da error localizacionGeografica, devuelve null-->
         <div class="form-group row">
             <label class="control-label col-sm-2" for="localizacionGeografica">Localización geográfica:</label>
             <div class="col-sm-4">
@@ -29,28 +29,52 @@
         <div class="form-group row">
             <label class="control-label col-sm-2" for="tEspacio">Tipo espacio:</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="tEspacio" th:field="*{tEspacio}" />
+                <select class="form_control" type="text" id="tEspacio" th:field="*{tEspacio}">
+                    <option value="No seleccionat">Selecciona el tipo de espacio</option>
+                    <option value="playa">playa</option>
+                    <option value="río">río</option>
+                    <option value="estanque">estanque</option>
+                    <option value="lago">lago</option>
+                    <option value="bosque">bosque</option>
+                    <option value="otros">otros</option>
+                </select>
+<!--                <input type="text" class="form-control" id="tEspacio" th:field="*{tEspacio}" />-->
             </div>
+            <div class="error" th:if="${#fields.hasErrors('tEspacio')}" th:errors="*{tEspacio}"></div>
         </div>
 
         <div class="form-group row">
             <label class="control-label col-sm-2" for="tSuelo">Tipo suelo:</label>
             <div class="col-sm-4">
-                <input type="number" class="form-control" id="tSuelo" th:field="*{tSuelo}"/>
+                <select class="form_control" type="text" id="tSuelo" th:field="*{tSuelo}">
+                    <option value="No seleccionat">Selecciona el tipo de suelo</option>
+                    <option value="arena">arena</option>
+                    <option value="roca">roca</option>
+                    <option value="piedra">piedra</option>
+                </select>
+<!--                <input type="text" class="form-control" id="tSuelo" th:field="*{tSuelo}"/>-->
             </div>
+            <div class="error" th:if="${#fields.hasErrors('tSuelo')}" th:errors="*{tSuelo}"></div>
         </div>
 
         <div class="form-group row">
             <label class="control-label col-sm-2" for="tAcceso">Tipo acceso:</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="tAcceso" th:field="*{tAcceso}"/>
+                <select class="form_control" type="text" id="tAcceso" th:field="*{tAcceso}">
+                    <option value="No seleccionat">Selecciona el tipo de acceso</option>
+                    <option value="abierto">abierto</option>
+                    <option value="restringido">restringido</option>
+                    <option value="cerrado">cerrado</option>
+                </select>
+<!--                <input type="text" class="form-control" id="tAcceso" th:field="*{tAcceso}"/>-->
             </div>
+            <div class="error" th:if="${#fields.hasErrors('tAcceso')}" th:errors="*{tAcceso}"></div>
         </div>
 
         <div class="form-group row">
             <label class="control-label col-sm-2" for="descripcion">Descripción:</label>
             <div class="col-sm-4">
-                <input type="number" class="form-control" id="descripcion" th:field="*{descripcion}"/>
+                <input type="text" class="form-control" id="descripcion" th:field="*{descripcion}"/>
             </div>
         </div>
 
@@ -64,7 +88,7 @@
         <div class="form-group row">
             <label class="control-label col-sm-2" for="anchura">Anchura:</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="anchura" th:field="*{anchura}"/>
+                <input type="number" class="form-control" id="anchura" th:field="*{anchura}"/>
             </div>
         </div>
 
@@ -78,7 +102,7 @@
         <div class="form-group row">
             <label class="control-label col-sm-2" for="idMunicipio">ID municipio:</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="idMunicipio" th:field="*{idMunicipio}"/>
+                <input type="number" class="form-control" id="idMunicipio" th:field="*{idMunicipio}"/>
             </div>
         </div>
 

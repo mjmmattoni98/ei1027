@@ -30,7 +30,6 @@ public class CiudadanoController {
 
     @RequestMapping("/perfil")
     public String perfilCiudadano(HttpSession session, Model model){
-
         UserInterno user = checkSession(session);
         if (user == null){
             model.addAttribute("user", new UserInterno());

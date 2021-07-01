@@ -23,9 +23,10 @@ public class EspacioPublicoDAO {
     }
 
     public void addEspacioPublico(EspacioPublico e) throws DuplicateKeyException {
-        jdbcTemplate.update("INSERT INTO espacio_publico VALUES(?,?,?,?,?,?,?,?,?,?)",
+        jdbcTemplate.update("INSERT INTO espacio_publico VALUES(?,?,?::tipo_espacio,?::tipo_suelo,?::tipo_acceso," +
+                        "?,?,?,?,?)",
                 e.getNombre(),
-                e.getLocalicacionGeografica(),
+                e.getLocalizacionGeografica(),
                 e.getTEspacio(),
                 e.getTSuelo(),
                 e.getTAcceso(),
@@ -47,9 +48,10 @@ public class EspacioPublicoDAO {
     }
 
     public void updateEspacioPublico(EspacioPublico e) {
-        jdbcTemplate.update("UPDATE espacio_publico SET localizacion_geografica=?, t_espacio=?, t_suelo=?, " +
-                        "t_acceso=?, descripcion=?, longitud=?, anchura=?, orientacion=?, id=? WHERE nombre=?",
-                e.getLocalicacionGeografica(),
+        jdbcTemplate.update("UPDATE espacio_publico SET localizacion_geografica=?, t_espacio=?::tipo_espacio, " +
+                        "t_suelo=?::tipo_suelo, t_acceso=?::tipo_acceso, descripcion=?, longitud=?, anchura=?, " +
+                        "orientacion=?, id=? WHERE nombre=?",
+                e.getLocalizacionGeografica(),
                 e.getTEspacio(),
                 e.getTSuelo(),
                 e.getTAcceso(),
