@@ -13,7 +13,7 @@ public final class EspacioPublicoRowMapper implements RowMapper<EspacioPublico> 
     public EspacioPublico mapRow(ResultSet resultSet, int rowNum) throws SQLException {
     	EspacioPublico espacioPublico = new EspacioPublico();
     	espacioPublico.setNombre(resultSet.getString("nombre"));
-    	espacioPublico.setLocalicacionGeografica(resultSet.getString("localizacion_geografica"));
+    	espacioPublico.setLocalizacionGeografica(resultSet.getString("localizacion_geografica"));
     	espacioPublico.setTEspacio(resultSet.getString("t_espacio"));
     	espacioPublico.setTSuelo(resultSet.getString("t_suelo"));
     	espacioPublico.setDescripcion(resultSet.getString("descripcion"));
