@@ -17,39 +17,38 @@
     <h1 class="row justify-content-center">S.A.N.A.</h1>
 </div>
 
-<div class="form-group container p-3 border col-sm-3">
-    <div class="form-group justify-content-center row p-2">
-        <h2 class="row justify-content-center">Acceso Empleados</h2>
+<div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <form class="form-horizontal" action="#" th:action="@{/login}"
+                          th:object="${user}" method="post">
+                        <div class="form-group row">
+                            <label for="usuario" class="col-md-4 col-form-label text-md-right">Usuario: </label>
+                            <div class="col-md-6">
+                                <input type="text" id="usuario" class="form-control" name="usuario" required autofocus th:field="*{username}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">Contraseña: </label>
+                            <div class="col-md-6">
+                                <input type="password" id="password" class="form-control" name="password" required th:field="*{password}">
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 offset-md-4">
+                            <button type="submit" class="btn btn-success">
+                                Acceder
+                            </button>
+                        </div>
+                        <div class="col-md-8 offset-md-4">
+                            <a class="btn btn-link" href="/ciudadano/add">Registrarse como ciudadano</a>
+                        </div>
+                </form>
+            </div>
+        </div>
     </div>
-    <form class="form-horizontal" action="#" th:action="@{/login}"
-          th:object="${user}" method="post">
-
-        <div class="from-group row p-2">
-            <label class="control-label col-sm-3" for="usuario">Usuario:</label>
-            <div class="col-sm-9">
-                <input type="text" class="form-control" id="usuario" th:field="*{username}" />
-            </div>
-            <div class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
-        </div>
-
-        <div class="from-group row p-2">
-            <label class="control-label col-sm-3" for="password">Contraseña:</label>
-            <div class="col-sm-15">
-                <input type="password" class="form-control" id="password" th:field="*{password}" />
-            </div>
-            <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-        </div>
-
-        <div class="row form-group justify-content-center">
-            <button type="submit" class="btn btn-primary">Acceder</button>
-        </div>
-
-        <div class="row form-group justify-content-center">
-            <a class="btn btn-link" href="/ciudadano/add">Registrarse como ciudadano</a>
-        </div>
-
-    </form>
-</div>
 </div>
 </body>
 </html>
