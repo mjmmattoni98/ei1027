@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+    <title>Perfil</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/espacios_naturales.css"
+          th:href="@{/css/espacios_naturales.css}"/>
+</head>
+<body>
+<div class="container" layout:fragment="content">
+    <h2>Tu perfil de gestor municipal</h2>
+    <table class="table table-striped">
+        <tbody>
+        <tr>
+            <td>DNI:</td>
+            <td th:text="${gestor.dni}"></td>
+        </tr>
+        <tr>
+            <td>Nombre:</td>
+            <td th:text="${gestor.nombre}"></td>
+        </tr>
+        <tr>
+            <td>Apellidos:</td>
+            <td th:text="${gestor.apellidos}"></td>
+        </tr>
+        <tr>
+            <td>Id municipio:</td>
+            <td th:text="${gestor.idMunicipio}"></td>
+        </tr>
+        <tr>
+            <td>Usuario:</td>
+            <td th:text="${gestor.usuario}"></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td th:text="${gestor.password}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <p>
+        <a class="btn btn-link" href="/">Volver a la página principal</a>
+    </p>
+</div>
+</body>
+</html>

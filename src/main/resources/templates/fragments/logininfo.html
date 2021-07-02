@@ -1,12 +1,25 @@
 <div class="loggeduser" th:object="${session}">
-    <p th:if="*{user == null}">
-        No autenticado <a class="btn btn-link" href="/login" th:href="@{/login}">Entrar</a>
-    </p>
-    <p th:unless="*{user == null}">
-        Autenticado como <span th:text="*{user.username}"></span>
-        <a class="btn btn-link" href="/logout" th:href="@{/logout}">Salir</a>
-        <br>
-<!--TODO hacer que redirija al perfil de ciudadano o gestor dependiendo del tipo de usuario-->
-        <a class="btn btn-link" href="/ciudadano/perfil" th:href="@{/ciudadano/perfil}">Perfil</a>
-    </p>
+    <div th:if="*{user == null}">
+        <p>
+            No autenticado <a class="btn btn-link" href="/login" th:href="@{/login}">Entrar</a>
+        </p>
+    </div>
+    <div th:unless="*{user == null}">
+        <div th:if="${#strings.equals(session.user.rol, 'ciudadano')}">
+            <p>
+            Autenticado como <span th:text="*{user.username}"></span>
+            <a class="btn btn-link" href="/logout" th:href="@{/logout}">Salir</a>
+            <br>
+            <a class="btn btn-link" href="/ciudadano/perfil" th:href="@{/ciudadano/perfil}">Perfil</a>
+            </p>
+        </div>
+        <div th:unless="${#strings.equals(session.user.rol, 'ciudadano')}">
+            <p>
+            Autenticado como <span th:text="*{user.username}"></span>
+            <a class="btn btn-link" href="/logout" th:href="@{/logout}">Salir</a>
+            <br>
+            <a class="btn btn-link" href="/gestorMunicipal/perfil" th:href="@{/gestorMunicipal/perfil}">Perfil</a>
+            </p>
+        </div>
+    </div>
 </div>

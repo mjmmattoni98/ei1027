@@ -1,9 +1,8 @@
 package com.ams.ei1027espaciosnaturales.controller;
 
 import com.ams.ei1027espaciosnaturales.dao.GestorMunicipalDAO;
-import com.ams.ei1027espaciosnaturales.dao.ServicioDAO;
 import com.ams.ei1027espaciosnaturales.model.GestorMunicipal;
-import com.ams.ei1027espaciosnaturales.model.Servicio;
+import com.ams.ei1027espaciosnaturales.model.UserInterno;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
@@ -15,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/gestorMunicipal")
 public class GestorMunicipalController {
@@ -25,14 +26,24 @@ public class GestorMunicipalController {
         this.gestorMunicipalDAO = gm;
     }
 
-    // Listar los servicios
+    @RequestMapping("/perfil")
+    public String perfilCiudadano(HttpSession session, Model model){
+        UserInterno user = checkSession(session);
+        if (user == null){
+            model.addAttribute("user", new UserInterno());
+            return "login";
+        }
+
+        model.addAttribute("gestor", gestorMunicipalDAO.getGestorMunicipal(user.getDni()));
+        return "gestorMunicipal/perfil";
+    }
+
     @RequestMapping("/list")
     public String listGestoresMunicipales(Model model) {
         model.addAttribute("gestoresMunicipales", gestorMunicipalDAO.getGestoresMunicipales());
         return "gestorMunicipal/list";
     }
 
-    // Los siguientes dos metodos gestionan el alta de un servicio
     @RequestMapping(value = "/add")
     public String addGestorMunicipal(Model model) {
         model.addAttribute("gestorMunicipal", new GestorMunicipal());
@@ -58,7 +69,6 @@ public class GestorMunicipalController {
         return "redirect:list";
     }
 
-    // Los siguientes dos metodos gestionan la modificacion de un servicio
     @RequestMapping(value = "/update/{dni}", method = RequestMethod.GET)
     public String updateGestorMunicipal(Model model, @PathVariable String dni) {
          model.addAttribute("gestorMunicipal", gestorMunicipalDAO.getGestorMunicipal(dni));
@@ -77,5 +87,19 @@ public class GestorMunicipalController {
     public String processDeleteGestorMunicipal(@PathVariable String dni) {
          gestorMunicipalDAO.deleteGestorMunicipal(dni);
         return "redirect:../list";
+    }
+
+    private UserInterno checkSession(HttpSession session){
+        if(session.getAttribute("user") == null) return null;
+
+        UserInterno user = (UserInterno) session.getAttribute("user");
+
+        if (!user.getRol().equals("gestor")) {
+            System.out.println("El usuario no puede acceder a esta pagina con este rol");
+            throw new EspaciosNaturalesException("No tienes permisos para acceder a esta página porque no eres un gestor",
+                    "AccesDenied", "../" + user.getUrlMainPage());
+        }
+
+        return user;
     }
 }

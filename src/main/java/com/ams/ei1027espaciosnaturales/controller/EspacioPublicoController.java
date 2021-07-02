@@ -1,6 +1,5 @@
 package com.ams.ei1027espaciosnaturales.controller;
 
-
 import com.ams.ei1027espaciosnaturales.dao.EspacioPublicoDAO;
 import com.ams.ei1027espaciosnaturales.model.EspacioPublico;
 
@@ -66,9 +65,10 @@ public class EspacioPublicoController {
             throw new EspaciosNaturalesException("Ya existe un espacio público con el mismo nombre",
                     "CPDuplicada", "espacioPublico/add");
         }
-//        catch (DataAccessException exception){
-//            throw new EspaciosNaturalesException("Error accediendo a la base de datos", "ErrorAccidiendoDatos", "/");
-//        }
+        catch (DataAccessException exception){
+            throw new EspaciosNaturalesException("Error accediendo a la base de datos\n" + exception.getMessage(),
+                    "ErrorAccidiendoDatos", "/");
+        }
         return "redirect:list";
     }
 
