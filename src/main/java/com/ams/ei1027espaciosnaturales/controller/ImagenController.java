@@ -4,7 +4,6 @@ import com.ams.ei1027espaciosnaturales.dao.ImagenDAO;
 import com.ams.ei1027espaciosnaturales.model.Imagen;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,19 +23,19 @@ public class ImagenController {
     }
 
     @RequestMapping("/list")
-    public String listComentarios(Model model) {
+    public String listImagenes(Model model) {
         model.addAttribute("imagenes", imagenDAO.getImagenes());
         return "imagen/list";
     }
 
     @RequestMapping(value = "/add")
-    public String addComentario(Model model) {
+    public String addImagen(Model model) {
         model.addAttribute("imagen", new Imagen());
         return "imagen/add";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processAddComentario(@ModelAttribute("imagen") Imagen i,
+    public String processAddImagen(@ModelAttribute("imagen") Imagen i,
                                        BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "imagen/add";
@@ -51,7 +50,7 @@ public class ImagenController {
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-    public String updateComentario(Model model, @PathVariable int id) {
+    public String updateImagen(Model model, @PathVariable int id) {
         model.addAttribute("imagen", imagenDAO.getImagen(id));
         return "imagen/update";
     }
@@ -65,7 +64,7 @@ public class ImagenController {
     }
 
     @RequestMapping(value = "/delete/{id}")
-    public String processDeleteComentario(@PathVariable int id) {
+    public String processDeleteImagen(@PathVariable int id) {
         imagenDAO.deleteImagen(id);
         return "redirect:../list";
     }

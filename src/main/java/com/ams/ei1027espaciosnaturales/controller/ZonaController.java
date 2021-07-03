@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/zona")
 public class ZonaController {
@@ -26,19 +28,23 @@ public class ZonaController {
     }
 
     @RequestMapping("/list")
-    public String listComentarios(Model model) {
-        model.addAttribute("zonas", zonaDAO.getZonas());
+    public String listZonas(Model model) {
+        List<Zona> zonas = zonaDAO.getZonas();
+        for (Zona zona : zonas)
+            zona.calcularPorcentajeOcupacion();
+
+        model.addAttribute("zonas", zonas);
         return "zona/list";
     }
 
     @RequestMapping(value = "/add")
-    public String addComentario(Model model) {
+    public String addZona(Model model) {
         model.addAttribute("zona", new Zona());
         return "zona/add";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processAddComentario(@ModelAttribute("zona") Zona z,
+    public String processAddZona(@ModelAttribute("zona") Zona z,
                                        BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "zona/add";
@@ -53,8 +59,10 @@ public class ZonaController {
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-    public String updateComentario(Model model, @PathVariable int id) {
-        model.addAttribute("zona", zonaDAO.getZona(id));
+    public String updateZona(Model model, @PathVariable int id) {
+        Zona zona = zonaDAO.getZona(id);
+        zona.calcularPorcentajeOcupacion();
+        model.addAttribute("zona", zona);
         return "zona/update";
     }
 
@@ -67,7 +75,7 @@ public class ZonaController {
     }
 
     @RequestMapping(value = "/delete/{id}")
-    public String processDeleteComentario(@PathVariable int id) {
+    public String processDeleteZona(@PathVariable int id) {
         zonaDAO.deleteZona(id);
         return "redirect:../list";
     }

@@ -24,19 +24,19 @@ public class ReservaController {
     }
 
     @RequestMapping("/list")
-    public String listComentarios(Model model) {
+    public String listReservas(Model model) {
         model.addAttribute("reservas", reservaDAO.getReservas());
         return "reserva/list";
     }
 
     @RequestMapping(value = "/add")
-    public String addComentario(Model model) {
+    public String addReserva(Model model) {
         model.addAttribute("reserva", new Reserva());
         return "reserva/add";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processAddComentario(@ModelAttribute("reserva") Reserva r,
+    public String processAddReserva(@ModelAttribute("reserva") Reserva r,
                                        BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "reserva/add";
@@ -51,7 +51,7 @@ public class ReservaController {
     }
 
     @RequestMapping(value = "/update/{numReserva}", method = RequestMethod.GET)
-    public String updateComentario(Model model, @PathVariable int numReserva) {
+    public String updateReserva(Model model, @PathVariable int numReserva) {
         model.addAttribute("reserva", reservaDAO.getReserva(numReserva));
         return "reserva/update";
     }
@@ -65,7 +65,7 @@ public class ReservaController {
     }
 
     @RequestMapping(value = "/delete/{numReserva}")
-    public String processDeleteComentario(@PathVariable int numReserva) {
+    public String processDeleteReserva(@PathVariable int numReserva) {
         reservaDAO.deleteReserva(numReserva);
         return "redirect:../list";
     }

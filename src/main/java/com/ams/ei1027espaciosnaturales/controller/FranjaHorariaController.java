@@ -26,19 +26,19 @@ public class FranjaHorariaController {
     }
 
     @RequestMapping("/list")
-    public String listComentarios(Model model) {
+    public String listFranjaHoraria(Model model) {
         model.addAttribute("franjas_horarias", franjaHorariaDAO.getFranjasHorarias());
         return "franja_horaria/list";
     }
 
     @RequestMapping(value = "/add")
-    public String addComentario(Model model) {
+    public String addFranjaHoraria(Model model) {
         model.addAttribute("franja_horaria", new FranjaHoraria());
         return "franja_horaria/add";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processAddComentario(@ModelAttribute("franja_horaria") FranjaHoraria f,
+    public String processAddFranjaHoraria(@ModelAttribute("franja_horaria") FranjaHoraria f,
                                        BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "franja_horaria/add";
@@ -72,7 +72,7 @@ public class FranjaHorariaController {
 //    }
 
     @RequestMapping(value = "/delete/{horaInicio}/{horaFin}/{nombre}")
-    public String processDeleteComentario(@PathVariable LocalTime horaInicio, @PathVariable LocalTime horaFin,
+    public String processDeleteFranjaHoraria(@PathVariable LocalTime horaInicio, @PathVariable LocalTime horaFin,
                                           @PathVariable String nombre) {
         franjaHorariaDAO.deleteFranjaHoraria(horaInicio, horaFin, nombre);
         return "redirect:../list";
