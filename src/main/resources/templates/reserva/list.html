@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+  <title>Gestionar Municipios</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+  <h1>Lista de municipios</h1>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Número de Reserva</th>
+      <th>Hora acceso</th>
+      <th>Hora salida</th>
+      <th>Fecha acceso</th>
+      <th>Fecha creación</th>
+      <th>Número personas</th>
+      <th>Estado</th>
+      <th>DNI</th>
+      <th>Hora inicio</th>
+      <th>Hora fin</th>
+      <th>Nombre</th>
+      <th>ID</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="municipio: ${municipios}">
+      <td th:text="${reserva.numReserva}"></td>
+      <td th:text="${reserva.horaAcceso}"></td>
+      <td th:text="${reserva.horaSalida}"></td>
+      <td th:text="${reserva.fechaAcceso}"></td>
+      <td th:text="${reserva.fechaCreacion}"></td>
+      <td th:text="${reserva.numPersonas}"></td>
+      <td th:text="${reserva.estado}"></td>
+      <td th:text="${reserva.dni}"></td>
+      <td th:text="${reserva.inicioFranjaHoraria}"></td>
+      <td th:text="${reserva.finFranjaHoraria}"></td>
+      <td th:text="${reserva.espacioPublico}"></td>
+      <td th:text="${reserva.zona}"></td>
+      <td> <a th:href="@{/reserva/update/{id}(id=${reserva.numReserva})}" class="btn btn-warning" role="button">Editar</a></td>
+      <td><a th:href="@{/reserva/delete/{id}(id=${reserva.numReserva})}" class="btn btn-danger" role="button">Borrar</a></td>
+    </tr>
+    </tbody>
+  </table>
+  <p>
+    <a href="add" class="btn btn-success" role="button">Agregar municipios</a>
+  </p>
+  <p>
+    <a class="btn btn-link" href="/">Volver</a>
+  </p>
+</div>
+</body>
+</html>
