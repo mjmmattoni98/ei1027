@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+    <title>Información de zona</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/espacios_naturales.css"
+          th:href="@{/css/espacios_naturales.css}"/>
+</head>
+<body>
+<div class="container" layout:fragment="content" th:object="${zona}">
+    <h2>Información de zona</h2>
+    <table class="table table-striped">
+        <tbody>
+        <tr>
+            <td>Lugar:</td>
+            <td th:text="*{nombreEspacioPublico}"></td>
+        </tr>
+        <tr>
+            <td>Capacidad:</td>
+            <td th:text="*{capacidad}"></td>
+        </tr>
+        <tr>
+            <td>Ocupación actual:</td>
+            <td th:text="*{ocupacion}"></td>
+        </tr>
+        <tr>
+            <td>Porcetaje de ocupación:</td>
+            <td th:text="*{porcentajeOcupado}"></td>
+        </tr>
+        <tr>
+            <a th:href="@{/ciudadano/update/{dni}(dni=${ciudadano.dni})}" class="btn btn-warning" role="button">Editar</a>
+        </tr>
+        </tbody>
+    </table>
+    <p>
+        <a class="btn btn-link" href="/">Volver a la página principal</a>
+    </p>
+</div>
+</body>
+</html>

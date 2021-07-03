@@ -3,6 +3,7 @@ package com.ams.ei1027espaciosnaturales.controller;
 import com.ams.ei1027espaciosnaturales.dao.ComentarioDAO;
 import com.ams.ei1027espaciosnaturales.dao.ZonaDAO;
 import com.ams.ei1027espaciosnaturales.model.Comentario;
+import com.ams.ei1027espaciosnaturales.model.UserInterno;
 import com.ams.ei1027espaciosnaturales.model.Zona;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -15,37 +16,57 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
 @RequestMapping("/zona")
 public class ZonaController {
     private ZonaDAO zonaDAO;
+    private static final ZonaValidator validator = new ZonaValidator();
 
     @Autowired
     public void setZonaDAO(ZonaDAO z) {
         this.zonaDAO = z;
     }
 
-    @RequestMapping("/list")
-    public String listZonas(Model model) {
-        List<Zona> zonas = zonaDAO.getZonas();
+    @RequestMapping("/list/{nombre}")
+    public String listZonas(Model model, @PathVariable String nombre) {
+        List<Zona> zonas = zonaDAO.getZonas(nombre);
         for (Zona zona : zonas)
             zona.calcularPorcentajeOcupacion();
 
         model.addAttribute("zonas", zonas);
+        model.addAttribute("espacio_publico", nombre);
         return "zona/list";
     }
 
-    @RequestMapping(value = "/add")
-    public String addZona(Model model) {
-        model.addAttribute("zona", new Zona());
+    @RequestMapping("/main/{id}")
+    public String infoZona(Model model, @PathVariable int id) {
+        Zona zona = zonaDAO.getZona(id);
+        zona.calcularPorcentajeOcupacion();
+        model.addAttribute("zona", zona);
+        return "zona/main";
+    }
+
+    @RequestMapping(value = "/add/{nombre}")
+    public String addZona(HttpSession session, Model model, @PathVariable String nombre) {
+        UserInterno user = checkSession(session);
+        if (user == null){
+            model.addAttribute("user", new UserInterno());
+            return "login";
+        }
+
+        Zona zona = new Zona();
+        zona.setNombreEspacioPublico(nombre);
+        model.addAttribute("zona", zona);
         return "zona/add";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddZona(@ModelAttribute("zona") Zona z,
                                        BindingResult bindingResult) {
+        validator.validate(z, bindingResult);
         if (bindingResult.hasErrors()) {
             return "zona/add";
         }
@@ -53,13 +74,20 @@ public class ZonaController {
             zonaDAO.addZona(z);
         }
         catch (DataAccessException e){
-            throw new EspaciosNaturalesException("Error accediendo a la base de datos", "ErrorAccidiendoDatos", "/");
+            throw new EspaciosNaturalesException("Error accediendo a la base de datos\n" + e.getMessage(),
+                    "ErrorAccidiendoDatos", "/");
         }
-        return "redirect:list";
+        return "redirect:list/" + z.getNombreEspacioPublico();
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-    public String updateZona(Model model, @PathVariable int id) {
+    public String updateZona(HttpSession session, Model model, @PathVariable int id) {
+        UserInterno user = checkSession(session);
+        if (user == null){
+            model.addAttribute("user", new UserInterno());
+            return "login";
+        }
+
         Zona zona = zonaDAO.getZona(id);
         zona.calcularPorcentajeOcupacion();
         model.addAttribute("zona", zona);
@@ -69,14 +97,35 @@ public class ZonaController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String processUpdateSubmit(@ModelAttribute("zona") Zona z,
                                       BindingResult bindingResult) {
+        validator.validate(z, bindingResult);
         if (bindingResult.hasErrors()) return "zona/update";
         zonaDAO.updateZona(z);
-        return "redirect:list";
+        return "redirect:list/" + z.getNombreEspacioPublico();
     }
 
-    @RequestMapping(value = "/delete/{id}")
-    public String processDeleteZona(@PathVariable int id) {
+    @RequestMapping(value = "/delete/{id}/{nombre}")
+    public String processDeleteZona(HttpSession session, Model model, @PathVariable int id, @PathVariable String nombre) {
+        UserInterno user = checkSession(session);
+        if (user == null){
+            model.addAttribute("user", new UserInterno());
+            return "login";
+        }
+
         zonaDAO.deleteZona(id);
-        return "redirect:../list";
+        return "redirect:../../list/" + nombre;
+    }
+
+    private UserInterno checkSession(HttpSession session){
+        if(session.getAttribute("user") == null) return null;
+
+        UserInterno user = (UserInterno) session.getAttribute("user");
+
+        if (!user.getRol().equals("gestor")) {
+            System.out.println("El usuario no puede acceder a esta pagina con este rol");
+            throw new EspaciosNaturalesException("No tienes permisos para acceder a esta página porque no eres un gestor",
+                    "AccesDenied", "../" + user.getUrlMainPage());
+        }
+
+        return user;
     }
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestionar zonas</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <h2>Nueva zona</h2>
+    <form class="form-horizontal" action="#" th:action="@{/zona/add}"
+          th:object="${zona}" method="post">
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="nombreEspacioPublico">Espacio público:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="nombreEspacioPublico" th:field="*{nombreEspacioPublico}" readonly/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="capacidad">Capacidad:</label>
+            <div class="col-sm-4">
+                <input type="number" class="form-control" id="capacidad" min="1" th:min="1" th:field="*{capacidad}" />
+            </div>
+            <div class="error" th:if="${#fields.hasErrors('capacidad')}" th:errors="*{capacidad}"></div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-offset-2 col-sm-4">
+                <button type="submit" class="btn btn-primary">Agregar zona</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+</body>
+</html>

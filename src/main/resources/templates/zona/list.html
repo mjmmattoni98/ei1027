@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+  <title>Gestionar Zonas</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/espacios_naturales.css"
+        th:href="@{/css/espacios_naturales.css}"/>
+</head>
+<body>
+<div class="container" layout:fragment="content">
+  <h1>Listado de zonas del espacio público <b th:text="${espacio_publico}"></b></h1>
+  <div th:if="${#lists.isEmpty(zonas)}">
+    No hay zonas asignadas al espacio público aún.
+  </div>
+  <table class="table table-striped" th:unless="${#lists.isEmpty(zonas)}">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Capacidad</th>
+      <th>Ocupación</th>
+      <th>Porcentaje de ocupación</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="zona: ${zonas}">
+      <td th:text="${zona.id}"></td>
+      <td th:text="${zona.capacidad}"></td>
+      <td th:text="${zona.ocupacion}"></td>
+      <td th:text="${zona.porcentajeOcupado}"></td>
+      <td th:if="${session.user != null and #strings.equals(session.user.rol, 'gestor')}">
+        <a th:href="@{/zona/update/{id}(id=${zona.id})}" class="btn btn-warning"
+           role="button">Editar</a>
+      </td>
+      <td th:if="${session != null and #strings.equals(session.user.rol, 'gestor')}">
+        <a th:href="@{/zona/delete/{id}/{nombre}(id=${zona.id}, nombre=${espacio_publico})}" class="btn btn-danger"
+           role="button">Borrar</a>
+      </td>
+      <td th:if="${session.user != null and #strings.equals(session.user.rol, 'gestor')}">
+        <a th:href="@{/reserva/list}" class="btn btn-info"
+           role="button">Ver reservas</a>
+      </td>
+<!--      <td th:if="${session.user != null and #strings.equals(session.user.rol, 'ciudadano')}">-->
+<!--        <a th:href="@{/espacioPublico/update/{nombre}(nombre=${espacioPublico.nombre})}" class="btn btn-info"-->
+<!--           role="button">Realizar reserva</a>-->
+<!--      </td>-->
+    </tr>
+    </tbody>
+  </table>
+  <p th:if="${session.user != null and #strings.equals(session.user.rol, 'gestor')}">
+    <a th:href="@{/zona/add/{nombre}(nombre=${espacio_publico})}" class="btn btn-success" role="button">Agregar zona</a>
+  </p>
+  <p>
+    <a class="btn btn-link" href="/">Volver</a>
+  </p>
+</div>
+</body>
+</html>

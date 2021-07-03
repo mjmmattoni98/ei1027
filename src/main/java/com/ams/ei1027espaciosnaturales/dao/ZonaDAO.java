@@ -58,10 +58,11 @@ public class ZonaDAO {
         }
     }
 
-    public List<Zona> getZonas() {
+    public List<Zona> getZonas(String nombre) {
         try {
-            return jdbcTemplate.query("SELECT * FROM zona",
-                    new ZonaRowMapper()
+            return jdbcTemplate.query("SELECT * FROM zona WHERE nombre=?",
+                    new ZonaRowMapper(),
+                    nombre
             );
         } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
