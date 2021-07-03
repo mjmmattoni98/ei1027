@@ -1,5 +1,7 @@
 package com.ams.ei1027espaciosnaturales.model;
 
+import java.util.Locale;
+
 public class Ciudadano {
     private String dni; // Identificador
     private String nombre;
@@ -15,6 +17,15 @@ public class Ciudadano {
     private String password; // Pin de acceso
     private static final int MIN_RANGE = 1000;
     private static final int MAX_RANGE = 9999;
+    private String confirmacion;
+
+    public String getConfirmacion() {
+        return confirmacion;
+    }
+
+    public void setConfirmacion(String confirmacion) {
+        this.confirmacion = confirmacion;
+    }
 
     public Ciudadano() {
         super();
@@ -25,7 +36,7 @@ public class Ciudadano {
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.nombre = nombre.toUpperCase();
     }
 
     public String getApellidos() {
@@ -33,7 +44,7 @@ public class Ciudadano {
     }
 
     public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
+        this.apellidos = apellidos.toUpperCase();
     }
 
     public int getEdad() {
@@ -57,7 +68,7 @@ public class Ciudadano {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.toLowerCase();
     }
 
     public String getDni() {
@@ -118,14 +129,11 @@ public class Ciudadano {
 
     public void generateRandomPin(){
         int nuevoPin = (int) Math.floor(Math.random() * (MAX_RANGE - MIN_RANGE + 1) + MIN_RANGE);
-        setPassword(Integer.toString(nuevoPin));
+        this.setPassword(Integer.toString(nuevoPin));
     }
 
-    public void createCodigo(){
-        String nuevoCodigo = this.nombre.substring(0, 2)
-                .concat(this.apellidos.substring(0, 2))
-                .concat(this.dni.substring(6, 9));
-        setUsuario(nuevoCodigo);
+    public void generateUsername(){
+        this.setUsuario(this.dni);
     }
 
     @Override

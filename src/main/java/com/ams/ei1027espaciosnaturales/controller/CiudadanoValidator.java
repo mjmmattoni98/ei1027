@@ -39,6 +39,9 @@ public class CiudadanoValidator implements Validator {
             errors.rejectValue("email", "obligatorio", "Debes introducir el email");
 //        if (c.getEmail().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"))
 //            errors.rejectValue("email_formato", "formato", "El email no sigue el formato común");
+        if (!c.getConfirmacion().equals("si"))
+            errors.rejectValue("confirmacion", "obligatorio", "Debes confirmar que comprendes cuál es tu " +
+                    "usuario y contraseña");
 
     }
 }

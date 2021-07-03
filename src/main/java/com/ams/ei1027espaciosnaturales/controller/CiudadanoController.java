@@ -50,7 +50,9 @@ public class CiudadanoController {
     // Los siguientes dos metodos gestionan la inserción de un ciudadano
     @RequestMapping(value = "/add")
     public String addCiudadano(Model model) {
-        model.addAttribute("ciudadano", new Ciudadano());
+        Ciudadano ciudadano = new Ciudadano();
+        ciudadano.generateRandomPin();
+        model.addAttribute("ciudadano", ciudadano);
         return "ciudadano/add";
     }
 
@@ -60,8 +62,7 @@ public class CiudadanoController {
         validator.validate(c, bindingResult);
         if (bindingResult.hasErrors()) return "ciudadano/add";
 
-        c.createCodigo();
-        c.generateRandomPin();
+        c.generateUsername();
         try{
             ciudadanoDAO.addCiudadano(c);
         }

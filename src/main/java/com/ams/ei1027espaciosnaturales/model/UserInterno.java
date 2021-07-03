@@ -13,7 +13,7 @@ public class UserInterno implements Serializable {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username = username.toUpperCase();
     }
 
     public String getPassword() {
