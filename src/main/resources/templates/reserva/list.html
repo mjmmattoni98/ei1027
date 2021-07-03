@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<html xmlns:th="http://www.thymeleaf.org" lang="es" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
 <head>
-  <title>Gestionar Municipios</title>
+  <title>Gestionar Reservas</title>
   <meta charset="UTF-8" />
   <link rel="stylesheet"
         href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
 <body>
-<div class="container">
-  <h1>Lista de municipios</h1>
-  <table class="table table-striped">
+<div class="container" layout:fragment="content">
+  <h1>Lista de reservas</h1>
+  <div th:if="${#lists.isEmpty(reservas)}">
+    No hay reservas realizadas.
+  </div>
+  <table class="table table-striped" th:unless="${#lists.isEmpty(reservas)}">
     <thead>
     <tr>
       <th>Número de Reserva</th>
@@ -29,7 +33,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="municipio: ${municipios}">
+    <tr th:each="reserva: ${reservas}">
       <td th:text="${reserva.numReserva}"></td>
       <td th:text="${reserva.horaAcceso}"></td>
       <td th:text="${reserva.horaSalida}"></td>
@@ -47,9 +51,6 @@
     </tr>
     </tbody>
   </table>
-  <p>
-    <a href="add" class="btn btn-success" role="button">Agregar municipios</a>
-  </p>
   <p>
     <a class="btn btn-link" href="/">Volver</a>
   </p>

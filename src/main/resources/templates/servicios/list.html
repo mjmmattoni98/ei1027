@@ -1,15 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<html xmlns:th="http://www.thymeleaf.org" lang="es" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
 <head>
     <title>Gestionar Servicios</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/espacios_naturales.css"
+          th:href="@{/css/espacios_naturales.css}"/>
 </head>
 <body>
-<div class="container">
+<div class="container" layout:fragment="content">
     <h1>Lista de servicios</h1>
-    <table class="table table-striped">
+    <div th:if="${#lists.isEmpty(servicios)}">
+        No hay servicios registrados.
+    </div>
+    <table class="table table-striped" th:unless="${#lists.isEmpty(servicios)}">
         <thead>
         <tr>
             <th>Supertipo (P / E)</th>
