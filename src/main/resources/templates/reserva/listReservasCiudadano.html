@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/baseCiudadanoPage}">
+<head>
+  <title>Mis reservas</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/espacios_naturales.css"
+        th:href="@{/css/espacios_naturales.css}"/>
+</head>
+<body>
+<div class="container" layout:fragment="content">
+  <h1>Lista de mis reservas</h1>
+  <div th:if="${#lists.isEmpty(misReservas)}">
+    No hay reservas realizadas.
+  </div>
+  <table class="table table-striped" th:unless="${#lists.isEmpty(misReservas)}">
+    <thead>
+    <tr>
+      <th>Número de Reserva</th>
+      <th>Hora acceso</th>
+      <th>Hora salida</th>
+      <th>Fecha acceso</th>
+      <th>Fecha creación</th>
+      <th>Número personas</th>
+      <th>Estado</th>
+      <th>DNI</th>
+      <th>Hora inicio</th>
+      <th>Hora fin</th>
+      <th>Nombre</th>
+      <th>ID</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="reserva: ${misReservas}">
+      <td th:text="${reserva.numReserva}"></td>
+      <td th:text="${reserva.horaAcceso}"></td>
+      <td th:text="${reserva.horaSalida}"></td>
+      <td th:text="${reserva.fechaAcceso}"></td>
+      <td th:text="${reserva.fechaCreacion}"></td>
+      <td th:text="${reserva.numPersonas}"></td>
+      <td th:text="${reserva.estado}"></td>
+      <td th:text="${reserva.dni}"></td>
+      <td th:text="${reserva.inicioFranjaHoraria}"></td>
+      <td th:text="${reserva.finFranjaHoraria}"></td>
+      <td th:text="${reserva.espacioPublico}"></td>
+      <td th:text="${reserva.zona}"></td>
+
+      <td><a th:href="@{/reserva/update/{id}(id=${reserva.numReserva})}" class="btn btn-warning" role="button">Editar</a></td>
+      <td><a th:href="@{/reserva/delete/{id}(id=${reserva.numReserva})}" class="btn btn-danger" role="button">Borrar</a></td>
+    </tr>
+    </tbody>
+  </table>
+  <p>
+    <a href="add" class="btn btn-success" role="button">Nueva reserva</a>
+  </p>
+  <p>
+    <a class="btn btn-link" href="/">Volver</a>
+  </p>
+</div>
+</body>
+</html>

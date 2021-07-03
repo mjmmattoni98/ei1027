@@ -29,6 +29,12 @@ public class ReservaController {
         return "reserva/list";
     }
 
+    @RequestMapping(value = "/listReservasCiudadano/{dni}", method = RequestMethod.GET)
+    public String listReservasDeCiudadano(Model model, @PathVariable String dni) {
+        model.addAttribute("misReservas", reservaDAO.getReservasCiudadano(dni));
+        return "reserva/listReservasCiudadano";
+    }
+
     @RequestMapping(value = "/add")
     public String addReserva(Model model) {
         System.out.println("llega aqui 3?");
