@@ -31,6 +31,7 @@ public class ReservaController {
 
     @RequestMapping(value = "/add")
     public String addReserva(Model model) {
+        System.out.println("llega aqui 3?");
         model.addAttribute("reserva", new Reserva());
         return "reserva/add";
     }
@@ -38,7 +39,9 @@ public class ReservaController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddReserva(@ModelAttribute("reserva") Reserva r,
                                        BindingResult bindingResult) {
+        System.out.println("llega aqui 2?");
         if (bindingResult.hasErrors()) {
+            System.out.println("hay errores verdad?");
             return "reserva/add";
         }
         try {

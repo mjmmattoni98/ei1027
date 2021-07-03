@@ -80,6 +80,7 @@ public class Reserva {
     }
 
     public void setEstado(EstadoReserva estado) {
+        System.out.println(estado);
         this.estado = estado;
     }
 
