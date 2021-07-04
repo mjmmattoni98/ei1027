@@ -85,10 +85,11 @@ public class CiudadanoController extends RolController{
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String processUpdateSubmit(@ModelAttribute("ciudadano") Ciudadano c,
                                       BindingResult bindingResult) {
+        c.setConfirmacion("si");
         validator.validate(c, bindingResult);
         if (bindingResult.hasErrors()) return "ciudadano/update";
         ciudadanoDAO.updateCiudadano(c);
-        return "redirect:list";
+        return "redirect:/ciudadano/perfil";
     }
 
     @RequestMapping(value = "/delete/{dni}")

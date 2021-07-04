@@ -117,6 +117,7 @@ public class EspacioServicioController extends RolController{
         return "redirect:../../list/" + nombre;
     }
 
+    //TODO no va bien
     @RequestMapping(value = "/delete_estacional/{nombre}/{tipo}/{fechaIni}/{horaIni}")
     public String processDeleteEspacioServicioEstacional(HttpSession session, Model model, @PathVariable String nombre,
                                                          @PathVariable String tipo, @PathVariable LocalDate fechaIni,
