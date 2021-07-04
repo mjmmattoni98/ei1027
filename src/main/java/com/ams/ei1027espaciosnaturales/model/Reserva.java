@@ -11,11 +11,11 @@ public class Reserva {
     private LocalTime horaAcceso;
     @DateTimeFormat(pattern = "HH:mm:ss.SSS")
     private LocalTime horaSalida;
-    //    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+//    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     private LocalDate fechaAcceso;
-    //    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+//    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     private LocalDate fechaCreacion;
     private int numPersonas;
     private EstadoReserva estado;
