@@ -1,5 +1,6 @@
 package com.ams.ei1027espaciosnaturales.dao;
 
+import com.ams.ei1027espaciosnaturales.model.EstadoReserva;
 import com.ams.ei1027espaciosnaturales.model.Reserva;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -21,9 +22,8 @@ public class ReservaDAO {
     }
 
     public void addReserva(Reserva reserva) {
-        System.out.println("llega aqui?");
         jdbcTemplate.update("INSERT INTO reserva(hora_acceso, hora_salida, fecha_acceso, fecha_creacion, " +
-                        "num_personas, estado, dni, hora_inicio, hora_fin, nombre, id) VALUES(?,?,?,?,?,?,?,?,?,?,?)",
+                        "num_personas, estado, dni, hora_inicio, hora_fin, nombre, id) VALUES(?,?,?,?,?,?::estado_reserva,?,?,?,?,?)",
                 reserva.getHoraAcceso(),
                 reserva.getHoraSalida(),
                 reserva.getFechaAcceso(),
@@ -47,7 +47,7 @@ public class ReservaDAO {
         jdbcTemplate.update("DELETE FROM reserva WHERE num_reserva=?", numReserva);
     }
 
-    public void updateReserva(Reserva reserva) {
+    public void updateReservaTodo(Reserva reserva) {
         System.out.println("patata");
         System.out.println(reserva.getEstado().getId());
         jdbcTemplate.update("UPDATE reserva SET hora_acceso=?, hora_salida=?, fecha_acceso=?, fecha_creacion=?," +
@@ -63,6 +63,25 @@ public class ReservaDAO {
                 reserva.getFinFranjaHoraria(),
                 reserva.getEspacioPublico(),
                 reserva.getZona(),
+                reserva.getNumReserva()
+        );
+    }
+
+    public void updateReservaEstado(int numReserva, EstadoReserva estadoReserva) {
+
+        jdbcTemplate.update("UPDATE reserva SET estado=?::estado_reserva WHERE num_reserva=?",
+                estadoReserva.getId(),
+                numReserva
+        );
+    }
+
+    public void updateReserva(Reserva reserva) {
+        System.out.println("patata");
+        System.out.println(reserva.getEstado().getId());
+        jdbcTemplate.update("UPDATE reserva SET hora_acceso=?, hora_salida=?, estado=?::estado_reserva WHERE num_reserva=?",
+                reserva.getHoraAcceso(),
+                reserva.getHoraSalida(),
+                reserva.getEstado().getId(),
                 reserva.getNumReserva()
         );
     }

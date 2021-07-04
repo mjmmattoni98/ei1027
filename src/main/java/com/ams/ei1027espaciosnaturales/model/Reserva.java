@@ -7,22 +7,20 @@ import java.time.LocalTime;
 
 public class Reserva {
     private int numReserva;
-    @DateTimeFormat(pattern = "HH:mm:ss.SSS")
+    @DateTimeFormat(pattern = "HH:mm")
     private LocalTime horaAcceso;
-    @DateTimeFormat(pattern = "HH:mm:ss.SSS")
+    @DateTimeFormat(pattern = "HH:mm")
     private LocalTime horaSalida;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-//    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaAcceso;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-//    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaCreacion;
     private int numPersonas;
     private EstadoReserva estado;
     private String dni;
-    @DateTimeFormat(pattern = "HH:mm:ss.SSS")
+    @DateTimeFormat(pattern = "HH:mm")
     private LocalTime inicioFranjaHoraria;
-    @DateTimeFormat(pattern = "HH:mm:ss.SSS")
+    @DateTimeFormat(pattern = "HH:mm")
     private LocalTime finFranjaHoraria;
     private String espacioPublico;
     private int zona;

@@ -1,6 +1,7 @@
 package com.ams.ei1027espaciosnaturales.controller;
 
 import com.ams.ei1027espaciosnaturales.dao.ReservaDAO;
+import com.ams.ei1027espaciosnaturales.model.EstadoReserva;
 import com.ams.ei1027espaciosnaturales.model.Reserva;
 import com.ams.ei1027espaciosnaturales.model.UserInterno;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +10,14 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/reserva")
@@ -49,14 +52,16 @@ public class ReservaController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processAddReserva(@ModelAttribute("reserva") Reserva r,
+    public String processAddReserva(HttpSession session, @ModelAttribute("reserva") Reserva r,
                                        BindingResult bindingResult) {
-        System.out.println("llega aqui 2?");
+        UserInterno user = (UserInterno) session.getAttribute("user");
         if (bindingResult.hasErrors()) {
-            System.out.println("hay errores verdad?");
             return "reserva/add";
         }
         try {
+            r.setDni(user.getDni());
+            r.setEstado(EstadoReserva.PENDIENTE_USO);
+            r.setFechaCreacion(LocalDate.now());
             reservaDAO.addReserva(r);
         }
         catch (DataAccessException e){
@@ -75,13 +80,32 @@ public class ReservaController {
     public String processUpdateSubmit(@ModelAttribute("reserva") Reserva r,
                                       BindingResult bindingResult) {
         if (bindingResult.hasErrors()) return "reserva/update";
+        if(r.getHoraAcceso()!=null){
+            if(r.getHoraSalida()==null){
+                r.setEstado(EstadoReserva.EN_USO);
+            }
+            else {
+                r.setEstado(EstadoReserva.FIN_USO);
+            }
+        }
+        else{
+            r.setEstado(EstadoReserva.PENDIENTE_USO);
+            r.setHoraSalida(null);
+        }
         reservaDAO.updateReserva(r);
         return "redirect:list";
     }
 
     @RequestMapping(value = "/delete/{numReserva}")
-    public String processDeleteReserva(@PathVariable int numReserva) {
-        reservaDAO.deleteReserva(numReserva);
+    public String processDeleteReserva(HttpSession session, @PathVariable int numReserva) {
+
+        UserInterno user = (UserInterno) session.getAttribute("user");
+        if (user.getRol().equals("gestor")) {
+            reservaDAO.updateReservaEstado(numReserva, EstadoReserva.CANCELADA_GESTOR_MUNICIPAL);
+        }
+        else if(user.getRol().equals("ciudadano")){
+            reservaDAO.updateReservaEstado(numReserva, EstadoReserva.CANCELADA_CIUDADANO);
+        }
         return "redirect:../list";
     }
 }

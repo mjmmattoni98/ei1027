@@ -51,13 +51,19 @@
       <p>
       </p>
       </div>
-      <div th:unless="*{user == null}">
+      <div th:unless="*{user} == null">
         <div th:if="${#strings.equals(session.user.rol, 'ciudadano')}">
-          <td> <a th:href="@{/reserva/update/{id}(id=${reserva.numReserva})}" class="btn btn-warning" role="button">Editar</a></td>
-          <td><a th:href="@{/reserva/delete/{id}(id=${reserva.numReserva})}" class="btn btn-danger" role="button">Borrar</a></td>
+          <div th:if="${reserva.horaSalida} == null">
+            <td> <a th:href="@{/reserva/update/{id}(id=${reserva.numReserva})}" class="btn btn-warning" role="button">Editar</a></td>
+          </div>
+          <div th:if="${reserva.horaAcceso} == null">
+            <td><a th:href="@{/reserva/delete/{id}(id=${reserva.numReserva})}" class="btn btn-danger" role="button">Cancelar</a></td>
+          </div>
         </div>
         <div th:unless="${#strings.equals(session.user.rol, 'ciudadano')}">
-          <td><a th:href="@{/reserva/delete/{id}(id=${reserva.numReserva})}" class="btn btn-danger" role="button">Borrar</a></td>
+          <div th:if="${reserva.horaSalida} == null">
+            <td><a th:href="@{/reserva/delete/{id}(id=${reserva.numReserva})}" class="btn btn-danger" role="button">Cancelar</a></td>
+          </div>
         </div>
       </div>
       </div>
