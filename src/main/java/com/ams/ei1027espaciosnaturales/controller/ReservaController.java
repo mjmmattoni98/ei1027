@@ -30,16 +30,11 @@ public class ReservaController {
     public String listReservas(HttpSession session, Model model) {
 
         UserInterno user = (UserInterno) session.getAttribute("user");
-        System.out.println("patatat");
-        System.out.println(user);
-        System.out.println(user.getRol());
 
         if (user.getRol().equals("gestor")) {
             model.addAttribute("reservas", reservaDAO.getReservas());
         }
         else if(user.getRol().equals("ciudadano")){
-            System.out.println(user.getDni());
-            System.out.println(reservaDAO.getReservasCiudadano(user.getDni()));
             model.addAttribute("reservas", reservaDAO.getReservasCiudadano(user.getDni()));
         }
 
