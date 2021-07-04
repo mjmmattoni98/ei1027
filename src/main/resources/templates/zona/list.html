@@ -45,10 +45,10 @@
         <a th:href="@{/reserva/list}" class="btn btn-info"
            role="button">Ver reservas</a>
       </td>
-<!--      <td th:if="${session.user != null and #strings.equals(session.user.rol, 'ciudadano')}">-->
-<!--        <a th:href="@{/espacioPublico/update/{nombre}(nombre=${espacioPublico.nombre})}" class="btn btn-info"-->
-<!--           role="button">Realizar reserva</a>-->
-<!--      </td>-->
+      <td th:if="${session.user != null and #strings.equals(session.user.rol, 'ciudadano')}">
+        <a th:href="@{/reserva/list/{zona}/{nombre}(zona=${zona.id}, nombre=${espacio_publico})}" class="btn btn-success"
+           role="button">Realizar reserva</a>
+      </td>
     </tr>
     </tbody>
   </table>

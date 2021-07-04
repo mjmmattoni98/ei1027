@@ -73,13 +73,12 @@ public class Reserva {
         this.numPersonas = numPersonas;
     }
 
-    public EstadoReserva getEstado() {
-        return estado;
+    public String getEstado() {
+        return estado.getId();
     }
 
-    public void setEstado(EstadoReserva estado) {
-        System.out.println(estado);
-        this.estado = estado;
+    public void setEstado(String estado) {
+        this.estado = EstadoReserva.stringToTipo(estado);
     }
 
     public String getDni() {

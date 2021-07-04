@@ -29,7 +29,7 @@ public class ReservaDAO {
                 reserva.getFechaAcceso(),
                 reserva.getFechaCreacion(),
                 reserva.getNumPersonas(),
-                reserva.getEstado().getId(),
+                reserva.getEstado(),
                 reserva.getDni(),
                 reserva.getInicioFranjaHoraria(),
                 reserva.getFinFranjaHoraria(),
@@ -49,7 +49,7 @@ public class ReservaDAO {
 
     public void updateReservaTodo(Reserva reserva) {
         System.out.println("patata");
-        System.out.println(reserva.getEstado().getId());
+        System.out.println(reserva.getEstado());
         jdbcTemplate.update("UPDATE reserva SET hora_acceso=?, hora_salida=?, fecha_acceso=?, fecha_creacion=?," +
                         "num_personas=?, estado=?::estado_reserva, dni=?, hora_inicio=?, hora_fin=?, nombre=?, id=? WHERE num_reserva=?",
                 reserva.getHoraAcceso(),
@@ -57,7 +57,7 @@ public class ReservaDAO {
                 reserva.getFechaAcceso(),
                 reserva.getFechaCreacion(),
                 reserva.getNumPersonas(),
-                reserva.getEstado().getId(),
+                reserva.getEstado(),
                 reserva.getDni(),
                 reserva.getInicioFranjaHoraria(),
                 reserva.getFinFranjaHoraria(),
@@ -77,11 +77,11 @@ public class ReservaDAO {
 
     public void updateReserva(Reserva reserva) {
         System.out.println("patata");
-        System.out.println(reserva.getEstado().getId());
+        System.out.println(reserva.getEstado());
         jdbcTemplate.update("UPDATE reserva SET hora_acceso=?, hora_salida=?, estado=?::estado_reserva WHERE num_reserva=?",
                 reserva.getHoraAcceso(),
                 reserva.getHoraSalida(),
-                reserva.getEstado().getId(),
+                reserva.getEstado(),
                 reserva.getNumReserva()
         );
     }
