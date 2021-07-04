@@ -24,7 +24,7 @@ public class ReservaRowMapper implements RowMapper<Reserva> {
         reserva.setFinFranjaHoraria(resultSet.getObject("hora_fin", LocalTime.class));
         reserva.setFechaAcceso(resultSet.getObject("fecha_acceso", LocalDate.class));
         reserva.setFechaCreacion(resultSet.getObject("fecha_creacion", LocalDate.class));
-        reserva.setEstado(resultSet.getString("estado"));
+        reserva.setEstado(EstadoReserva.stringToTipo(resultSet.getString("estado")));
 
         return reserva;
     }
