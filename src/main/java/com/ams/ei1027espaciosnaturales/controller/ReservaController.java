@@ -1,6 +1,10 @@
 package com.ams.ei1027espaciosnaturales.controller;
 
+import com.ams.ei1027espaciosnaturales.dao.EspacioPublicoDAO;
+import com.ams.ei1027espaciosnaturales.dao.FranjaHorariaDAO;
 import com.ams.ei1027espaciosnaturales.dao.ReservaDAO;
+import com.ams.ei1027espaciosnaturales.dao.ZonaDAO;
+import com.ams.ei1027espaciosnaturales.model.EspacioServicioEstacional;
 import com.ams.ei1027espaciosnaturales.model.EstadoReserva;
 import com.ams.ei1027espaciosnaturales.model.Reserva;
 import com.ams.ei1027espaciosnaturales.model.UserInterno;
@@ -18,15 +22,36 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 @RequestMapping("/reserva")
 public class ReservaController {
     private ReservaDAO reservaDAO;
+    private EspacioPublicoDAO espacioPublicoDAO;
+    private FranjaHorariaDAO franjaHorariaDAO;
+    private ZonaDAO zonaDAO;
+
 
     @Autowired
     public void setReservaDAO(ReservaDAO r) {
         this.reservaDAO = r;
+    }
+
+    @Autowired
+    public void setFranjaHorariaDAO(FranjaHorariaDAO r) {
+        this.franjaHorariaDAO = r;
+    }
+
+    @Autowired
+    public void setEspacioPublicoDAO(EspacioPublicoDAO r) {
+        this.espacioPublicoDAO = r;
+    }
+
+    @Autowired
+    public void setZonaDAO(ZonaDAO r) {
+        this.zonaDAO = r;
     }
 
     @RequestMapping("/list")
@@ -46,8 +71,9 @@ public class ReservaController {
 
     @RequestMapping(value = "/add")
     public String addReserva(Model model) {
-        System.out.println("llega aqui 3?");
         model.addAttribute("reserva", new Reserva());
+        model.addAttribute("espaciosPublicos", espacioPublicoDAO.getEspaciosPublicos());
+        System.out.println("entra aqui 2");
         return "reserva/add";
     }
 
@@ -55,6 +81,7 @@ public class ReservaController {
     public String processAddReserva(HttpSession session, @ModelAttribute("reserva") Reserva r,
                                        BindingResult bindingResult) {
         UserInterno user = (UserInterno) session.getAttribute("user");
+        System.out.println("entra aqui 1");
         if (bindingResult.hasErrors()) {
             return "reserva/add";
         }
@@ -62,12 +89,24 @@ public class ReservaController {
             r.setDni(user.getDni());
             r.setEstado(EstadoReserva.PENDIENTE_USO);
             r.setFechaCreacion(LocalDate.now());
+            System.out.println(r);
             reservaDAO.addReserva(r);
-        }
-        catch (DataAccessException e){
+        }catch (DataAccessException e){
             throw new EspaciosNaturalesException("Error accediendo a la base de datos", "ErrorAccidiendoDatos", "/");
         }
-        return "redirect:list";
+        return "redirect:../list";
+    }
+
+    @RequestMapping(value = "/addesp", method = RequestMethod.POST)
+    public String processDeleteReserva(Model model , Reserva r) {
+
+        System.out.println("entra aqui 3");
+
+        model.addAttribute("franjasHorarias", franjaHorariaDAO.getFranjaHoraria(r.getEspacioPublico()));
+        model.addAttribute("zonas", zonaDAO.getZonas(r.getEspacioPublico()));
+        model.addAttribute("reserva", r);
+
+        return "reserva/addesp";
     }
 
     @RequestMapping(value = "/update/{numReserva}", method = RequestMethod.GET)

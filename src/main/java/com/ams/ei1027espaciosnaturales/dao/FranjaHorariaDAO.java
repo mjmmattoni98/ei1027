@@ -45,6 +45,18 @@ public class FranjaHorariaDAO {
         );
     }
 
+    public List<FranjaHoraria> getFranjaHoraria(String espacioPublico){
+        try {
+            return jdbcTemplate.query(
+                    "SELECT * FROM franja_horaria WHERE nombre=?",
+                    new FranjaHorariaRowMapper(),
+                    espacioPublico
+            );
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
+        }
+    }
+
     public FranjaHoraria getFranjaHoraria(LocalTime inicio, LocalTime fin, String espacioPublico) {
         try {
             return jdbcTemplate.queryForObject(

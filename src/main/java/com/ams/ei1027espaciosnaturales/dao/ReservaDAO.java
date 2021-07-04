@@ -101,7 +101,7 @@ public class ReservaDAO {
 
     public List<Reserva> getReservas() {
         try {
-            return jdbcTemplate.query("SELECT * FROM reserva",
+            return jdbcTemplate.query("SELECT * FROM reserva ORDER BY num_reserva",
                     new ReservaRowMapper()
             );
         } catch (EmptyResultDataAccessException e) {
@@ -111,7 +111,7 @@ public class ReservaDAO {
 
     public List<Reserva> getReservasCiudadano(String dni) {
         try {
-            return jdbcTemplate.query("SELECT * FROM reserva WHERE dni=?",
+            return jdbcTemplate.query("SELECT * FROM reserva WHERE dni=? ORDER BY num_reserva",
                     new ReservaRowMapper(),
                     dni
             );

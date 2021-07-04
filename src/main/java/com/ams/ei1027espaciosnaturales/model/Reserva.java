@@ -22,11 +22,23 @@ public class Reserva {
     private LocalTime inicioFranjaHoraria;
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime finFranjaHoraria;
+    private String franjaHoraria;
     private String espacioPublico;
     private int zona;
 
     public int getNumReserva() {
         return numReserva;
+    }
+
+    public void setFranjaHoraria(String franjaHoraria){
+        this.franjaHoraria = franjaHoraria;
+        String[] franja = franjaHoraria.split("-");
+        this.inicioFranjaHoraria = LocalTime.parse(franja[0]);
+        this.finFranjaHoraria = LocalTime.parse(franja[1]);
+    }
+
+    public String getFranjaHoraria(){
+        return franjaHoraria;
     }
 
     public void setNumReserva(int numReserva) {
