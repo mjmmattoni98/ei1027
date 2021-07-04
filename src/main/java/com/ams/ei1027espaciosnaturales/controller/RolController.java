@@ -5,8 +5,8 @@ import com.ams.ei1027espaciosnaturales.model.UserInterno;
 import javax.servlet.http.HttpSession;
 
 public abstract class RolController {
-    protected static final String rolGestor = "gestor";
-    protected static final String rolCiudadano = "ciudadano";
+    protected static final String ROL_GESTOR = "gestor";
+    protected static final String ROL_CIUDADANO = "ciudadano";
 
     protected UserInterno checkSession(HttpSession session, String rol){
         if(session.getAttribute("user") == null) return null;

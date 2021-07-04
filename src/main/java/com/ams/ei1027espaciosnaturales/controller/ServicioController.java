@@ -1,7 +1,5 @@
 package com.ams.ei1027espaciosnaturales.controller;
 
-import com.ams.ei1027espaciosnaturales.dao.EspacioServicioEstacionalDAO;
-import com.ams.ei1027espaciosnaturales.dao.EspacioServicioPermanenteDAO;
 import com.ams.ei1027espaciosnaturales.dao.ServicioDAO;
 import com.ams.ei1027espaciosnaturales.model.Servicio;
 import com.ams.ei1027espaciosnaturales.model.UserInterno;
@@ -63,7 +61,7 @@ public class ServicioController extends RolController{
     // Los siguientes dos metodos gestionan la modificacion de un servicio
     @RequestMapping(value = "/update/{tipo}/{supertipo}", method = RequestMethod.GET)
     public String updateServicio(HttpSession session, Model model, @PathVariable String tipo, @PathVariable String supertipo) {
-        UserInterno user = checkSession(session, rolGestor);
+        UserInterno user = checkSession(session, ROL_GESTOR);
         if (user == null){
             model.addAttribute("user", new UserInterno());
             return "login";

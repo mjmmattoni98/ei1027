@@ -41,7 +41,7 @@ public class EspacioPublicoController extends RolController{
     // Los siguientes dos metodos gestionan la inserción de un espacio publico
     @RequestMapping(value = "/add")
     public String addEspacioPublico(HttpSession session, Model model) {
-        UserInterno user = checkSession(session, rolGestor);
+        UserInterno user = checkSession(session, ROL_GESTOR);
         if (user == null){
             model.addAttribute("user", new UserInterno());
             return "login";
@@ -75,7 +75,7 @@ public class EspacioPublicoController extends RolController{
     // Los siguientes dos metodos gestionan la modificacion de un espacio publico
     @RequestMapping(value = "/update/{nombre}", method = RequestMethod.GET)
     public String updateEspacioPublico(HttpSession session, Model model, @PathVariable String nombre) {
-        UserInterno user = checkSession(session, rolGestor);
+        UserInterno user = checkSession(session, ROL_GESTOR);
         if (user == null){
             model.addAttribute("user", new UserInterno());
             return "login";
@@ -101,7 +101,7 @@ public class EspacioPublicoController extends RolController{
 
     @RequestMapping(value = "/delete/{nombre}")
     public String processDeleteEspacioPublico(HttpSession session, Model model, @PathVariable String nombre) {
-        UserInterno user = checkSession(session, rolGestor);
+        UserInterno user = checkSession(session, ROL_GESTOR);
         if (user == null){
             model.addAttribute("user", new UserInterno());
             return "login";

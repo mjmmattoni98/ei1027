@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+  <title>Gestionar emails</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/espacios_naturales.css"
+        th:href="@{/css/espacios_naturales.css}"/>
+</head>
+<body>
+<div class="container" layout:fragment="content">
+  <h1>Lista de emails</h1>
+  <div th:if="${#lists.isEmpty(emails)}">
+    No tienes emails aún.
+  </div>
+  <table class="table table-striped" th:unless="${#lists.isEmpty(emails)}">
+    <thead>
+    <tr>
+      <th>Remitente</th>
+      <th>Fecha</th>
+      <th>Asunto</th>
+      <th>Cuerpo</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="email: ${emails}">
+      <td th:text="${email.remitente}"></td>
+      <td th:text="${email.fecha}"></td>
+      <td th:text="${email.asunto}"></td>
+      <td th:text="${email.cuerpo}"></td>
+    </tr>
+    </tbody>
+  </table>
+  <p>
+    <a class="btn btn-link" href="/">Volver a la página principal</a>
+  </p>
+</div>
+</body>
+</html>

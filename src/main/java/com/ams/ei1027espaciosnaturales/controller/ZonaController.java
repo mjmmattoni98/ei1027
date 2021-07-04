@@ -48,7 +48,7 @@ public class ZonaController extends RolController{
 
     @RequestMapping(value = "/add/{nombre}")
     public String addZona(HttpSession session, Model model, @PathVariable String nombre) {
-        UserInterno user = checkSession(session, rolGestor);
+        UserInterno user = checkSession(session, ROL_GESTOR);
         if (user == null){
             model.addAttribute("user", new UserInterno());
             return "login";
@@ -79,7 +79,7 @@ public class ZonaController extends RolController{
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String updateZona(HttpSession session, Model model, @PathVariable int id) {
-        UserInterno user = checkSession(session, rolGestor);
+        UserInterno user = checkSession(session, ROL_GESTOR);
         if (user == null){
             model.addAttribute("user", new UserInterno());
             return "login";
@@ -102,7 +102,7 @@ public class ZonaController extends RolController{
 
     @RequestMapping(value = "/delete/{id}/{nombre}")
     public String processDeleteZona(HttpSession session, Model model, @PathVariable int id, @PathVariable String nombre) {
-        UserInterno user = checkSession(session, rolGestor);
+        UserInterno user = checkSession(session, ROL_GESTOR);
         if (user == null){
             model.addAttribute("user", new UserInterno());
             return "login";

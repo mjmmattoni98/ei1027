@@ -23,7 +23,6 @@ public class CiudadanoDAO {
     }
 
     public void addCiudadano(Ciudadano c) throws DuplicateKeyException {
-        //TODO throws PSQLException para la edad
         jdbcTemplate.update("INSERT INTO Ciudadano VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",
                 c.getDni(),
                 c.getNombre(),
@@ -50,7 +49,6 @@ public class CiudadanoDAO {
     }
 
     public void updateCiudadano(Ciudadano c) {
-        //TODO throws PSQLException para la edad
         jdbcTemplate.update("UPDATE Ciudadano SET nombre=?, apellidos=?, edad=?, calle=?, numero=?, cp=?, " +
                         "poblacion=?, telefono=?, email=?, usuario=?, password=? WHERE dni=?",
                 c.getNombre(),

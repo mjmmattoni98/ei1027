@@ -1,7 +1,9 @@
 package com.ams.ei1027espaciosnaturales.controller;
 
 import com.ams.ei1027espaciosnaturales.dao.CiudadanoDAO;
+import com.ams.ei1027espaciosnaturales.dao.EmailDAO;
 import com.ams.ei1027espaciosnaturales.model.Ciudadano;
+import com.ams.ei1027espaciosnaturales.model.Email;
 import com.ams.ei1027espaciosnaturales.model.UserInterno;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -15,12 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/ciudadano")
 public class CiudadanoController extends RolController{
 
     private CiudadanoDAO ciudadanoDAO;
+    private EmailDAO emailDAO;
     private static final CiudadanoValidator validator = new CiudadanoValidator();
 
     @Autowired
@@ -28,9 +32,14 @@ public class CiudadanoController extends RolController{
         this.ciudadanoDAO = c;
     }
 
+    @Autowired
+    public void setEmailDAO(EmailDAO emailDAO) {
+        this.emailDAO = emailDAO;
+    }
+
     @RequestMapping("/perfil")
     public String perfilCiudadano(HttpSession session, Model model){
-        UserInterno user = checkSession(session, rolCiudadano);
+        UserInterno user = checkSession(session, ROL_CIUDADANO);
         if (user == null){
             model.addAttribute("user", new UserInterno());
             return "login";
@@ -65,6 +74,13 @@ public class CiudadanoController extends RolController{
         c.generateUsername();
         try{
             ciudadanoDAO.addCiudadano(c);
+            Email email = new Email();
+            email.setRemitente("espacios.naturales@cv.com");
+            email.setDestinatario(c.getEmail());
+            email.setFecha(LocalDate.now());
+            email.setAsunto("Registro exitoso");
+            email.setCuerpo("Se ha realizado el registro con éxito.");
+            emailDAO.addEmail(email);
         }
         catch (DuplicateKeyException e){
             throw new EspaciosNaturalesException("Ya existe un ciudadano con el mismo DNI", "CPDuplicada", "ciudadano/add");
