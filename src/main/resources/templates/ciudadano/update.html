@@ -20,6 +20,7 @@
       <div class="col-sm-4">
         <input type="text" class="form-control" id="dni" th:field="*{dni}" readonly/>
       </div>
+      <div class="error" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></div>
     </div>
 
     <div class="form-group row">
@@ -27,6 +28,7 @@
       <div class="col-sm-4">
         <input type="text" class="form-control" id="nombre" th:field="*{nombre}" />
       </div>
+      <div class="error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
     </div>
 
     <div class="form-group row">
@@ -34,13 +36,16 @@
       <div class="col-sm-4">
         <input type="text" class="form-control" id="apellidos" th:field="*{apellidos}" />
       </div>
+      <div class="error" th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}"></div>
     </div>
 
     <div class="form-group row">
       <label class="control-label col-sm-2" for="edad">Edad:</label>
       <div class="col-sm-4">
-        <input type="number" th:class="${#fields.hasErrors('edad')} ? needcorrection" class="form-control" id="edad" min="18" th:min="18" value="18" th:value="18" th:field="*{edad}"/>
+        <input type="number" th:class="${#fields.hasErrors('edad')} ? needcorrection" class="form-control" id="edad" min="18"
+               th:min="18" value="18" th:value="18" th:field="*{edad}"/>
       </div>
+      <div class="error" th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}"></div>
     </div>
 
     <div class="form-group row">
@@ -48,12 +53,14 @@
       <div class="col-sm-4">
         <input type="text" class="form-control" id="calle" th:field="*{calle}"/>
       </div>
+      <div class="error" th:if="${#fields.hasErrors('calle')}" th:errors="*{calle}"></div>
     </div>
 
     <div class="form-group row">
       <label class="control-label col-sm-2" for="numero">Número:</label>
       <div class="col-sm-4">
-        <input type="number" class="form-control" id="numero" min="1" th:min="1" th:field="*{numero}"/>
+        <input type="number" class="form-control" th:class="${#fields.hasErrors('numero')} ? needcorrection" id="numero"
+               min="1" th:min="1" th:field="*{numero}"/>
       </div>
     </div>
 
@@ -69,6 +76,7 @@
       <div class="col-sm-4">
         <input type="text" class="form-control" id="poblacion" th:field="*{poblacion}"/>
       </div>
+      <div class="error" th:if="${#fields.hasErrors('poblacion')}" th:errors="*{poblacion}"></div>
     </div>
 
     <div class="form-group row">
@@ -76,12 +84,28 @@
       <div class="col-sm-4">
         <input type="text" class="form-control" id="telefono" th:field="*{telefono}"/>
       </div>
+      <div class="error" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></div>
     </div>
 
     <div class="form-group row">
       <label class="control-label col-sm-2" for="email">Email:</label>
       <div class="col-sm-4">
         <input type="text" class="form-control" id="email" th:field="*{email}"/>
+      </div>
+      <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+    </div>
+
+    <div class="form-group row">
+      <label class="control-label col-sm-2" for="usuario">Usuario:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" id="usuario" th:field="*{usuario}" readonly/>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="control-label col-sm-2" for="password">Password:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" id="password" th:field="*{password}" readonly/>
       </div>
     </div>
 
