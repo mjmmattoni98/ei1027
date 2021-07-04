@@ -92,8 +92,9 @@ public class ReservaDAO {
 
     public List<Reserva> getReservasCiudadano(String dni) {
         try {
-            return jdbcTemplate.query("SELECT * FROM reserva WHERE dni = " + dni,
-                    new ReservaRowMapper()
+            return jdbcTemplate.query("SELECT * FROM reserva WHERE dni=?",
+                    new ReservaRowMapper(),
+                    dni
             );
         } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();

@@ -2,6 +2,7 @@ package com.ams.ei1027espaciosnaturales.controller;
 
 import com.ams.ei1027espaciosnaturales.dao.ReservaDAO;
 import com.ams.ei1027espaciosnaturales.model.Reserva;
+import com.ams.ei1027espaciosnaturales.model.UserInterno;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/reserva")
@@ -24,15 +27,23 @@ public class ReservaController {
     }
 
     @RequestMapping("/list")
-    public String listReservas(Model model) {
-        model.addAttribute("reservas", reservaDAO.getReservas());
-        return "reserva/list";
-    }
+    public String listReservas(HttpSession session, Model model) {
 
-    @RequestMapping(value = "/listReservasCiudadano/{dni}", method = RequestMethod.GET)
-    public String listReservasDeCiudadano(Model model, @PathVariable String dni) {
-        model.addAttribute("misReservas", reservaDAO.getReservasCiudadano(dni));
-        return "reserva/listReservasCiudadano";
+        UserInterno user = (UserInterno) session.getAttribute("user");
+        System.out.println("patatat");
+        System.out.println(user);
+        System.out.println(user.getRol());
+
+        if (user.getRol().equals("gestor")) {
+            model.addAttribute("reservas", reservaDAO.getReservas());
+        }
+        else if(user.getRol().equals("ciudadano")){
+            System.out.println(user.getDni());
+            System.out.println(reservaDAO.getReservasCiudadano(user.getDni()));
+            model.addAttribute("reservas", reservaDAO.getReservasCiudadano(user.getDni()));
+        }
+
+        return "reserva/list";
     }
 
     @RequestMapping(value = "/add")
