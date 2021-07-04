@@ -25,17 +25,17 @@
         </thead>
         <tbody>
         <tr th:each="espacio_servicio_estacional: ${espacios_servicios_estacionales}">
-            <td th:text="${espacio_servicio_estacional.nombre}"></td>
+            <td th:text="${espacio_servicio_estacional.espacioPublico}"></td>
             <td th:text="${espacio_servicio_estacional.tipo}"></td>
             <td th:text="${espacio_servicio_estacional.fechaIni}"></td>
             <td th:text="${espacio_servicio_estacional.horaIni}"></td>
             <td th:text="${espacio_servicio_estacional.fechaFin}"></td>
             <td th:text="${espacio_servicio_estacional.horaFin}"></td>
             <td th:text="${espacio_servicio_estacional.lugarContratacion}"></td>
-            <td><a th:href="@{/espacio_servicio_estacional/update/{nombre}(nombre=${espacio_servicio_estacional.nombre})/
+            <td><a th:href="@{/espacio_servicio_estacional/update/{nombre}(nombre=${espacio_servicio_estacional.espacioPublico})/
             {tipo}(tipo=${espacio_servicio_estacional.tipo})/{fechaIni}(fechaIni=${espacio_servicio_estacional.fechaIni})/
             {fechaFin}(fechaFin=${espacio_servicio_estacional.fechaFin})}" class="btn btn-warning" role="button">Editar</a></td>
-            <td><a th:href="@{/espacio_servicio_estacional/delete/{nombre}(nombre=${espacio_servicio_estacional.nombre})/
+            <td><a th:href="@{/espacio_servicio_estacional/delete/{nombre}(nombre=${espacio_servicio_estacional.espacioPublico})/
             {tipo}(tipo=${espacio_servicio_estacional.tipo})/{fechaIni}(fechaIni=${espacio_servicio_estacional.fechaIni})/
             {fechaFin}(fechaFin=${espacio_servicio_estacional.fechaFin})}" class="btn btn-danger" role="button">Borrar</a></td>
         </tr>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+  <title>Gestionar los servicios de los espacios</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/espacios_naturales.css"
+        th:href="@{/css/espacios_naturales.css}"/>
+</head>
+<body>
+<div class="container" layout:fragment="content">
+  <h1>Lista de servicios en el espacio público <b th:text="${espacio_publico}"></b></h1>
+
+  <!--Información de los servicios permanentes  -->
+  <h2>Servicios permanentes</h2>
+  <div th:if="${#lists.isEmpty(espacios_servicios_permanentes)}">
+    No hay servicios permanentes asignados al espacio público aún.
+  </div>
+  <table class="table table-striped" th:unless="${#lists.isEmpty(espacios_servicios_permanentes)}">
+    <thead>
+    <tr>
+      <th>Tipo de servicio</th>
+      <th>Descripcion</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="servicio: ${espacios_servicios_permanentes}">
+      <td th:text="${servicio.tipo}"></td>
+      <td th:text="${servicio.descripcion}"></td>
+      <td th:if="${session.user != null and #strings.equals(session.user.rol, 'gestor')}">
+        <a th:href="@{/espacios_servicios/delete_permanente/{nombre}/{tipo}(nombre=${servicio.espacioPublico},
+        tipo=${servicio.tipo})}"
+             class="btn btn-warning" role="button">Desasignar</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!--Información de los servicios estacionales  -->
+  <h2>Servicios estacionales</h2>
+  <div th:if="${#lists.isEmpty(espacios_servicios_estacionales)}">
+    No hay servicios estacionales asignados al espacio público aún.
+  </div>
+  <table class="table table-striped" th:unless="${#lists.isEmpty(espacios_servicios_estacionales)}">
+    <thead>
+    <tr>
+      <th>Tipo de servicio</th>
+      <th>Descripcion</th>
+      <th>Lugar de contratación</th>
+      <th>Fecha de inicio</th>
+      <th>Fecha fin</th>
+      <th>Hora de inicio</th>
+      <th>Hora fin</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="servicio: ${espacios_servicios_estacionales}">
+      <td th:text="${servicio.tipo}"></td>
+      <td th:text="${servicio.descripcion}"></td>
+      <td th:text="${servicio.lugarContratacion}"></td>
+      <td th:text="${servicio.fechaIni}"></td>
+      <td th:text="${servicio.fechaFin}"></td>
+      <td th:text="${servicio.horaIni}"></td>
+      <td th:text="${servicio.horaFin}"></td>
+      <td th:if="${session.user != null and #strings.equals(session.user.rol, 'gestor')}">
+        <a th:href="@{/espacios_servicios/delete_estacional/{nombre}/{tipo}/{fechaIni}/{horaIni}
+        (nombre=${servicio.espacioPublico}, tipo=${servicio.tipo}, fechaIni=${servicio.fechaIni}, horaIni=${servicio.horaIni})}"
+           class="btn btn-warning" role="button">Desasignar</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <p>
+    <a class="btn btn-link" href="/">Volver a la página de inicio</a>
+  </p>
+</div>
+</body>
+</html>

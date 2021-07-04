@@ -22,7 +22,7 @@ public class ServicioDAO {
     }
 
     public void addServicio(Servicio s) throws DuplicateKeyException {
-        if(s.getSupertipo().equals("E"))
+        if(s.getSupertipo().equals("Estacional"))
             jdbcTemplate.update("INSERT INTO servicio_estacional VALUES(?,?)",
                     s.getTipo(),
                     s.getDescripcion()
@@ -35,7 +35,7 @@ public class ServicioDAO {
     }
 
     public void deleteServicio(Servicio s) {
-        if(s.getSupertipo().equals("E"))
+        if(s.getSupertipo().equals("Estacional"))
             jdbcTemplate.update("DELETE FROM servicio_estacional WHERE tipo=?",
                     s.getTipo()
             );
@@ -46,7 +46,7 @@ public class ServicioDAO {
     }
 
     public void deleteServicio(String tipo, String supertipo) {
-        if(supertipo.equals("E"))
+        if(supertipo.equals("Estacional"))
             jdbcTemplate.update("DELETE FROM servicio_estacional WHERE tipo=?",
                     tipo
             );
@@ -57,7 +57,7 @@ public class ServicioDAO {
     }
 
     public void updateServicio(Servicio s) {
-        if(s.getSupertipo().equals("E"))
+        if(s.getSupertipo().equals("Estacional"))
             jdbcTemplate.update("UPDATE servicio_estacional SET descripcion=? WHERE tipo=?",
                     s.getDescripcion(),
                     s.getTipo()
@@ -71,7 +71,7 @@ public class ServicioDAO {
 
     public Servicio getServicio(String tipo, String supertipo) {
         try {
-            if (supertipo.equals("E"))
+            if (supertipo.equals("Estacional"))
                 return jdbcTemplate .queryForObject(
                         "SELECT * FROM servicio_estacional WHERE tipo=?",
                         new ServicioRowMapper(),
@@ -95,14 +95,14 @@ public class ServicioDAO {
                     new ServicioRowMapper()
             );
             for (Servicio s : serviciosEstacional)
-                s.setSupertipo("E");
+                s.setSupertipo("Estacional");
 
             //Leemos todos los servicios permanentes
             List<Servicio> serviciosPermanentes = jdbcTemplate.query("SELECT * FROM servicio_permanente",
                     new ServicioRowMapper()
             );
             for (Servicio s : serviciosPermanentes)
-                s.setSupertipo("P");
+                s.setSupertipo("Permanente");
 
             //Juntamos todos los servicios en una misma lista
             List<Servicio> servicios = new LinkedList<>(serviciosEstacional);

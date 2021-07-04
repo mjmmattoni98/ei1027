@@ -10,8 +10,9 @@ public final class EspacioServicioPermanenteRowMapper implements RowMapper<Espac
     @Override
     public EspacioServicioPermanente mapRow(ResultSet resultSet, int i) throws SQLException {
         EspacioServicioPermanente espSerPer = new EspacioServicioPermanente();
-        espSerPer.setNombre(resultSet.getString("nombre"));
+        espSerPer.setEspacioPublico(resultSet.getString("nombre"));
         espSerPer.setTipo(resultSet.getString("tipo"));
+        espSerPer.setDescripcion(resultSet.getString("descripcion"));
 
         return espSerPer;
     }

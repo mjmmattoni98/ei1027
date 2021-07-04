@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestionar Espacios Públicos</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <h2>Nuevo espacio público</h2>
+    <form class="form-horizontal" action="#" th:action="@{/espacioPublico/add}"
+          th:object="${espacioPublico}" method="post">
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="nombre">Nombre:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="nombre" th:field="*{nombre}" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="localizacionGeografica">Localización geográfica:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="localizacionGeografica" th:field="*{localizacionGeografica}" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="tEspacio">Tipo espacio:</label>
+            <div class="col-sm-4">
+                <select class="form_control" type="text" id="tEspacio" th:field="*{tEspacio}">
+                    <option value="No seleccionat">Selecciona el tipo de espacio</option>
+                    <option value="playa">playa</option>
+                    <option value="río">río</option>
+                    <option value="estanque">estanque</option>
+                    <option value="lago">lago</option>
+                    <option value="bosque">bosque</option>
+                    <option value="otros">otros</option>
+                </select>
+                <!--                <input type="text" class="form-control" id="tEspacio" th:field="*{tEspacio}" />-->
+            </div>
+            <div class="error" th:if="${#fields.hasErrors('tEspacio')}" th:errors="*{tEspacio}"></div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="tSuelo">Tipo suelo:</label>
+            <div class="col-sm-4">
+                <select class="form_control" type="text" id="tSuelo" th:field="*{tSuelo}">
+                    <option value="No seleccionat">Selecciona el tipo de suelo</option>
+                    <option value="arena">arena</option>
+                    <option value="roca">roca</option>
+                    <option value="piedra">piedra</option>
+                </select>
+                <!--                <input type="text" class="form-control" id="tSuelo" th:field="*{tSuelo}"/>-->
+            </div>
+            <div class="error" th:if="${#fields.hasErrors('tSuelo')}" th:errors="*{tSuelo}"></div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="tAcceso">Tipo acceso:</label>
+            <div class="col-sm-4">
+                <select class="form_control" type="text" id="tAcceso" th:field="*{tAcceso}">
+                    <option value="No seleccionat">Selecciona el tipo de acceso</option>
+                    <option value="abierto">abierto</option>
+                    <option value="restringido">restringido</option>
+                    <option value="cerrado">cerrado</option>
+                </select>
+                <!--                <input type="text" class="form-control" id="tAcceso" th:field="*{tAcceso}"/>-->
+            </div>
+            <div class="error" th:if="${#fields.hasErrors('tAcceso')}" th:errors="*{tAcceso}"></div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="descripcion">Descripción:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="descripcion" th:field="*{descripcion}"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="longitud">Longitud:</label>
+            <div class="col-sm-4">
+                <input type="number" class="form-control" id="longitud" th:field="*{longitud}"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="anchura">Anchura:</label>
+            <div class="col-sm-4">
+                <input type="number" class="form-control" id="anchura" th:field="*{anchura}"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="orientacion">Orientación:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="orientacion" th:field="*{orientacion}"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="idMunicipio">ID municipio:</label>
+            <div class="col-sm-4">
+                <input type="number" class="form-control" id="idMunicipio" th:field="*{idMunicipio}"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-offset-2 col-sm-4">
+                <button type="submit" class="btn btn-primary">Agregar espacio público</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+</body>
+</html>

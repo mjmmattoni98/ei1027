@@ -28,11 +28,11 @@ public class EspacioServicioEstacionalController {
     }
 
     // Listar los servicios estacionales asignados
-    @RequestMapping("/list")
-    public String listEspacioServiciosEstacionales(Model model) {
-        model.addAttribute("espacios_servicios_estacionales", espacioServicioEstacionalDAO.getEspaciosServiciosEstacionales());
-        return "espacio_servicio_estacional/list";
-    }
+//    @RequestMapping("/list")
+//    public String listEspacioServiciosEstacionales(Model model) {
+//        model.addAttribute("espacios_servicios_estacionales", espacioServicioEstacionalDAO.getEspaciosServiciosEstacionales());
+//        return "espacio_servicio_estacional/list";
+//    }
 
     // Los siguientes dos metodos gestionan la asignación de un servicio a un espacio
     @RequestMapping(value = "/add")

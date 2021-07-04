@@ -31,6 +31,7 @@
             <th></th>
             <th></th>
             <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -52,6 +53,10 @@
             <td th:if="${session.user != null and #strings.equals(session.user.rol, 'gestor')}">
                 <a th:href="@{/espacioPublico/delete/{nombre}(nombre=${espacioPublico.nombre})}" class="btn btn-danger"
                    role="button">Borrar</a>
+            </td>
+            <td>
+                <a th:href="@{/espacios_servicios/list/{nombre}(nombre=${espacioPublico.nombre})}" class="btn btn-info"
+                   role="button">Ver servicios</a>
             </td>
             <td th:if="${#strings.equals(espacioPublico.tAcceso, 'restringido')}">
                 <a th:href="@{/zona/list/{nombre}(nombre=${espacioPublico.nombre})}" class="btn btn-info"

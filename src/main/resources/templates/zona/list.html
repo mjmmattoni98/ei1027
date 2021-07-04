@@ -37,7 +37,7 @@
         <a th:href="@{/zona/update/{id}(id=${zona.id})}" class="btn btn-warning"
            role="button">Editar</a>
       </td>
-      <td th:if="${session != null and #strings.equals(session.user.rol, 'gestor')}">
+      <td th:if="${session.user != null and #strings.equals(session.user.rol, 'gestor')}">
         <a th:href="@{/zona/delete/{id}/{nombre}(id=${zona.id}, nombre=${espacio_publico})}" class="btn btn-danger"
            role="button">Borrar</a>
       </td>
@@ -56,7 +56,7 @@
     <a th:href="@{/zona/add/{nombre}(nombre=${espacio_publico})}" class="btn btn-success" role="button">Agregar zona</a>
   </p>
   <p>
-    <a class="btn btn-link" href="/">Volver</a>
+    <a class="btn btn-link" href="/">Volver a la página de inicio</a>
   </p>
 </div>
 </body>

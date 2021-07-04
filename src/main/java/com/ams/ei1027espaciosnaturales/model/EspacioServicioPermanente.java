@@ -1,15 +1,24 @@
 package com.ams.ei1027espaciosnaturales.model;
 
 public class EspacioServicioPermanente {
-    private String nombre;
+    private String espacioPublico;
     private String tipo;
+    private String descripcion;
 
-    public String getNombre() {
-        return nombre;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getEspacioPublico() {
+        return espacioPublico;
+    }
+
+    public void setEspacioPublico(String espacioPublico) {
+        this.espacioPublico = espacioPublico;
     }
 
     public String getTipo() {
@@ -23,8 +32,9 @@ public class EspacioServicioPermanente {
     @Override
     public String toString() {
         return "EspacioServicioPermanente{" +
-                "nombre='" + nombre + '\'' +
+                "espacioPublico='" + espacioPublico + '\'' +
                 ", tipo='" + tipo + '\'' +
+                ", descripcion='" + descripcion + '\'' +
                 '}';
     }
 }

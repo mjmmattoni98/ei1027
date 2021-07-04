@@ -1,5 +1,7 @@
 package com.ams.ei1027espaciosnaturales.controller;
 
+import com.ams.ei1027espaciosnaturales.dao.EspacioServicioEstacionalDAO;
+import com.ams.ei1027espaciosnaturales.dao.EspacioServicioPermanenteDAO;
 import com.ams.ei1027espaciosnaturales.dao.ServicioDAO;
 import com.ams.ei1027espaciosnaturales.model.Servicio;
 import com.ams.ei1027espaciosnaturales.model.UserInterno;
@@ -18,8 +20,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/servicios")
-public class ServicioController {
-
+public class ServicioController extends RolController{
     private ServicioDAO servicioDAO;
 
     @Autowired
@@ -29,7 +30,7 @@ public class ServicioController {
 
     // Listar los servicios
     @RequestMapping("/list")
-    public String listServicios(Model model) {
+    public String listServicios(HttpSession session, Model model) {
         model.addAttribute("servicios", servicioDAO.getServicios());
         return "servicios/list";
     }
@@ -61,7 +62,13 @@ public class ServicioController {
 
     // Los siguientes dos metodos gestionan la modificacion de un servicio
     @RequestMapping(value = "/update/{tipo}/{supertipo}", method = RequestMethod.GET)
-    public String updateServicio(Model model, @PathVariable String tipo, @PathVariable String supertipo) {
+    public String updateServicio(HttpSession session, Model model, @PathVariable String tipo, @PathVariable String supertipo) {
+        UserInterno user = checkSession(session, rolGestor);
+        if (user == null){
+            model.addAttribute("user", new UserInterno());
+            return "login";
+        }
+
         model.addAttribute("servicio", servicioDAO.getServicio(tipo, supertipo));
         return "servicios/update";
     }
@@ -84,6 +91,6 @@ public class ServicioController {
             System.out.println("entro?");
             return "redirect:../../../responsable/anadirServicios";
         }
-        return "redirect:../list";
+        return "redirect:../../list";
     }
 }

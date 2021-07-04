@@ -24,7 +24,7 @@ public class EspacioServicioEstacionalDAO {
 
     public void addEspacioServicioEstacional(EspacioServicioEstacional e) throws DuplicateKeyException {
         jdbcTemplate.update("INSERT INTO espacio_servicio_estacional VALUES(?,?,?,?,?,?,?)",
-                e.getNombre(),
+                e.getEspacioPublico(),
                 e.getTipo(),
                 e.getFechaIni(),
                 e.getFechaFin(),
@@ -37,7 +37,7 @@ public class EspacioServicioEstacionalDAO {
     public void deleteEspacioServicioEstacional(EspacioServicioEstacional e) {
         jdbcTemplate.update("DELETE FROM espacio_servicio_estacional WHERE nombre=? AND tipo=? AND " +
                         "fecha_inicio=? AND hora_inicio=?",
-                e.getNombre(),
+                e.getEspacioPublico(),
                 e.getTipo(),
                 e.getFechaIni(),
                 e.getHoraIni()
@@ -61,7 +61,7 @@ public class EspacioServicioEstacionalDAO {
                 e.getFechaFin(),
                 e.getHoraFin(),
                 e.getLugarContratacion(),
-                e.getNombre(),
+                e.getEspacioPublico(),
                 e.getTipo(),
                 e.getFechaIni(),
                 e.getHoraIni()
@@ -86,10 +86,25 @@ public class EspacioServicioEstacionalDAO {
         }
     }
 
-    public List<EspacioServicioEstacional> getEspaciosServiciosEstacionales() {
+    public List<EspacioServicioEstacional> getEspaciosServiciosEstacionales(String nombre) {
         try {
-            return jdbcTemplate.query("SELECT * FROM espacio_servicio_estacional",
-                    new EspacioServicioEstacionalRowMapper()
+            return jdbcTemplate.query("SELECT * FROM espacio_servicio_estacional JOIN servicio_estacional " +
+                            "USING (tipo) WHERE nombre=?",
+                    new EspacioServicioEstacionalRowMapper(),
+                    nombre
+            );
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
+        }
+    }
+
+    public List<EspacioServicioEstacional> getEspaciosSinServicio(String tipo) {
+        try {
+            return jdbcTemplate.query("SELECT nombre, tipo, fecha_inicio, fecha_fin, hora_inicio, hora_fin, lugar_contratacion" +
+                            ", descripcion FROM espacio_servicio_estacional RIGHT JOIN espacio_publico USING (nombre) " +
+                            "WHERE tipo<>?",
+                    new EspacioServicioEstacionalRowMapper(),
+                    tipo
             );
         } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();

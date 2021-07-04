@@ -25,11 +25,11 @@ public class EspacioServicioPermanenteController {
     }
 
     // Listar los servicios permanentes asignados
-    @RequestMapping("/list")
-    public String listEspacioServiciosPermanentes(Model model) {
-        model.addAttribute("espacios_servicios_permanentes", espacioServicioPermanenteDAO.getEspaciosServiciosPermanentes());
-        return "espacio_servicio_permanente/list";
-    }
+//    @RequestMapping("/list")
+//    public String listEspacioServiciosPermanentes(Model model) {
+//        model.addAttribute("espacios_servicios_permanentes", espacioServicioPermanenteDAO.getEspaciosServiciosPermanentes());
+//        return "espacio_servicio_permanente/list";
+//    }
 
     // Los siguientes dos metodos gestionan la asignación de un servicio a un espacio
     @RequestMapping(value = "/add")

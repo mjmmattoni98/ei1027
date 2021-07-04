@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class EspacioServicioEstacional {
-    private String nombre;
+    private String espacioPublico;
     private String tipo;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate fechaIni;
@@ -17,13 +17,22 @@ public class EspacioServicioEstacional {
     @DateTimeFormat(pattern = "HH:mm:ss.SSS")
     private LocalTime horaFin;
     private String lugarContratacion;
+    private String descripcion;
 
-    public String getNombre() {
-        return nombre;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getEspacioPublico() {
+        return espacioPublico;
+    }
+
+    public void setEspacioPublico(String espacioPublico) {
+        this.espacioPublico = espacioPublico;
     }
 
     public String getTipo() {
@@ -77,13 +86,14 @@ public class EspacioServicioEstacional {
     @Override
     public String toString() {
         return "EspacioServicioEstacional{" +
-                "nombre='" + nombre + '\'' +
+                "espacioPublico='" + espacioPublico + '\'' +
                 ", tipo='" + tipo + '\'' +
                 ", fechaIni=" + fechaIni +
                 ", fechaFin=" + fechaFin +
                 ", horaIni=" + horaIni +
                 ", horaFin=" + horaFin +
                 ", lugarContratacion='" + lugarContratacion + '\'' +
+                ", descripcion='" + descripcion + '\'' +
                 '}';
     }
 }

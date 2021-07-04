@@ -1,13 +1,10 @@
 package com.ams.ei1027espaciosnaturales.controller;
 
-import com.ams.ei1027espaciosnaturales.dao.ComentarioDAO;
 import com.ams.ei1027espaciosnaturales.dao.ZonaDAO;
-import com.ams.ei1027espaciosnaturales.model.Comentario;
 import com.ams.ei1027espaciosnaturales.model.UserInterno;
 import com.ams.ei1027espaciosnaturales.model.Zona;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,7 +18,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/zona")
-public class ZonaController {
+public class ZonaController extends RolController{
     private ZonaDAO zonaDAO;
     private static final ZonaValidator validator = new ZonaValidator();
 
@@ -51,7 +48,7 @@ public class ZonaController {
 
     @RequestMapping(value = "/add/{nombre}")
     public String addZona(HttpSession session, Model model, @PathVariable String nombre) {
-        UserInterno user = checkSession(session);
+        UserInterno user = checkSession(session, rolGestor);
         if (user == null){
             model.addAttribute("user", new UserInterno());
             return "login";
@@ -82,7 +79,7 @@ public class ZonaController {
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String updateZona(HttpSession session, Model model, @PathVariable int id) {
-        UserInterno user = checkSession(session);
+        UserInterno user = checkSession(session, rolGestor);
         if (user == null){
             model.addAttribute("user", new UserInterno());
             return "login";
@@ -105,7 +102,7 @@ public class ZonaController {
 
     @RequestMapping(value = "/delete/{id}/{nombre}")
     public String processDeleteZona(HttpSession session, Model model, @PathVariable int id, @PathVariable String nombre) {
-        UserInterno user = checkSession(session);
+        UserInterno user = checkSession(session, rolGestor);
         if (user == null){
             model.addAttribute("user", new UserInterno());
             return "login";
@@ -113,19 +110,5 @@ public class ZonaController {
 
         zonaDAO.deleteZona(id);
         return "redirect:../../list/" + nombre;
-    }
-
-    private UserInterno checkSession(HttpSession session){
-        if(session.getAttribute("user") == null) return null;
-
-        UserInterno user = (UserInterno) session.getAttribute("user");
-
-        if (!user.getRol().equals("gestor")) {
-            System.out.println("El usuario no puede acceder a esta pagina con este rol");
-            throw new EspaciosNaturalesException("No tienes permisos para acceder a esta página porque no eres un gestor",
-                    "AccesDenied", "../" + user.getUrlMainPage());
-        }
-
-        return user;
     }
 }

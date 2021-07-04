@@ -18,7 +18,7 @@
     <table class="table table-striped" th:unless="${#lists.isEmpty(servicios)}">
         <thead>
         <tr>
-            <th>Supertipo (P / E)</th>
+            <th>Supertipo</th>
             <th>Tipo de servicio</th>
             <th>Descripcion</th>
             <th></th>
@@ -30,16 +30,19 @@
             <td th:text="${servicio.supertipo}"></td>
             <td th:text="${servicio.tipo}"></td>
             <td th:text="${servicio.descripcion}"></td>
-            <td><a th:href="@{/servicios/update/{tipo}/{supertipo}(tipo=${servicio.tipo}, supertipo=${servicio.supertipo})}" class="btn btn-warning" role="button">Editar</a></td>
-            <td><a th:href="@{/servicios/delete/{tipo}/{supertipo}(tipo=${servicio.tipo}, supertipo=${servicio.supertipo})}" class="btn btn-danger" role="button">Borrar</a></td>
+            <td th:if="${session.user != null and #strings.equals(session.user.rol, 'gestor')}">
+                <a th:href="@{/servicios/update/{tipo}/{supertipo}(tipo=${servicio.tipo}, supertipo=${servicio.supertipo})}"
+                   class="btn btn-warning" role="button">Editar</a>
+            </td>
+<!--            <td th:if="${session.user != null and #strings.equals(session.user.rol, 'gestor')}">-->
+<!--                <a th:href="@{/servicios/update/{tipo}/{supertipo}(tipo=${servicio.tipo}, supertipo=${servicio.supertipo})}"-->
+<!--                   class="btn btn-warning" role="button">Asignar a espacio público</a>-->
+<!--            </td>-->
         </tr>
         </tbody>
     </table>
     <p>
-        <a href="/servicios/add" class="btn btn-success" role="button">Dar de alta un servicio</a>
-    </p>
-    <p>
-        <a class="btn btn-link" href="/">Volver</a>
+        <a class="btn btn-link" href="/">Volver a la página de inicio</a>
     </p>
 </div>
 </body>

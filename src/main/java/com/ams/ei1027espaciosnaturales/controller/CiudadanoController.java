@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/ciudadano")
-public class CiudadanoController {
+public class CiudadanoController extends RolController{
 
     private CiudadanoDAO ciudadanoDAO;
     private static final CiudadanoValidator validator = new CiudadanoValidator();
@@ -30,7 +30,7 @@ public class CiudadanoController {
 
     @RequestMapping("/perfil")
     public String perfilCiudadano(HttpSession session, Model model){
-        UserInterno user = checkSession(session);
+        UserInterno user = checkSession(session, rolCiudadano);
         if (user == null){
             model.addAttribute("user", new UserInterno());
             return "login";
@@ -95,19 +95,5 @@ public class CiudadanoController {
     public String processDeleteCiudadano(@PathVariable String dni) {
         ciudadanoDAO.deleteCiudadanoDNI(dni);
         return "redirect:../list";
-    }
-
-    private UserInterno checkSession(HttpSession session){
-        if(session.getAttribute("user") == null) return null;
-
-        UserInterno user = (UserInterno) session.getAttribute("user");
-
-        if (!user.getRol().equals("ciudadano")) {
-            System.out.println("El usuario no puede acceder a esta pagina con este rol");
-            throw new EspaciosNaturalesException("No tienes permisos para acceder a esta página porque no eres un ciudadano",
-                    "AccesDenied", "../" + user.getUrlMainPage());
-        }
-
-        return user;
     }
 }

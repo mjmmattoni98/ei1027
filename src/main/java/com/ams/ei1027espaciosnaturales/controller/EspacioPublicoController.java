@@ -21,7 +21,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/espacioPublico")
-public class EspacioPublicoController {
+public class EspacioPublicoController extends RolController{
 
     private EspacioPublicoDAO espacioPublicoDAO;
     private static final EspacioPublicoValidator validator = new EspacioPublicoValidator();
@@ -41,7 +41,7 @@ public class EspacioPublicoController {
     // Los siguientes dos metodos gestionan la inserción de un espacio publico
     @RequestMapping(value = "/add")
     public String addEspacioPublico(HttpSession session, Model model) {
-        UserInterno user = checkSession(session);
+        UserInterno user = checkSession(session, rolGestor);
         if (user == null){
             model.addAttribute("user", new UserInterno());
             return "login";
@@ -75,7 +75,7 @@ public class EspacioPublicoController {
     // Los siguientes dos metodos gestionan la modificacion de un espacio publico
     @RequestMapping(value = "/update/{nombre}", method = RequestMethod.GET)
     public String updateEspacioPublico(HttpSession session, Model model, @PathVariable String nombre) {
-        UserInterno user = checkSession(session);
+        UserInterno user = checkSession(session, rolGestor);
         if (user == null){
             model.addAttribute("user", new UserInterno());
             return "login";
@@ -101,7 +101,7 @@ public class EspacioPublicoController {
 
     @RequestMapping(value = "/delete/{nombre}")
     public String processDeleteEspacioPublico(HttpSession session, Model model, @PathVariable String nombre) {
-        UserInterno user = checkSession(session);
+        UserInterno user = checkSession(session, rolGestor);
         if (user == null){
             model.addAttribute("user", new UserInterno());
             return "login";
@@ -109,19 +109,5 @@ public class EspacioPublicoController {
 
         espacioPublicoDAO.deleteEspacioPublicoNombre(nombre);
         return "redirect:../list";
-    }
-
-    private UserInterno checkSession(HttpSession session){
-        if(session.getAttribute("user") == null) return null;
-
-        UserInterno user = (UserInterno) session.getAttribute("user");
-
-        if (!user.getRol().equals("gestor")) {
-            System.out.println("El usuario no puede acceder a esta pagina con este rol");
-            throw new EspaciosNaturalesException("No tienes permisos para acceder a esta página porque no eres un gestor",
-                    "AccesDenied", "../" + user.getUrlMainPage());
-        }
-
-        return user;
     }
 }
