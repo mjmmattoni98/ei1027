@@ -8,13 +8,13 @@ import java.time.LocalTime;
 public class EspacioServicioEstacional {
     private String espacioPublico;
     private String tipo;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaIni;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaFin;
-    @DateTimeFormat(pattern = "HH:mm:ss.SSS")
+    @DateTimeFormat(pattern = "HH:mm:ss")
     private LocalTime horaIni;
-    @DateTimeFormat(pattern = "HH:mm:ss.SSS")
+    @DateTimeFormat(pattern = "HH:mm:ss")
     private LocalTime horaFin;
     private String lugarContratacion;
     private String descripcion;

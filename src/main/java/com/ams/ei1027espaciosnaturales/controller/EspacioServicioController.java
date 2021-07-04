@@ -119,15 +119,15 @@ public class EspacioServicioController extends RolController{
 
     @RequestMapping(value = "/delete_estacional/{nombre}/{tipo}/{fechaIni}/{horaIni}")
     public String processDeleteEspacioServicioEstacional(HttpSession session, Model model, @PathVariable String nombre,
-                                                         @PathVariable String tipo, @PathVariable LocalDate fechaIni,
-                                                         @PathVariable LocalTime horaIni) {
+                                                         @PathVariable String tipo, @PathVariable String fechaIni,
+                                                         @PathVariable String horaIni) {
         UserInterno user = checkSession(session, rolGestor);
         if (user == null){
             model.addAttribute("user", new UserInterno());
             return "login";
         }
 
-        estacionalDAO.deleteEspacioServicioEstacional(nombre, tipo, fechaIni, horaIni);
+        estacionalDAO.deleteEspacioServicioEstacional(nombre, tipo,  LocalDate.parse(fechaIni), LocalTime.parse(horaIni));
         return "redirect:../../../../list/" + nombre;
     }
 }
