@@ -3,6 +3,7 @@ package com.ams.ei1027espaciosnaturales.controller;
 import com.ams.ei1027espaciosnaturales.dao.EspacioPublicoDAO;
 import com.ams.ei1027espaciosnaturales.dao.FranjaHorariaDAO;
 import com.ams.ei1027espaciosnaturales.dao.GestorMunicipalDAO;
+import com.ams.ei1027espaciosnaturales.dao.ImagenDAO;
 import com.ams.ei1027espaciosnaturales.model.EspacioPublico;
 
 import com.ams.ei1027espaciosnaturales.model.FranjaHoraria;
@@ -29,17 +30,20 @@ public class EspacioPublicoController extends RolController{
     private EspacioPublicoDAO espacioPublicoDAO;
     private GestorMunicipalDAO gestorMunicipalDAO;
     private FranjaHorariaDAO franjaHorariaDAO;
+    private ImagenDAO imagenDAO;
 
     private static final EspacioPublicoValidator validator = new EspacioPublicoValidator();
 
-    @Autowired
-    public void setFranjaHorariaDAO(FranjaHorariaDAO e) {
-        this.franjaHorariaDAO = e;
-    }
+
 
     @Autowired
     public void setEspacioPublicoDAO(EspacioPublicoDAO e) {
         this.espacioPublicoDAO = e;
+    }
+
+    @Autowired
+    public void setImagenDAO(ImagenDAO imagenDAO) {
+        this.imagenDAO = imagenDAO;
     }
 
     @Autowired
@@ -147,6 +151,7 @@ public class EspacioPublicoController extends RolController{
             return "login";
         }
 
+        imagenDAO.deleteImagen(nombre);
         espacioPublicoDAO.deleteEspacioPublicoNombre(nombre);
         return "redirect:../list";
     }

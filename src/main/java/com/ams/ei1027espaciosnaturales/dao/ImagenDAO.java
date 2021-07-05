@@ -35,6 +35,11 @@ public class ImagenDAO {
         jdbcTemplate.update("DELETE FROM imagen WHERE id=?", id);
     }
 
+    public void deleteImagen(String nombre) {
+        jdbcTemplate.update("DELETE FROM imagen WHERE nombre=?", nombre);
+    }
+
+
     public void updateImagen(Imagen imagen) {
         jdbcTemplate.update("UPDATE imagen SET archivo=?, nombre=? WHERE id=?",
                 imagen.getArchivo(),
