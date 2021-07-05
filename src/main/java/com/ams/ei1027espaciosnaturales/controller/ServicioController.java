@@ -63,8 +63,9 @@ public class ServicioController extends RolController{
             model.addAttribute("user", new UserInterno());
             return "login";
         }
-
-        model.addAttribute("servicio", servicioDAO.getServicio(tipo, supertipo));
+        Servicio s = servicioDAO.getServicio(tipo, supertipo);
+        s.setSupertipo(supertipo);
+        model.addAttribute("servicio", s);
         return "servicios/update";
     }
 
