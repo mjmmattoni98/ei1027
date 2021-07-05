@@ -32,6 +32,10 @@ public class ComentarioDAO {
                 comentario.getId());
     }
 
+    public void deleteComentario(String nombre) {
+        jdbcTemplate.update("DELETE FROM comentario WHERE nombre=?", nombre);
+    }
+
     public void deleteComentario(int id) {
         jdbcTemplate.update("DELETE FROM comentario WHERE id=?", id);
     }
