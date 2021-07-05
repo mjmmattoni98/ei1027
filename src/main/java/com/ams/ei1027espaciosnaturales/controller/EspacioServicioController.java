@@ -9,6 +9,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -70,35 +71,51 @@ public class EspacioServicioController extends RolController{
             model.addAttribute("user", new UserInterno());
             return "login";
         }
-        model.addAttribute("servicio", new Servicio());
+        model.addAttribute("servicio", new EspacioServicioEstacional());
         model.addAttribute("espacioPublico", espacioPublico);
         model.addAttribute("tipo", "Estacional");
         model.addAttribute("servicios", servicioDAO.getServiciosNoEspacios(espacioPublico, "Estacional"));
-        return "espacios_servicios/add";
+        return "espacios_servicios/add2";
     }
 
-    @RequestMapping(value = "/add/{espacioPublico}", method = RequestMethod.POST)
+    @RequestMapping(value = "/add/permanente/{espacioPublico}", method = RequestMethod.POST)
     public String processAddServicio(@ModelAttribute("servicio") Servicio s,
                                     BindingResult bindingResult,  @PathVariable String espacioPublico) {
         if (bindingResult.hasErrors()) {
-            return "espacios_servicios/add/"+espacioPublico;
+            return "espacios_servicios/add/permanente/"+espacioPublico;
         }
         try {
-            if(s.getSupertipo().equals("Permanente")) {
                 EspacioServicioPermanente esp = new EspacioServicioPermanente();
                 esp.setEspacioPublico(espacioPublico);
                 esp.setTipo(s.getTipo());
                 esp.setDescripcion(servicioDAO.getServicio(s.getTipo(),"Permanente").getDescripcion());
                 permanenteDAO.addEspacioServicioPermanente(esp);
-            }
-            else{
-
-            }
 
         }catch (DataAccessException e){
             throw new EspaciosNaturalesException("Error accediendo a la base de datos", "ErrorAccidiendoDatos", "/");
         }
-        return "redirect:../list/"+espacioPublico;
+        return "redirect:../../list/"+espacioPublico;
+    }
+
+    @RequestMapping(value = "/add/estacional/{espacioPublico}", method = RequestMethod.POST)
+    public String processAddServicioe(@ModelAttribute("servicio") EspacioServicioEstacional s,
+                                     BindingResult bindingResult,  @PathVariable String espacioPublico) {
+        System.out.println("patata");
+        if (bindingResult.hasErrors()) {
+            System.out.println("error");
+
+            for(ObjectError error : bindingResult.getAllErrors()){
+                System.out.println(error);
+            }
+            return "espacios_servicios/add/estacional/"+espacioPublico;
+        }
+        try {
+            estacionalDAO.addEspacioServicioEstacional(s);
+
+        }catch (DataAccessException e){
+            throw new EspaciosNaturalesException("Error accediendo a la base de datos", "ErrorAccidiendoDatos", "/");
+        }
+        return "redirect:../../list/"+espacioPublico;
     }
 
 

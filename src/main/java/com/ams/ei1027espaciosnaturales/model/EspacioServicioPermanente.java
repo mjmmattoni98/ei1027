@@ -1,6 +1,6 @@
 package com.ams.ei1027espaciosnaturales.model;
 
-public class EspacioServicioPermanente {
+public class EspacioServicioPermanente{
     private String espacioPublico;
     private String tipo;
     private String descripcion;

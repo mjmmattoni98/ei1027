@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+    <title>Gestionar Reservas</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/espacios_naturales.css"
+          th:href="@{/css/espacios_naturales.css}"/>
+</head>
+<body>
+<div class="container" layout:fragment="content">
+    <h2>Nuevo Servicio  <b th:text="${tipo}"></b> en <b th:text="${espacioPublico}"></b> </h2>
+    <form class="form-horizontal" action="#" th:action="@{/espacios_servicios/add/estacional/{nombre} (nombre=${espacioPublico})}"
+          th:object="${servicio}" method="post">
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2">Servicio:</label>
+            <div class="col-sm-4">
+                <select class="form_control" type="text" id="tipo" th:field="*{tipo}">
+                    <p th:each="serviciod: ${servicios}">
+                        <option th:value="${serviciod.tipo}" for="tipo" th:text="${serviciod.tipo}"></option>
+                    </p>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="fechaini">Fecha Inicio:</label>
+            <div class="col-sm-4">
+                <input type="date" class="form-control" id="fechaini" th:field="*{fechaIni}" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="fechafin">Fecha fin:</label>
+            <div class="col-sm-4">
+                <input type="date" class="form-control" id="fechafin" th:field="*{fechaFin}" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="horaini">Hora inicio:</label>
+            <div class="col-sm-4">
+                <input type="time" class="form-control" id="horaini" th:field="*{horaIni}" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="horafin">Hora fin:</label>
+            <div class="col-sm-4">
+                <input type="time" class="form-control" id="horafin" th:field="*{horaFin}" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="control-label col-sm-2">Lugar Contratación:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" th:field="*{lugarContratacion}" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-offset-2 col-sm-4">
+                <button type="submit" class="btn btn-primary">Agregar Servicio</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -12,9 +12,9 @@ public class EspacioServicioEstacional {
     private LocalDate fechaIni;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaFin;
-    @DateTimeFormat(pattern = "HH:mm:ss")
+    @DateTimeFormat(pattern = "HH:mm")
     private LocalTime horaIni;
-    @DateTimeFormat(pattern = "HH:mm:ss")
+    @DateTimeFormat(pattern = "HH:mm")
     private LocalTime horaFin;
     private String lugarContratacion;
     private String descripcion;
