@@ -1,9 +1,11 @@
 package com.ams.ei1027espaciosnaturales.controller;
 
 import com.ams.ei1027espaciosnaturales.dao.EspacioPublicoDAO;
+import com.ams.ei1027espaciosnaturales.dao.FranjaHorariaDAO;
 import com.ams.ei1027espaciosnaturales.dao.GestorMunicipalDAO;
 import com.ams.ei1027espaciosnaturales.model.EspacioPublico;
 
+import com.ams.ei1027espaciosnaturales.model.FranjaHoraria;
 import com.ams.ei1027espaciosnaturales.model.UserInterno;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,8 +29,15 @@ public class EspacioPublicoController extends RolController{
 
     private EspacioPublicoDAO espacioPublicoDAO;
     private GestorMunicipalDAO gestorMunicipalDAO;
+    private FranjaHorariaDAO franjaHorariaDAO;
 
     private static final EspacioPublicoValidator validator = new EspacioPublicoValidator();
+
+
+    @Autowired
+    public void setFranjaHorariaDAO(FranjaHorariaDAO e) {
+        this.franjaHorariaDAO = e;
+    }
 
     @Autowired
     public void setEspacioPublicoDAO(EspacioPublicoDAO e) {
@@ -70,7 +80,30 @@ public class EspacioPublicoController extends RolController{
             return "espacioPublico/add";
         }
         try {
+            FranjaHoraria franjaHoraria = new FranjaHoraria();
+            franjaHoraria.setEspacioPublico(e.getNombre());
             espacioPublicoDAO.addEspacioPublico(e);
+            if(e.getTAcceso().equals("restringido")) {
+                String tiempo;
+                String tiempo2;
+                for (int i = 8; i < 23; i++) {
+                    if (i < 10) {
+                        tiempo = "0" + Integer.toString(i) + ":00";
+                        if (i < 9) {
+                            tiempo2 = "0" + Integer.toString(i + 1) + ":00";
+                        } else {
+                            tiempo2 = Integer.toString(i + 1) + ":00";
+                        }
+                    } else {
+                        tiempo = Integer.toString(i) + ":00";
+                        tiempo2 = Integer.toString(i + 1) + ":00";
+                    }
+                    franjaHoraria.setInicio(LocalTime.parse(tiempo));
+                    franjaHoraria.setFin(LocalTime.parse(tiempo2));
+                    franjaHorariaDAO.addFranjaHoraria(franjaHoraria);
+                }
+            }
+
         }
         catch (DuplicateKeyException exception){
             throw new EspaciosNaturalesException("Ya existe un espacio público con el mismo nombre",
