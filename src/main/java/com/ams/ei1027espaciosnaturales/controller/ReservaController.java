@@ -138,11 +138,6 @@ public class ReservaController extends RolController{
 
             validator.validate(r, bindingResult);
             if (bindingResult.hasErrors()) {
-
-                for(ObjectError error : bindingResult.getAllErrors()){
-                    System.out.println(error);
-                }
-
                 return validator.getPath();
             }
 
