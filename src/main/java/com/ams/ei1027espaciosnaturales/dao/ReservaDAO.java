@@ -76,12 +76,11 @@ public class ReservaDAO {
     }
 
     public void updateReserva(Reserva reserva) {
-        System.out.println("patata");
-        System.out.println(reserva.getEstado().getId());
-        jdbcTemplate.update("UPDATE reserva SET hora_acceso=?, hora_salida=?, estado=?::estado_reserva WHERE num_reserva=?",
+        jdbcTemplate.update("UPDATE reserva SET hora_acceso=?, hora_salida=?, estado=?::estado_reserva, num_personas=? WHERE num_reserva=?",
                 reserva.getHoraAcceso(),
                 reserva.getHoraSalida(),
                 reserva.getEstado().getId(),
+                reserva.getNumPersonas(),
                 reserva.getNumReserva()
         );
     }

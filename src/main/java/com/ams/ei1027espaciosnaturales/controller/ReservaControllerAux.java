@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 
 @Controller
-@RequestMapping("/reserva")
+@RequestMapping("/reservas")
 public class ReservaControllerAux extends RolController{
     private ReservaDAO reservaDAO;
 
@@ -71,7 +71,7 @@ public class ReservaControllerAux extends RolController{
         }
         try {
             r.setDni(user.getDni());
-            r.setEstado(EstadoReserva.PENDIENTE_USO.getId());
+            r.setEstado(EstadoReserva.PENDIENTE_USO);
             r.setFechaCreacion(LocalDate.now());
             reservaDAO.addReserva(r);
         }
@@ -93,14 +93,14 @@ public class ReservaControllerAux extends RolController{
         if (bindingResult.hasErrors()) return "reserva/update";
         if(r.getHoraAcceso() != null){
             if(r.getHoraSalida() == null){
-                r.setEstado(EstadoReserva.EN_USO.getId());
+                r.setEstado(EstadoReserva.EN_USO);
             }
             else {
-                r.setEstado(EstadoReserva.FIN_USO.getId());
+                r.setEstado(EstadoReserva.FIN_USO);
             }
         }
         else{
-            r.setEstado(EstadoReserva.PENDIENTE_USO.getId());
+            r.setEstado(EstadoReserva.PENDIENTE_USO);
             r.setHoraSalida(null);
         }
         reservaDAO.updateReserva(r);

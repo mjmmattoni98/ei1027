@@ -58,6 +58,16 @@ public class ZonaDAO {
         }
     }
 
+    public void updateOcupacionZonas(int id, int capacidad){
+        System.out.println(id);
+        System.out.println(capacidad);
+             jdbcTemplate.update("UPDATE zona SET ocupacion=? WHERE id=?",
+                    capacidad,
+                    id
+            );
+
+    }
+
     public List<Zona> getZonas(String nombre) {
         try {
             return jdbcTemplate.query("SELECT * FROM zona WHERE nombre=?",
