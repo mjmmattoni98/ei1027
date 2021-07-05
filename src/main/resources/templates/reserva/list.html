@@ -11,9 +11,9 @@
 </head>
 <body>
 <div class="container" layout:fragment="content">
-    <h1>Lista de reservas</h1>
+    <h1>Listado de reservas de la zona <b th:text="${zona}"></b> del espacio público <b th:text="${espacio_publico}"></b></h1>
     <div th:if="${#lists.isEmpty(reservas)}">
-        No hay reservas realizadas.
+        No hay reservas hechas aún.
     </div>
     <table class="table table-striped" th:unless="${#lists.isEmpty(reservas)}">
         <thead>
@@ -28,8 +28,8 @@
             <th>DNI</th>
             <th>Hora inicio</th>
             <th>Hora fin</th>
-            <th>Nombre</th>
-            <th>ID</th>
+            <th>Espacio público</th>
+            <th>Zona</th>
             <th></th>
             <th></th>
         </tr>
@@ -48,27 +48,42 @@
             <td th:text="${reserva.finFranjaHoraria}"></td>
             <td th:text="${reserva.espacioPublico}"></td>
             <td th:text="${reserva.zona}"></td>
-            <div class="loggeduser" th:object="${session}">
-                <div th:if="*{user == null}">
-                    <p>
-                    </p>
-                </div>
-                <div th:unless="*{user} == null">
-                    <div th:if="${#strings.equals(session.user.rol, 'ciudadano')}">
-                        <div th:if="${#strings.equals(reserva.estado, 'PENDIENTE_USO') or #strings.equals(reserva.estado, 'EN_USO')}">
-                            <td> <a th:href="@{/reserva/update/{id}(id=${reserva.numReserva})}" class="btn btn-warning" role="button">Editar</a></td>
-                        </div>
-                        <div th:if="${#strings.equals(reserva.estado, 'PENDIENTE_USO')}">
-                            <td><a th:href="@{/reserva/delete/{id}(id=${reserva.numReserva})}" class="btn btn-danger" role="button">Cancelar</a></td>
-                        </div>
-                    </div>
-                    <div th:unless="${#strings.equals(session.user.rol, 'ciudadano')}">
-                        <div th:if="${#strings.equals(reserva.estado, 'PENDIENTE_USO') or #strings.equals(reserva.estado, 'EN_USO')}">
-                            <td><a th:href="@{/reserva/delete/{id}(id=${reserva.numReserva})}" class="btn btn-danger" role="button">Cancelar</a></td>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <td th:if="${session.user != null and #strings.equals(session.user.rol, 'ciudadano') and
+            #strings.equals(reserva.estado, 'pendienteUso')}">
+                <a th:href="@{/reserva/update/{numReserva}(numReserva=${reserva.numReserva})}" class="btn btn-warning" role="button">Editar</a>
+            </td>
+            <td th:if="${session.user != null and #strings.equals(session.user.rol, 'ciudadano') and
+            #strings.equals(reserva.estado, 'pendienteUso')}">
+                <a th:href="@{/reserva/delete/{numReserva}/{zona}/{nombre}(numReserva=${reserva.numReserva}, zona=${zona}, nombre=${espacio_publico})}"
+                   class="btn btn-danger"
+                   role="button">Cancelar</a>
+            </td>
+            <td th:if="${session.user != null and #strings.equals(session.user.rol, 'gestor') and
+             #strings.equals(reserva.estado, 'pendienteUso')}">
+                <a th:href="@{/reserva/delete/{numReserva}/{zona}/{nombre}(numReserva=${reserva.numReserva}, zona=${zona}, nombre=${espacio_publico})}"
+                   class="btn btn-danger" role="button">Cancelar</a>
+            </td>
+<!--            <div class="loggeduser" th:object="${session}">-->
+<!--                <div th:if="*{user == null}">-->
+<!--                    <p>-->
+<!--                    </p>-->
+<!--                </div>-->
+<!--                <div th:unless="*{user} == null">-->
+<!--                    <div th:if="${#strings.equals(session.user.rol, 'ciudadano')}">-->
+<!--                        <div th:if="${#strings.equals(reserva.estado, 'PENDIENTE_USO') or #strings.equals(reserva.estado, 'EN_USO')}">-->
+<!--                            <td> <a th:href="@{/reserva/update/{id}(id=${reserva.numReserva})}" class="btn btn-warning" role="button">Editar</a></td>-->
+<!--                        </div>-->
+<!--                        <div th:if="${#strings.equals(reserva.estado, 'PENDIENTE_USO')}">-->
+<!--                            <td><a th:href="@{/reserva/delete/{id}(id=${reserva.numReserva})}" class="btn btn-danger" role="button">Cancelar</a></td>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div th:unless="${#strings.equals(session.user.rol, 'ciudadano')}">-->
+<!--                        <div th:if="${#strings.equals(reserva.estado, 'PENDIENTE_USO') or #strings.equals(reserva.estado, 'EN_USO')}">-->
+<!--                            <td><a th:href="@{/reserva/delete/{id}(id=${reserva.numReserva})}" class="btn btn-danger" role="button">Cancelar</a></td>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
         </tr>
         </tbody>
     </table>
@@ -79,6 +94,7 @@
 
     <p>
         <a class="btn btn-link" href="/">Volver a la página de inicio</a>
+    </p>
 </div>
 </body>
 </html>
