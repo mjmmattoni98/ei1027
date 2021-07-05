@@ -77,10 +77,10 @@ public class ReservaController extends RolController{
         UserInterno user = (UserInterno) session.getAttribute("user");
 
         if (user.getRol().equals(ROL_GESTOR)) {
-            model.addAttribute("reservas", reservaDAO.getReservas());
+            model.addAttribute("reservas", reservaDAO.getReservasZona(nombre, zona));
         }
         else if(user.getRol().equals(ROL_CIUDADANO)){
-            model.addAttribute("reservas", reservaDAO.getReservasCiudadano(user.getDni()));
+            model.addAttribute("reservas", reservaDAO.getReservasCiudadanoZona(user.getDni(), nombre, zona));
         }
         model.addAttribute("zona", zona);
         model.addAttribute("espacio_publico", nombre);
@@ -142,7 +142,7 @@ public class ReservaController extends RolController{
         }catch (DataAccessException e){
            throw new EspaciosNaturalesException("Error accediendo a la base de datos", "ErrorAccidiendoDatos", "/");
         }
-        return "redirect:list/" + r.getZona() + "/" + r.getEspacioPublico();
+        return "redirect:../list/";
     }
 
     @RequestMapping(value = "/addesp", method = RequestMethod.POST)

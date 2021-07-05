@@ -46,9 +46,16 @@
            role="button">Ver reservas</a>
       </td>
       <td th:if="${session.user != null and #strings.equals(session.user.rol, 'ciudadano')}">
-        <a th:href="@{/reserva/list/{zona}/{nombre}(zona=${zona.id}, nombre=${espacio_publico})}" class="btn btn-success"
-           role="button">Realizar reserva</a>
+        <a th:href="@{/reserva/list/{zona}/{nombre}(zona=${zona.id}, nombre=${espacio_publico})}" class="btn btn-info"
+           role="button">Listar reservas</a>
       </td>
+      <td th:if="${session.user != null and #strings.equals(session.user.rol, 'ciudadano')}">
+        <a th:href="@{/reserva/add/{zona}/{espacio}(zona=${zona.id}, espacio=${espacio_publico})}"
+           class="btn btn-success" role="button">Agregar reserva</a>
+      </td>
+
+
+
     </tr>
     </tbody>
   </table>

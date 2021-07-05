@@ -118,4 +118,29 @@ public class ReservaDAO {
             return new ArrayList<>();
         }
     }
+
+    public List<Reserva> getReservasZona(String nombre, int id) {
+        try {
+            return jdbcTemplate.query("SELECT * FROM reserva where nombre=? and id=? ORDER BY num_reserva",
+                    new ReservaRowMapper(),
+                    nombre,
+                    id
+            );
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
+        }
+    }
+
+    public List<Reserva> getReservasCiudadanoZona(String dni, String nombre, int id) {
+        try {
+            return jdbcTemplate.query("SELECT * FROM reserva WHERE dni=? and nombre=? and id=? ORDER BY num_reserva",
+                    new ReservaRowMapper(),
+                    dni,
+                    nombre,
+                    id
+            );
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
+        }
+    }
 }
