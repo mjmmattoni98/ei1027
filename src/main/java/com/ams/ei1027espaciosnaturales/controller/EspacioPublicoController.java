@@ -42,6 +42,11 @@ public class EspacioPublicoController extends RolController{
     }
 
     @Autowired
+    public void setFranjaHorariaDAO(FranjaHorariaDAO franjaHorariaDAO) {
+        this.franjaHorariaDAO = franjaHorariaDAO;
+    }
+
+    @Autowired
     public void setImagenDAO(ImagenDAO imagenDAO) {
         this.imagenDAO = imagenDAO;
     }
