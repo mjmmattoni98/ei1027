@@ -112,4 +112,31 @@ public class ServicioDAO {
             return new ArrayList<>();
         }
     }
+
+    public List<Servicio> getServiciosNoEspacios(String espacioPublico, String supertipo){
+        try {
+            if (supertipo.equals("Estacional"))
+                return jdbcTemplate .query(
+                        "SELECT se.* FROM servicio_estacional as se " +
+                                "EXCEPT " +
+                                "SELECT se.* FROM servicio_estacional as se " +
+                                "JOIN espacio_servicio_estacional as ese USING(tipo) " +
+                                "WHERE ese.nombre=?;",
+                        new ServicioRowMapper(),
+                        espacioPublico
+                );
+            return jdbcTemplate .query(
+                    "SELECT sp.* FROM servicio_permanente as sp " +
+                            "EXCEPT " +
+                            "SELECT sp.* FROM servicio_permanente as sp " +
+                            "JOIN espacio_servicio_permanente as esp USING(tipo) " +
+                            "WHERE esp.nombre = ? ",
+                    new ServicioRowMapper(),
+                    espacioPublico
+            );
+        }
+        catch (EmptyResultDataAccessException e) {
+            return null ;
+        }
+    }
 }

@@ -10,6 +10,8 @@ public class Servicio {
     }
 
     public void setTipo(String tipo) {
+        System.out.println(tipo);
+        System.out.println("llegas aqui?3");
         this.tipo = tipo;
     }
 

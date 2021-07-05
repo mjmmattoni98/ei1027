@@ -38,6 +38,9 @@
     </tr>
     </tbody>
   </table>
+  <p>
+    <a th:href="@{../add_permanente/{espacioPublico} (espacioPublico=${espacio_publico})} " class="btn btn-success" role="button">Agregar servicios permanente</a>
+  </p>
 
   <!--Información de los servicios estacionales  -->
   <h2>Servicios estacionales</h2>
@@ -74,7 +77,9 @@
     </tr>
     </tbody>
   </table>
-
+  <p>
+    <a th:href="@{../add_estacional/{espacioPublico} (espacioPublico=${espacio_publico})} " class="btn btn-success" role="button">Agregar servicios estacionales</a>
+  </p>
   <p>
     <a class="btn btn-link" href="/">Volver a la página de inicio</a>
   </p>
