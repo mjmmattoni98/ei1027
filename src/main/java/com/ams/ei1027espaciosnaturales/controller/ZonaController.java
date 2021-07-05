@@ -38,13 +38,13 @@ public class ZonaController extends RolController{
         return "zona/list";
     }
 
-    @RequestMapping("/main/{id}")
-    public String infoZona(Model model, @PathVariable int id) {
-        Zona zona = zonaDAO.getZona(id);
-        zona.calcularPorcentajeOcupacion();
-        model.addAttribute("zona", zona);
-        return "zona/main";
-    }
+//    @RequestMapping("/main/{id}")
+//    public String infoZona(Model model, @PathVariable int id) {
+//        Zona zona = zonaDAO.getZona(id);
+//        zona.calcularPorcentajeOcupacion();
+//        model.addAttribute("zona", zona);
+//        return "zona/main";
+//    }
 
     @RequestMapping(value = "/add/{nombre}")
     public String addZona(HttpSession session, Model model, @PathVariable String nombre) {

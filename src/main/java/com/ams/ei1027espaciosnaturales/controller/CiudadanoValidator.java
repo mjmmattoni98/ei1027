@@ -32,16 +32,10 @@ public class CiudadanoValidator implements Validator {
             errors.rejectValue("poblacion", "obligatorio", "Debes introducir la población");
         if (c.getTelefono().trim().equals(""))
             errors.rejectValue("telefono", "obligatorio", "Debes introducir el teléfono");
-//        if (c.getTelefono().matches("^123456789\\+$"))
-//            errors.rejectValue("telefono_formato", "caracteres numericos y +", "El teléfono solamente debe estar " +
-//                    "compuesto por carácteres numéricos y/o +");
         if (c.getEmail().trim().equals(""))
             errors.rejectValue("email", "obligatorio", "Debes introducir el email");
-//        if (c.getEmail().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"))
-//            errors.rejectValue("email_formato", "formato", "El email no sigue el formato común");
         if (!c.getConfirmacion().equals("si"))
             errors.rejectValue("confirmacion", "obligatorio", "Debes confirmar que comprendes cuál es tu " +
                     "usuario y contraseña");
-
     }
 }

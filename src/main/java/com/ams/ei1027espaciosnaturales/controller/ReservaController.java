@@ -106,7 +106,6 @@ public class ReservaController extends RolController{
         Reserva reserva = new Reserva();
         reserva.setZona(zona);
         reserva.setEspacioPublico(espacio);
-        System.out.println(reserva.getEspacioPublico());
         model.addAttribute("reserva", reserva);
         model.addAttribute("espaciosPublicos", espacioPublicoDAO.getEspaciosPublicosRestringidos());
         return "reserva/add";
@@ -122,7 +121,6 @@ public class ReservaController extends RolController{
 
         Reserva reserva = new Reserva();
         reserva.setZona(0);
-        System.out.println(reserva.getEspacioPublico());
         model.addAttribute("reserva", reserva);
         model.addAttribute("espaciosPublicos", espacioPublicoDAO.getEspaciosPublicosRestringidos());
         return "reserva/add";
@@ -154,12 +152,11 @@ public class ReservaController extends RolController{
             email.setDestinatario(c.getEmail());
             email.setFecha(LocalDate.now());
             email.setAsunto("Reserva realizada");
-            email.setCuerpo("Se ha realizado la reserva en " + r.getEspacioPublico() + " (" + r.getZona() + ") para el día " + r.getFechaAcceso() + " de " + r.getInicioFranjaHoraria() + " a " + r.getFinFranjaHoraria() + ".");
-
+            email.setCuerpo("Se ha realizado la reserva en " + r.getEspacioPublico() + " (" + r.getZona() + ") para el día "
+                    + r.getFechaAcceso() + " de " + r.getInicioFranjaHoraria() + " a " + r.getFinFranjaHoraria() + ".");
 
             emailDAO.addEmail(email);
             reservaDAO.addReserva(r);
-
         }catch (DataAccessException e){
            throw new EspaciosNaturalesException("Error accediendo a la base de datos", "ErrorAccidiendoDatos", "/");
         }
@@ -176,8 +173,19 @@ public class ReservaController extends RolController{
     }
 
     @RequestMapping(value = "/update/{numReserva}", method = RequestMethod.GET)
-    public String updateReserva(Model model, @PathVariable int numReserva) {
-        model.addAttribute("reserva", reservaDAO.getReserva(numReserva));
+    public String updateReserva(HttpSession session, Model model, @PathVariable int numReserva) {
+        UserInterno user = checkSession(session, ROL_CIUDADANO);
+        if (user == null){
+            model.addAttribute("user", new UserInterno());
+            return "login";
+        }
+
+        Reserva reserva = reservaDAO.getReserva(numReserva);
+        if (!user.getDni().equals(reserva.getDni()))
+            throw new EspaciosNaturalesException("No puedes modificar esta reserva porque no es tuya",
+                    "ErrorPertenencia", "/");
+
+        model.addAttribute("reserva", reserva);
         return "reserva/update";
     }
 

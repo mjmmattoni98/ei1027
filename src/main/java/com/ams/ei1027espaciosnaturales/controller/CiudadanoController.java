@@ -49,14 +49,6 @@ public class CiudadanoController extends RolController{
         return "ciudadano/perfil";
     }
 
-    // Listar los ciudadanos
-    @RequestMapping("/list")
-    public String listCiudadanos(Model model) {
-        model.addAttribute("ciudadanos", ciudadanoDAO.getCiudadanos());
-        return "ciudadano/list";
-    }
-
-    // Los siguientes dos metodos gestionan la inserción de un ciudadano
     @RequestMapping(value = "/add")
     public String addCiudadano(Model model) {
         Ciudadano ciudadano = new Ciudadano();
@@ -91,7 +83,6 @@ public class CiudadanoController extends RolController{
         return "redirect:/ciudadano/perfil";
     }
 
-    // Los siguientes dos metodos gestionan la modificacion de un ciudadano
     @RequestMapping(value = "/update/{dni}", method = RequestMethod.GET)
     public String updateCiudadano(Model model, @PathVariable String dni) {
         model.addAttribute("ciudadano", ciudadanoDAO.getCiudadano(dni));
@@ -106,11 +97,5 @@ public class CiudadanoController extends RolController{
         if (bindingResult.hasErrors()) return "ciudadano/update";
         ciudadanoDAO.updateCiudadano(c);
         return "redirect:/ciudadano/perfil";
-    }
-
-    @RequestMapping(value = "/delete/{dni}")
-    public String processDeleteCiudadano(@PathVariable String dni) {
-        ciudadanoDAO.deleteCiudadanoDNI(dni);
-        return "redirect:../list";
     }
 }

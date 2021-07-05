@@ -26,13 +26,11 @@ import java.util.List;
 @Controller
 @RequestMapping("/espacioPublico")
 public class EspacioPublicoController extends RolController{
-
     private EspacioPublicoDAO espacioPublicoDAO;
     private GestorMunicipalDAO gestorMunicipalDAO;
     private FranjaHorariaDAO franjaHorariaDAO;
 
     private static final EspacioPublicoValidator validator = new EspacioPublicoValidator();
-
 
     @Autowired
     public void setFranjaHorariaDAO(FranjaHorariaDAO e) {
@@ -49,14 +47,12 @@ public class EspacioPublicoController extends RolController{
         this.gestorMunicipalDAO = gestorMunicipalDAO;
     }
 
-    // Listar los espacios publicos
     @RequestMapping("/list")
     public String listEspacioPublico(Model model) {
         model.addAttribute("espaciosPublicos", espacioPublicoDAO.getEspaciosPublicos());
         return "espacioPublico/list";
     }
 
-    // Los siguientes dos metodos gestionan la inserción de un espacio publico
     @RequestMapping(value = "/add")
     public String addEspacioPublico(HttpSession session, Model model) {
         UserInterno user = checkSession(session, ROL_GESTOR);

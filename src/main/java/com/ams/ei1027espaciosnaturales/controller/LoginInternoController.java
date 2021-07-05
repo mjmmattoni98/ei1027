@@ -68,10 +68,6 @@ public class LoginInternoController {
         session.setAttribute("user", user);
 
         String nextUrl = user.getUrlMainPage();
-//        if (nextUrl != null) {
-//            session.removeAttribute("nextUrl");
-//            return "redirect:/" + nextUrl;
-//        }
 
         return "redirect:/" + nextUrl;
     }

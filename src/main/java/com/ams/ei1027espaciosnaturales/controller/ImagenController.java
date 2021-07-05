@@ -23,45 +23,4 @@ public class ImagenController extends RolController{
         model.addAttribute("espacio_publico", nombre);
         return "imagen/list";
     }
-
-//    @RequestMapping(value = "/add")
-//    public String addImagen(Model model) {
-//        model.addAttribute("imagen", new Imagen());
-//        return "imagen/add";
-//    }
-//
-//    @RequestMapping(value = "/add", method = RequestMethod.POST)
-//    public String processAddImagen(@ModelAttribute("imagen") Imagen i,
-//                                       BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            return "imagen/add";
-//        }
-//        try {
-//            imagenDAO.addImagen(i);
-//        }
-//        catch (DataAccessException e){
-//            throw new EspaciosNaturalesException("Error accediendo a la base de datos", "ErrorAccidiendoDatos", "/");
-//        }
-//        return "redirect:list";
-//    }
-//
-//    @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-//    public String updateImagen(Model model, @PathVariable int id) {
-//        model.addAttribute("imagen", imagenDAO.getImagen(id));
-//        return "imagen/update";
-//    }
-//
-//    @RequestMapping(value = "/update", method = RequestMethod.POST)
-//    public String processUpdateSubmit(@ModelAttribute("imagen") Imagen i,
-//                                      BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) return "imagen/update";
-//        imagenDAO.updateImagen(i);
-//        return "redirect:list";
-//    }
-//
-//    @RequestMapping(value = "/delete/{id}")
-//    public String processDeleteImagen(@PathVariable int id) {
-//        imagenDAO.deleteImagen(id);
-//        return "redirect:../list";
-//    }
 }

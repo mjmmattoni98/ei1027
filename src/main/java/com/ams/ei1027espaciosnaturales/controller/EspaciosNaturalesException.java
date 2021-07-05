@@ -1,8 +1,8 @@
 package com.ams.ei1027espaciosnaturales.controller;
 
 public class EspaciosNaturalesException extends RuntimeException{
-    private String message;     // Missatge per mostrar a la vista
-    private String errorName;     // Identificador de l’error
+    private String message;
+    private String errorName;
     private String path;
 
     public EspaciosNaturalesException(String message, String errorName, String path) {

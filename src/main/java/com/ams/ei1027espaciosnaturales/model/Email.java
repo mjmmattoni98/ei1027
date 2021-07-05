@@ -6,8 +6,7 @@ import java.time.LocalDate;
 
 public class Email {
     private int id;
-    //    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fecha;
     private String remitente;
     private String destinatario;

@@ -3,13 +3,16 @@ package com.ams.ei1027espaciosnaturales.controller;
 import com.ams.ei1027espaciosnaturales.dao.EspacioServicioEstacionalDAO;
 import com.ams.ei1027espaciosnaturales.dao.EspacioServicioPermanenteDAO;
 import com.ams.ei1027espaciosnaturales.dao.ServicioDAO;
-import com.ams.ei1027espaciosnaturales.model.*;
+import com.ams.ei1027espaciosnaturales.model.EspacioServicioEstacional;
+import com.ams.ei1027espaciosnaturales.model.EspacioServicioPermanente;
+import com.ams.ei1027espaciosnaturales.model.Servicio;
+import com.ams.ei1027espaciosnaturales.model.UserInterno;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,6 +60,7 @@ public class EspacioServicioController extends RolController{
             model.addAttribute("user", new UserInterno());
             return "login";
         }
+
         model.addAttribute("servicio", new Servicio());
         model.addAttribute("espacioPublico", espacioPublico);
         model.addAttribute("tipo", "Permanente");
@@ -71,6 +75,7 @@ public class EspacioServicioController extends RolController{
             model.addAttribute("user", new UserInterno());
             return "login";
         }
+
         model.addAttribute("servicio", new EspacioServicioEstacional());
         model.addAttribute("espacioPublico", espacioPublico);
         model.addAttribute("tipo", "Estacional");
@@ -82,8 +87,9 @@ public class EspacioServicioController extends RolController{
     public String processAddServicio(@ModelAttribute("servicio") Servicio s,
                                     BindingResult bindingResult,  @PathVariable String espacioPublico) {
         if (bindingResult.hasErrors()) {
-            return "espacios_servicios/add/permanente/"+espacioPublico;
+            return "espacios_servicios/add";
         }
+
         try {
                 EspacioServicioPermanente esp = new EspacioServicioPermanente();
                 esp.setEspacioPublico(espacioPublico);
@@ -91,7 +97,12 @@ public class EspacioServicioController extends RolController{
                 esp.setDescripcion(servicioDAO.getServicio(s.getTipo(),"Permanente").getDescripcion());
                 permanenteDAO.addEspacioServicioPermanente(esp);
 
-        }catch (DataAccessException e){
+        }
+        catch (DuplicateKeyException e){
+            throw new EspaciosNaturalesException("Ya existe el servicio permanente en el espacio público",
+                    "CPDuplicada", "espacios_servicios/add");
+        }
+        catch (DataAccessException e){
             throw new EspaciosNaturalesException("Error accediendo a la base de datos", "ErrorAccidiendoDatos", "/");
         }
         return "redirect:../../list/"+espacioPublico;
@@ -102,17 +113,18 @@ public class EspacioServicioController extends RolController{
                                      BindingResult bindingResult,  @PathVariable String espacioPublico) {
         validator.validate(s, bindingResult);
         if (bindingResult.hasErrors()) {
-            System.out.println("error");
-
-            for(ObjectError error : bindingResult.getAllErrors()){
-                System.out.println(error);
-            }
-            return "espacios_servicios/add/estacional/"+espacioPublico;
+            return "espacios_servicios/add2";
         }
+
         try {
             estacionalDAO.addEspacioServicioEstacional(s);
 
-        }catch (DataAccessException e){
+        }
+        catch (DuplicateKeyException e){
+            throw new EspaciosNaturalesException("Ya existe el servicio estacional en el espacio público",
+                    "CPDuplicada", "espacios_servicios/add2");
+        }
+        catch (DataAccessException e){
             throw new EspaciosNaturalesException("Error accediendo a la base de datos", "ErrorAccidiendoDatos", "/");
         }
         return "redirect:../../list/"+espacioPublico;

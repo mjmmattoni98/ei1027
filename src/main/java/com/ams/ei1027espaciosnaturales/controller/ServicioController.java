@@ -26,39 +26,36 @@ public class ServicioController extends RolController{
         this.servicioDAO = m;
     }
 
-    // Listar los servicios
     @RequestMapping("/list")
     public String listServicios(HttpSession session, Model model) {
         model.addAttribute("servicios", servicioDAO.getServicios());
         return "servicios/list";
     }
 
-    // Los siguientes dos metodos gestionan el alta de un servicio
-    @RequestMapping(value = "/add")
-    public String addServicio(Model model) {
-        model.addAttribute("servicio", new Servicio());
-        return "servicios/add";
-    }
+//    @RequestMapping(value = "/add")
+//    public String addServicio(Model model) {
+//        model.addAttribute("servicio", new Servicio());
+//        return "servicios/add";
+//    }
+//
+//    @RequestMapping(value = "/add", method = RequestMethod.POST)
+//    public String processAddServicio(@ModelAttribute("servicio") Servicio s,
+//                                      BindingResult bindingResult) {
+//        if (bindingResult.hasErrors()) {
+//            return "servicios/add";
+//        }
+//        try {
+//            servicioDAO.addServicio(s);
+//        }
+//        catch (DuplicateKeyException e){
+//            throw new EspaciosNaturalesException("Ya existe el servicio", "CPDuplicada", "servicios/add");
+//        }
+//        catch (DataAccessException e){
+//            throw new EspaciosNaturalesException("Error accediendo a la base de datos", "ErrorAccidiendoDatos", "/");
+//        }
+//        return "redirect:list";
+//    }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processAddServicio(@ModelAttribute("servicio") Servicio s,
-                                      BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "servicios/add";
-        }
-        try {
-            servicioDAO.addServicio(s);
-        }
-        catch (DuplicateKeyException e){
-            throw new EspaciosNaturalesException("Ya existe el servicio", "CPDuplicada", "servicios/add");
-        }
-        catch (DataAccessException e){
-            throw new EspaciosNaturalesException("Error accediendo a la base de datos", "ErrorAccidiendoDatos", "/");
-        }
-        return "redirect:list";
-    }
-
-    // Los siguientes dos metodos gestionan la modificacion de un servicio
     @RequestMapping(value = "/update/{tipo}/{supertipo}", method = RequestMethod.GET)
     public String updateServicio(HttpSession session, Model model, @PathVariable String tipo, @PathVariable String supertipo) {
         UserInterno user = checkSession(session, ROL_GESTOR);
@@ -79,16 +76,13 @@ public class ServicioController extends RolController{
         return "redirect:list";
     }
 
-    @RequestMapping(value = "/delete/{tipo}/{supertipo}")
-    public String processDeleteServicio(@PathVariable String tipo, @PathVariable String supertipo, HttpSession session) {
-         servicioDAO.deleteServicio(tipo, supertipo);
-        UserInterno user = (UserInterno) session.getAttribute("user");
-        System.out.println(user);
-        System.out.println(user.getRol());
-        if(user.getRol().equals("gestor")){
-            System.out.println("entro?");
-            return "redirect:../../../responsable/anadirServicios";
-        }
-        return "redirect:../../list";
-    }
+//    @RequestMapping(value = "/delete/{tipo}/{supertipo}")
+//    public String processDeleteServicio(@PathVariable String tipo, @PathVariable String supertipo, HttpSession session) {
+//        servicioDAO.deleteServicio(tipo, supertipo);
+//        UserInterno user = (UserInterno) session.getAttribute("user");
+//        if(user.getRol().equals("gestor")){
+//            return "redirect:../../../responsable/anadirServicios";
+//        }
+//        return "redirect:../../list";
+//    }
 }

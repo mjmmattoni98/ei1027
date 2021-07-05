@@ -1,7 +1,5 @@
 package com.ams.ei1027espaciosnaturales.model;
 
-import java.util.Locale;
-
 public class Ciudadano {
     private String dni; // Identificador
     private String nombre;
