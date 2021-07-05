@@ -40,12 +40,6 @@ public class ReservaValidator implements Validator {
             this.path = "reserva/add";
         }
         LocalTime franjaInicio = reserva.getInicioFranjaHoraria();
-        LocalTime franjaFin = reserva.getFinFranjaHoraria();
-        if (franjaInicio.compareTo(franjaFin) <= 0){
-            errors.rejectValue("franjaHoraria", "consistencia",
-                    "La franja horaria de inicio no puede ser después de la franja horaria de fin");
-            this.path = "reserva/addesp";
-        }
         LocalDate rangeFecha = fechaAcceso.minusDays(2);
         if (fechaCreacion.compareTo(rangeFecha) < 0) {
             errors.rejectValue("fechaAcceso", "limitacion",
