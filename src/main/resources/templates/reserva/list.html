@@ -54,14 +54,11 @@
             </td>
             <td th:if="${session.user != null and #strings.equals(session.user.rol, 'ciudadano') and
             #strings.equals(reserva.estado, 'pendienteUso')}">
-                <a th:href="@{/reserva/delete/{numReserva}/{zona}/{nombre}(numReserva=${reserva.numReserva}, zona=${zona}, nombre=${espacio_publico})}"
-                   class="btn btn-danger"
-                   role="button">Cancelar</a>
+                <a th:href="@{/reserva/delete/{id}(id=${reserva.numReserva})}" class="btn btn-danger" role="button">Cancelar</a>
             </td>
             <td th:if="${session.user != null and #strings.equals(session.user.rol, 'gestor') and
              #strings.equals(reserva.estado, 'pendienteUso')}">
-                <a th:href="@{/reserva/delete/{numReserva}/{zona}/{nombre}(numReserva=${reserva.numReserva}, zona=${zona}, nombre=${espacio_publico})}"
-                   class="btn btn-danger" role="button">Cancelar</a>
+                <a th:href="@{/reserva/delete/{id}(id=${reserva.numReserva})}" class="btn btn-danger" role="button">Cancelar</a>
             </td>
 <!--            <div class="loggeduser" th:object="${session}">-->
 <!--                <div th:if="*{user == null}">-->

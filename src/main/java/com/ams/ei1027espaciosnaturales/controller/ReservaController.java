@@ -1,13 +1,7 @@
 package com.ams.ei1027espaciosnaturales.controller;
 
-import com.ams.ei1027espaciosnaturales.dao.EspacioPublicoDAO;
-import com.ams.ei1027espaciosnaturales.dao.FranjaHorariaDAO;
-import com.ams.ei1027espaciosnaturales.dao.ReservaDAO;
-import com.ams.ei1027espaciosnaturales.dao.ZonaDAO;
-import com.ams.ei1027espaciosnaturales.model.EstadoReserva;
-import com.ams.ei1027espaciosnaturales.model.Reserva;
-import com.ams.ei1027espaciosnaturales.model.UserInterno;
-import com.ams.ei1027espaciosnaturales.model.Zona;
+import com.ams.ei1027espaciosnaturales.dao.*;
+import com.ams.ei1027espaciosnaturales.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
@@ -28,7 +22,19 @@ public class ReservaController extends RolController{
     private EspacioPublicoDAO espacioPublicoDAO;
     private FranjaHorariaDAO franjaHorariaDAO;
     private ZonaDAO zonaDAO;
+    private EmailDAO emailDAO;
+    private CiudadanoDAO ciudadanoDAO;
 
+
+    @Autowired
+    public void setCiudadanoDAO(CiudadanoDAO c) {
+        this.ciudadanoDAO = c;
+    }
+
+    @Autowired
+    public void setEmailDAO(EmailDAO emailDAO) {
+        this.emailDAO = emailDAO;
+    }
 
     @Autowired
     public void setReservaDAO(ReservaDAO r) {
@@ -133,12 +139,25 @@ public class ReservaController extends RolController{
             r.setDni(user.getDni());
             r.setEstado(EstadoReserva.PENDIENTE_USO.getId());
             r.setFechaCreacion(LocalDate.now());
-            reservaDAO.addReserva(r);
 
             Zona zona = zonaDAO.getZona(r.getZona());
             if(zona.getOcupacion() + r.getNumPersonas() > zona.getCapacidad())
                 throw new EspaciosNaturalesException("Número de plazas disponibles insuficientes", "ErrorAccidiendoDatos", "/");
             zonaDAO.updateOcupacionZonas(r.getZona(), zona.getOcupacion() + r.getNumPersonas());
+
+            Ciudadano c = ciudadanoDAO.getCiudadano(user.getDni());
+
+            Email email = new Email();
+            email.setRemitente("espacios.naturales@cv.com");
+            email.setDestinatario(c.getEmail());
+            email.setFecha(LocalDate.now());
+            email.setAsunto("Reserva realizada");
+            email.setCuerpo("Se ha realizado la reserva en " + r.getEspacioPublico() + " (" + r.getZona() + ") para el día " + r.getFechaAcceso() + " de " + r.getInicioFranjaHoraria() + " a " + r.getFinFranjaHoraria() + ".");
+
+
+            emailDAO.addEmail(email);
+            reservaDAO.addReserva(r);
+
         }catch (DataAccessException e){
            throw new EspaciosNaturalesException("Error accediendo a la base de datos", "ErrorAccidiendoDatos", "/");
         }
@@ -183,14 +202,24 @@ public class ReservaController extends RolController{
             throw new EspaciosNaturalesException("Número de plazas disponibles insuficientes", "ErrorAccidiendoDatos", "/");
         zonaDAO.updateOcupacionZonas(reserva.getZona(), zona.getOcupacion()+r.getNumPersonas()-reserva.getNumPersonas());
 
+        Ciudadano c = ciudadanoDAO.getCiudadano(reserva.getDni());
+
+        Email email = new Email();
+        email.setRemitente("espacios.naturales@cv.com");
+        email.setDestinatario(c.getEmail());
+        email.setFecha(LocalDate.now());
+        email.setAsunto("Modificación reserva");
+        email.setCuerpo("Se ha modificado la reserva en " + reserva.getEspacioPublico() + " (" + reserva.getZona() + ") para el día " + reserva.getFechaAcceso() + " de " + reserva.getInicioFranjaHoraria() + " a " + reserva.getFinFranjaHoraria() + ".");
+
+        emailDAO.addEmail(email);
+
         reservaDAO.updateReserva(r);
 
         return "redirect:list/" + r.getZona() + "/" + r.getEspacioPublico();
     }
 
-    @RequestMapping(value = "/delete/{numReserva}/{idZona}/{nombre}")
-    public String processDeleteReserva(HttpSession session, Model model, @PathVariable int numReserva,
-                                       @PathVariable int idZona, @PathVariable String nombre) {
+    @RequestMapping(value = "/delete/{numReserva}")
+    public String processDeleteReserva(HttpSession session, Model model, @PathVariable int numReserva) {
         if (session.getAttribute("user") == null){
             model.addAttribute("user", new UserInterno());
             return "login";
@@ -205,7 +234,19 @@ public class ReservaController extends RolController{
         }
         Reserva reserva = reservaDAO.getReserva(numReserva);
         Zona zona = zonaDAO.getZona(reserva.getZona());
+
+        Ciudadano c = ciudadanoDAO.getCiudadano(reserva.getDni());
+
+        Email email = new Email();
+        email.setRemitente("espacios.naturales@cv.com");
+        email.setDestinatario(c.getEmail());
+        email.setFecha(LocalDate.now());
+        email.setAsunto("Cancelación reserva");
+        email.setCuerpo("Se ha cancelado la reserva en " + reserva.getEspacioPublico() + " (" + reserva.getZona() + ") para el día " + reserva.getFechaAcceso() + " de " + reserva.getInicioFranjaHoraria() + " a " + reserva.getFinFranjaHoraria() + ".");
+
+        emailDAO.addEmail(email);
+
         zonaDAO.updateOcupacionZonas(reserva.getZona(), zona.getOcupacion() - reserva.getNumPersonas());
-        return "redirect:../../../list/" + idZona + "/" + nombre;
+        return "redirect:../list/";
     }
 }
