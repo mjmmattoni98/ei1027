@@ -4,10 +4,7 @@ import com.ams.ei1027espaciosnaturales.dao.EspacioPublicoDAO;
 import com.ams.ei1027espaciosnaturales.dao.FranjaHorariaDAO;
 import com.ams.ei1027espaciosnaturales.dao.ReservaDAO;
 import com.ams.ei1027espaciosnaturales.dao.ZonaDAO;
-import com.ams.ei1027espaciosnaturales.model.EspacioServicioEstacional;
-import com.ams.ei1027espaciosnaturales.model.EstadoReserva;
-import com.ams.ei1027espaciosnaturales.model.Reserva;
-import com.ams.ei1027espaciosnaturales.model.UserInterno;
+import com.ams.ei1027espaciosnaturales.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
@@ -89,10 +86,13 @@ public class ReservaController {
             r.setDni(user.getDni());
             r.setEstado(EstadoReserva.PENDIENTE_USO);
             r.setFechaCreacion(LocalDate.now());
-            System.out.println(r);
             reservaDAO.addReserva(r);
+        Zona zona = zonaDAO.getZona(r.getZona());
+            if(zona.getOcupacion()+r.getNumPersonas()>zona.getCapacidad())
+                throw new EspaciosNaturalesException("Número de plazas disponibles insuficientes", "ErrorAccidiendoDatos", "/");
+            zonaDAO.updateOcupacionZonas(r.getZona(), zona.getOcupacion()+r.getNumPersonas());
         }catch (DataAccessException e){
-            throw new EspaciosNaturalesException("Error accediendo a la base de datos", "ErrorAccidiendoDatos", "/");
+           throw new EspaciosNaturalesException("Error accediendo a la base de datos", "ErrorAccidiendoDatos", "/");
         }
         return "redirect:../list";
     }
@@ -131,7 +131,17 @@ public class ReservaController {
             r.setEstado(EstadoReserva.PENDIENTE_USO);
             r.setHoraSalida(null);
         }
+        Reserva reserva = reservaDAO.getReserva(r.getNumReserva());
+        Zona zona = zonaDAO.getZona(reserva.getZona());
+
+
+        if(zona.getOcupacion()+r.getNumPersonas()-reserva.getNumPersonas()>zona.getCapacidad())
+            throw new EspaciosNaturalesException("Número de plazas disponibles insuficientes", "ErrorAccidiendoDatos", "/");
+        zonaDAO.updateOcupacionZonas(reserva.getZona(), zona.getOcupacion()+r.getNumPersonas()-reserva.getNumPersonas());
+
+
         reservaDAO.updateReserva(r);
+
         return "redirect:list";
     }
 
@@ -145,6 +155,9 @@ public class ReservaController {
         else if(user.getRol().equals("ciudadano")){
             reservaDAO.updateReservaEstado(numReserva, EstadoReserva.CANCELADA_CIUDADANO);
         }
+        Reserva reserva = reservaDAO.getReserva(numReserva);
+        Zona zona = zonaDAO.getZona(reserva.getZona());
+        zonaDAO.updateOcupacionZonas(reserva.getZona(), zona.getOcupacion()-reserva.getNumPersonas());
         return "redirect:../list";
     }
 }
