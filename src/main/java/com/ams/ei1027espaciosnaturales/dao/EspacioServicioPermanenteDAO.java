@@ -1,6 +1,5 @@
 package com.ams.ei1027espaciosnaturales.dao;
 
-import com.ams.ei1027espaciosnaturales.model.EspacioServicioEstacional;
 import com.ams.ei1027espaciosnaturales.model.EspacioServicioPermanente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -41,15 +40,6 @@ public class EspacioServicioPermanenteDAO {
                 tipo
         );
     }
-
-//    public void updateEspacioServicioPermanente(EspacioServicioPermanente e) {
-//        jdbcTemplate.update("UPDATE espacio_servicio_permanente SET nombre=?, tipo=? WHERE nombre=? AND tipo=?",
-//                e.getNombre(),
-//                e.getTipo(),
-//                e.getNombre(),
-//                e.getTipo()
-//        );
-//    }
 
     public EspacioServicioPermanente getEspacioServicioPermanente(String nombre, String tipo) {
         try {

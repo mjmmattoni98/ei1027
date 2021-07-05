@@ -48,8 +48,6 @@ public class ReservaDAO {
     }
 
     public void updateReservaTodo(Reserva reserva) {
-        System.out.println("patata");
-        System.out.println(reserva.getEstado());
         jdbcTemplate.update("UPDATE reserva SET hora_acceso=?, hora_salida=?, fecha_acceso=?, fecha_creacion=?," +
                         "num_personas=?, estado=?::estado_reserva, dni=?, hora_inicio=?, hora_fin=?, nombre=?, id=? WHERE num_reserva=?",
                 reserva.getHoraAcceso(),

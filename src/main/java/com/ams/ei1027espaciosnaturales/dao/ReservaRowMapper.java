@@ -1,6 +1,5 @@
 package com.ams.ei1027espaciosnaturales.dao;
 
-import com.ams.ei1027espaciosnaturales.model.EstadoReserva;
 import com.ams.ei1027espaciosnaturales.model.Reserva;
 import org.springframework.jdbc.core.RowMapper;
 

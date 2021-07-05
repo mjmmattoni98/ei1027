@@ -136,7 +136,7 @@ public class ServicioDAO {
             );
         }
         catch (EmptyResultDataAccessException e) {
-            return null ;
+            return new ArrayList<>();
         }
     }
 }

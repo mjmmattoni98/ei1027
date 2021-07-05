@@ -41,13 +41,6 @@ public class ZonaReservaDAO {
         );
     }
 
-//    public void updateZonaReserva(ZonaReserva zonaReserva) {
-//        jdbcTemplate.update("UPDATE zona_reserva SET id=?, num_reserva=? WHERE id=? AND num_reserva=?",
-//                zonaReserva.getZona(),
-//                zonaReserva.getReserva()
-//        );
-//    }
-
     public ZonaReserva getZonaReserva(int zona, int reserva) {
         try {
             return jdbcTemplate.queryForObject(
