@@ -157,6 +157,7 @@ public class EspacioPublicoController extends RolController{
         }
 
         imagenDAO.deleteImagen(nombre);
+        franjaHorariaDAO.deleteFranjaHoraria(nombre);
         espacioPublicoDAO.deleteEspacioPublicoNombre(nombre);
         return "redirect:../list";
     }

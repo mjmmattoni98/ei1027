@@ -45,6 +45,12 @@ public class FranjaHorariaDAO {
         );
     }
 
+    public void deleteFranjaHoraria(String espacioPublico) {
+        jdbcTemplate.update("DELETE FROM franja_horaria WHERE  nombre=?",
+                espacioPublico
+        );
+    }
+
     public List<FranjaHoraria> getFranjaHoraria(String espacioPublico){
         try {
             return jdbcTemplate.query(
