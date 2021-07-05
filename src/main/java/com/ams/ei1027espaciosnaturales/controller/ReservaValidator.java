@@ -27,7 +27,9 @@ public class ReservaValidator implements Validator {
         Reserva reserva = (Reserva) obj;
         LocalTime acceso = reserva.getHoraAcceso();
         LocalTime salida = reserva.getHoraSalida();
-        if (acceso != null && salida != null && acceso.compareTo(salida) <= 0) {
+        System.out.println(acceso);
+        System.out.println(salida);
+        if (acceso != null && salida != null && acceso.compareTo(salida) >= 0) {
             errors.rejectValue("horaSalida", "consistencia",
                     "No puedes salir antes de haber entrado");
             this.path = "reserva/addesp";

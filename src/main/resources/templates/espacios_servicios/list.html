@@ -38,7 +38,7 @@
     </tr>
     </tbody>
   </table>
-  <p>
+  <p th:if="${#strings.equals(session.user.rol, 'gestor')}">
     <a th:href="@{../add_permanente/{espacioPublico} (espacioPublico=${espacio_publico})} " class="btn btn-success" role="button">Agregar servicios permanente</a>
   </p>
 
@@ -77,7 +77,7 @@
     </tr>
     </tbody>
   </table>
-  <p>
+  <p th:if="${#strings.equals(session.user.rol, 'gestor')}">
     <a th:href="@{../add_estacional/{espacioPublico} (espacioPublico=${espacio_publico})} " class="btn btn-success" role="button">Agregar servicios estacionales</a>
   </p>
   <p>

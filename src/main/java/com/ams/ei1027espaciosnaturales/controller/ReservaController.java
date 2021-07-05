@@ -193,8 +193,18 @@ public class ReservaController extends RolController{
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String processUpdateSubmit(@ModelAttribute("reserva") Reserva r,
                                       BindingResult bindingResult) {
+        Reserva reserva = reservaDAO.getReserva(r.getNumReserva());
+        r.setFechaCreacion(reserva.getFechaCreacion());
+        r.setFechaAcceso(reserva.getFechaAcceso());
         validator.validate(r, bindingResult);
-        if (bindingResult.hasErrors()) return "reserva/update";
+        if (bindingResult.hasErrors()){
+
+            for(ObjectError error : bindingResult.getAllErrors()){
+                System.out.println(error);
+            }
+
+            return "reserva/update";
+        }
         if(r.getHoraAcceso()!=null){
             if(r.getHoraSalida()==null){
                 r.setEstado(EstadoReserva.EN_USO.getId());
@@ -207,7 +217,6 @@ public class ReservaController extends RolController{
             r.setEstado(EstadoReserva.PENDIENTE_USO.getId());
             r.setHoraSalida(null);
         }
-        Reserva reserva = reservaDAO.getReserva(r.getNumReserva());
         Zona zona = zonaDAO.getZona(reserva.getZona());
 
         if(zona.getOcupacion() + r.getNumPersonas() - reserva.getNumPersonas() > zona.getCapacidad())
@@ -227,7 +236,7 @@ public class ReservaController extends RolController{
 
         reservaDAO.updateReserva(r);
 
-        return "redirect:list/" + r.getZona() + "/" + r.getEspacioPublico();
+        return "redirect:list/" + reserva.getZona() + "/" + reserva.getEspacioPublico();
     }
 
     @RequestMapping(value = "/delete/{numReserva}")

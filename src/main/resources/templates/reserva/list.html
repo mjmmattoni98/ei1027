@@ -49,7 +49,7 @@
             <td th:text="${reserva.espacioPublico}"></td>
             <td th:text="${reserva.zona}"></td>
             <td th:if="${session.user != null and #strings.equals(session.user.rol, 'ciudadano') and
-            #strings.equals(reserva.estado, 'pendienteUso')}">
+            (#strings.equals(reserva.estado, 'pendienteUso') or #strings.equals(reserva.estado, 'enUso'))}">
                 <a th:href="@{/reserva/update/{numReserva}(numReserva=${reserva.numReserva})}" class="btn btn-warning" role="button">Editar</a>
             </td>
             <td th:if="${session.user != null and #strings.equals(session.user.rol, 'ciudadano') and
