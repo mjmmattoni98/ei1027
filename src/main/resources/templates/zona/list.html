@@ -21,7 +21,6 @@
       <th>ID</th>
       <th>Capacidad</th>
       <th>Ocupación</th>
-      <th>Porcentaje de ocupación</th>
       <th></th>
       <th></th>
       <th></th>
@@ -32,7 +31,6 @@
       <td th:text="${zona.id}"></td>
       <td th:text="${zona.capacidad}"></td>
       <td th:text="${zona.ocupacion}"></td>
-      <td th:text="${zona.porcentajeOcupado}"></td>
       <td th:if="${session.user != null and #strings.equals(session.user.rol, 'gestor')}">
         <a th:href="@{/zona/update/{id}(id=${zona.id})}" class="btn btn-warning"
            role="button">Editar</a>

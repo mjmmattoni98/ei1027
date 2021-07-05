@@ -30,8 +30,7 @@ public class ZonaController extends RolController{
     @RequestMapping("/list/{nombre}")
     public String listZonas(Model model, @PathVariable String nombre) {
         List<Zona> zonas = zonaDAO.getZonas(nombre);
-        for (Zona zona : zonas)
-            zona.calcularPorcentajeOcupacion();
+
 
         model.addAttribute("zonas", zonas);
         model.addAttribute("espacio_publico", nombre);
