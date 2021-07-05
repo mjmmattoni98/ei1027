@@ -57,9 +57,6 @@
   <p th:if="${session.user != null and #strings.equals(session.user.rol, 'gestor')}">
     <a th:href="@{/zona/add/{nombre}(nombre=${espacio_publico})}" class="btn btn-success" role="button">Agregar zona</a>
   </p>
-  <p>
-    <a class="btn btn-link" href="/">Volver a la página de inicio</a>
-  </p>
 </div>
 </body>
 </html>

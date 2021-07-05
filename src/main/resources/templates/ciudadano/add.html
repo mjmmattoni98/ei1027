@@ -18,7 +18,7 @@
       <label class="control-label col-sm-2" for="dni">DNI:</label>
       <div class="col-sm-4">
         <input type="text" class="form-control" id="dni" minlength="9" th:minlength="9" maxlength="9" th:maxlength="9"
-               th:field="*{dni}" />
+               th:field="*{dni}" required/>
       </div>
       <div class="error" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></div>
     </div>
@@ -26,7 +26,7 @@
     <div class="form-group row">
       <label class="control-label col-sm-2" for="nombre">Nombre:</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="nombre" th:field="*{nombre}" />
+        <input type="text" class="form-control" id="nombre" th:field="*{nombre}" required/>
       </div>
       <div class="error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
     </div>
@@ -35,7 +35,7 @@
       <label class="control-label col-sm-2" for="apellidos">Apellidos:</label>
       <div class="col-sm-4">
         <input type="text" class="form-control" th:class="${#fields.hasErrors('apellidos')} ? needcorrection" id="apellidos"
-               th:field="*{apellidos}" />
+               th:field="*{apellidos}" required/>
       </div>
       <div class="error" th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}"></div>
     </div>
@@ -44,7 +44,7 @@
       <label class="control-label col-sm-2" for="edad">Edad:</label>
       <div class="col-sm-4">
         <input type="number" th:class="${#fields.hasErrors('edad')} ? needcorrection" class="form-control" id="edad"
-               th:field="*{edad}" min="18" th:min="18" value="18" th:value="18"/>
+               th:field="*{edad}" min="18" th:min="18" value="18" th:value="18" required/>
         <div class="error" th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}"></div>
       </div>
     </div>
@@ -52,7 +52,7 @@
     <div class="form-group row">
       <label class="control-label col-sm-2" for="calle">Calle:</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="calle" th:field="*{calle}"/>
+        <input type="text" class="form-control" id="calle" th:field="*{calle}" required/>
       </div>
       <div class="error" th:if="${#fields.hasErrors('calle')}" th:errors="*{calle}"></div>
     </div>
@@ -61,21 +61,21 @@
       <label class="control-label col-sm-2" for="numero">Número:</label>
       <div class="col-sm-4">
         <input type="number" class="form-control" th:class="${#fields.hasErrors('numero')} ? needcorrection" min="1"
-               th:min="1" id="numero" th:field="*{numero}"/>
+               th:min="1" id="numero" th:field="*{numero}" required/>
       </div>
     </div>
 
     <div class="form-group row">
       <label class="control-label col-sm-2" for="cp">CP:</label>
       <div class="col-sm-4">
-        <input type="number" class="form-control" min="1" th:min="1" id="cp" th:field="*{codigoPostal}"/>
+        <input type="number" class="form-control" min="1" th:min="1" id="cp" th:field="*{codigoPostal}" required/>
       </div>
     </div>
 
     <div class="form-group row">
       <label class="control-label col-sm-2" for="poblacion">Población:</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="poblacion" th:field="*{poblacion}"/>
+        <input type="text" class="form-control" id="poblacion" th:field="*{poblacion}" required/>
       </div>
       <div class="error" th:if="${#fields.hasErrors('poblacion')}" th:errors="*{poblacion}"></div>
     </div>
@@ -83,19 +83,17 @@
     <div class="form-group row">
       <label class="control-label col-sm-2" for="telefono">Teléfono:</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="telefono" th:field="*{telefono}"/>
+        <input type="text" class="form-control" id="telefono" th:field="*{telefono}" required/>
       </div>
       <div class="error" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></div>
-<!--      <div class="error" th:if="${#fields.hasErrors('telefono_formato')}" th:errors="*{telefono}"></div>-->
     </div>
 
     <div class="form-group row">
       <label class="control-label col-sm-2" for="email">Email:</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="email" th:field="*{email}"/>
+        <input type="text" class="form-control" id="email" th:field="*{email}" required/>
       </div>
       <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
-<!--      <div class="error" th:if="${#fields.hasErrors('email_formato')}" th:errors="*{email}"></div>-->
     </div>
 
     <div class="form-group row">
@@ -104,7 +102,6 @@
         <input type="text" class="form-control" id="pin" th:field="*{password}" readonly/>
       </div>
       <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-      <!--      <div class="error" th:if="${#fields.hasErrors('email_formato')}" th:errors="*{email}"></div>-->
     </div>
 
     <div class="form-group row">

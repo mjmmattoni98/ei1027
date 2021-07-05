@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="es" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
 <head>
     <title>Gestionar Servicios</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/espacios_naturales.css"
+          th:href="@{/css/espacios_naturales.css}"/>
 </head>
 <body>
-<div class="container">
+<div class="container" layout:fragment="content">
     <h2>Actualizar servicios</h2>
     <form class="form-horizontal" action="#" th:action="@{/servicios/update}"
           th:object="${servicio}" method="post">
@@ -30,7 +33,7 @@
         <div class="form-group row">
             <label class="control-label col-sm-2" for="descripcion">Descripción:</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="descripcion" th:field="*{descripcion}"/>
+                <input type="text" class="form-control" id="descripcion" th:field="*{descripcion}" required/>
             </div>
         </div>
 

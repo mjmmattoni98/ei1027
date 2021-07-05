@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="es" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
 <head>
-    <title>Gestionar zona</title>
+    <title>Gestionar Zonas</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/espacios_naturales.css"
+          th:href="@{/css/espacios_naturales.css}"/>
 </head>
 <body>
-<div class="container">
+<div class="container" layout:fragment="content">
     <h2>Actualiza zona</h2>
     <form class="form-horizontal" action="#" th:action="@{/zona/update}"
           th:object="${zona}" method="post">
@@ -29,7 +32,7 @@
         <div class="form-group row">
             <label class="control-label col-sm-2" for="capacidad">Capacidad:</label>
             <div class="col-sm-4">
-                <input type="number" class="form-control" id="capacidad" min="1" th:min="1" th:field="*{capacidad}" />
+                <input type="number" class="form-control" id="capacidad" min="1" th:min="1" th:field="*{capacidad}" required/>
             </div>
             <div class="error" th:if="${#fields.hasErrors('capacidad')}" th:errors="*{capacidad}"></div>
         </div>

@@ -25,7 +25,7 @@
         <div class="form-group row">
             <label class="control-label col-sm-2" for="capacidad">Capacidad:</label>
             <div class="col-sm-4">
-                <input type="number" class="form-control" id="capacidad" min="1" th:min="1" th:field="*{capacidad}" />
+                <input type="number" class="form-control" id="capacidad" min="1" th:min="1" th:field="*{capacidad}" required/>
             </div>
             <div class="error" th:if="${#fields.hasErrors('capacidad')}" th:errors="*{capacidad}"></div>
         </div>

@@ -29,31 +29,31 @@
         <div th:unless="${#lists.isEmpty(servicios)}" class="form-group row">
             <label class="control-label col-sm-2" for="fechaini">Fecha Inicio:</label>
             <div class="col-sm-4">
-                <input type="date" class="form-control" id="fechaini" th:field="*{fechaIni}" />
+                <input type="date" class="form-control" id="fechaini" th:field="*{fechaIni}" required/>
             </div>
         </div>
         <div th:unless="${#lists.isEmpty(servicios)}" class="form-group row">
             <label class="control-label col-sm-2" for="fechafin">Fecha fin:</label>
             <div class="col-sm-4">
-                <input type="date" class="form-control" id="fechafin" th:field="*{fechaFin}" />
+                <input type="date" class="form-control" id="fechafin" th:field="*{fechaFin}" required/>
             </div>
         </div>
         <div th:unless="${#lists.isEmpty(servicios)}" class="form-group row">
             <label class="control-label col-sm-2" for="horaini">Hora inicio:</label>
             <div class="col-sm-4">
-                <input type="time" class="form-control" id="horaini" th:field="*{horaIni}" />
+                <input type="time" class="form-control" id="horaini" th:field="*{horaIni}" required/>
             </div>
         </div>
         <div th:unless="${#lists.isEmpty(servicios)}" class="form-group row">
             <label class="control-label col-sm-2" for="horafin">Hora fin:</label>
             <div class="col-sm-4">
-                <input type="time" class="form-control" id="horafin" th:field="*{horaFin}" />
+                <input type="time" class="form-control" id="horafin" th:field="*{horaFin}" required/>
             </div>
         </div>
         <div th:unless="${#lists.isEmpty(servicios)}" class="form-group row">
             <label class="control-label col-sm-2">Lugar Contratación:</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" th:field="*{lugarContratacion}" />
+                <input type="text" class="form-control" th:field="*{lugarContratacion}" required/>
             </div>
         </div>
 

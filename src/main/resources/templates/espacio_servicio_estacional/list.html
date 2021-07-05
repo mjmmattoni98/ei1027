@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<html xmlns:th="http://www.thymeleaf.org" lang="es" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
 <head>
-    <title>Gestionar Servicios Estacionales</title>
+    <title>Gestionar Zonas</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/espacios_naturales.css"
+          th:href="@{/css/espacios_naturales.css}"/>
 </head>
 <body>
-<div class="container">
+<div class="container" layout:fragment="content">
     <h1>Lista de servicios estacionales</h1>
     <table class="table table-striped">
         <thead>
@@ -43,9 +46,6 @@
     </table>
     <p>
         <a href="add" class="btn btn-success" role="button">Asignar un servicio permanente</a>
-    </p>
-    <p>
-        <a class="btn btn-link" href="/">Volver</a>
     </p>
 </div>
 </body>

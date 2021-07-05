@@ -14,10 +14,7 @@
 <div class="container" layout:fragment="content">
   <div class="alert" th:classappend="${#strings.equals(errorName, 'CPduplicada')} ? 'alert-danger' : 'alert-info'">
     <h3 th:text="${message}"></h3>
-    <p>Pulsa el botón para ir al inicoi o el botón del navegador para ir hacia atrás</p>
-  </div>
-  <div th:align="center">
-    <a href="/" class="btn btn-primary" th:align="left">Inicio</a>
+    <p>Pulsa el botón del navegador para ir hacia atrás</p>
   </div>
 </div>
 </body>
