@@ -23,7 +23,14 @@
 <header class="page-header">
     <h1>Espacios naturales de la Comunidad Valenciana</h1>
 </header>
-<div th:replace="fragments/nav"></div>
+<div class="loggeduser" th:object="${session}">
+    <td th:if="${session.user != null and #strings.equals(session.user.rol, 'gestor')}">
+        <div th:replace="fragments/nav"></div>
+    </td>
+    <td th:if="${session.user != null and #strings.equals(session.user.rol, 'ciudadano')}">
+        <div th:replace="fragments/navCiudadano"></div>
+    </td>
+</div>
 <div th:replace="fragments/logininfo"></div>
 <div layout:fragment="content"></div>
 <footer>
