@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+  <title>Gestionar comentarios</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/espacios_naturales.css"
+        th:href="@{/css/espacios_naturales.css}"/>
+</head>
+<body>
+<div class="container" layout:fragment="content">
+  <h2>Nuevo comentario</h2>
+  <form class="form-horizontal" action="#" th:action="@{/comentario/add}"
+        th:object="${comentario}" method="post">
+
+    <div class="form-group row">
+      <label class="control-label col-sm-2" for="espacioPublico">Espacio público:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" id="espacioPublico" th:field="*{espacioPublico}" readonly/>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="control-label col-sm-2" for="descripcion">Comentario:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" id="descripcion" th:field="*{descripcion}" required/>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-sm-offset-2 col-sm-4">
+        <button type="submit" class="btn btn-primary">Agregar comentario</button>
+      </div>
+    </div>
+
+  </form>
+</div>
+</body>
+</html>
