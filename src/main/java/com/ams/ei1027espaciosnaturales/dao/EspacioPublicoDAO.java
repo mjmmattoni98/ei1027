@@ -86,4 +86,14 @@ public class EspacioPublicoDAO {
             return new ArrayList<>();
         }
     }
+
+    public List<EspacioPublico> getEspaciosPublicosRestringidos() {
+        try {
+            return jdbcTemplate.query("select * from espacio_publico WHERE t_acceso='restringido';",
+                    new EspacioPublicoRowMapper()
+            );
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
+        }
+    }
 }

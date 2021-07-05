@@ -50,6 +50,24 @@ public class ReservaController extends RolController{
         this.zonaDAO = r;
     }
 
+    @RequestMapping("/list")
+    public String listReservas(HttpSession session, Model model) {
+        if (session.getAttribute("user") == null){
+            model.addAttribute("user", new UserInterno());
+            return "login";
+        }
+        UserInterno user = (UserInterno) session.getAttribute("user");
+
+        if (user.getRol().equals(ROL_GESTOR)) {
+            model.addAttribute("reservas", reservaDAO.getReservas());
+        }
+        else if(user.getRol().equals(ROL_CIUDADANO)){
+            model.addAttribute("reservas", reservaDAO.getReservasCiudadano(user.getDni()));
+        }
+
+        return "reserva/list";
+    }
+
     @RequestMapping("/list/{zona}/{nombre}")
     public String listReservas(HttpSession session, Model model, @PathVariable int zona, @PathVariable String nombre) {
         if (session.getAttribute("user") == null){
@@ -83,7 +101,7 @@ public class ReservaController extends RolController{
         reserva.setZona(zona);
         reserva.setEspacioPublico(espacio);
         model.addAttribute("reserva", reserva);
-        model.addAttribute("espaciosPublicos", espacioPublicoDAO.getEspaciosPublicos());
+        model.addAttribute("espaciosPublicos", espacioPublicoDAO.getEspaciosPublicosRestringidos());
         return "reserva/add";
     }
 
