@@ -86,7 +86,6 @@ public class ZonaController extends RolController{
         }
 
         Zona zona = zonaDAO.getZona(id);
-        zona.calcularPorcentajeOcupacion();
         model.addAttribute("zona", zona);
         return "zona/update";
     }

@@ -16,7 +16,7 @@ public class Zona {
     }
 
     public void calcularPorcentajeOcupacion(){
-        this.setPorcentajeOcupado(ocupacion/capacidad*100);
+        this.setPorcentajeOcupado(this.ocupacion/this.capacidad*100);
     }
 
     public int getId() {
@@ -33,6 +33,7 @@ public class Zona {
 
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
+        this.calcularPorcentajeOcupacion();
     }
 
     public int getOcupacion() {
@@ -41,6 +42,7 @@ public class Zona {
 
     public void setOcupacion(int ocupacion) {
         this.ocupacion = ocupacion;
+        this.calcularPorcentajeOcupacion();
     }
 
     public String getNombreEspacioPublico() {
