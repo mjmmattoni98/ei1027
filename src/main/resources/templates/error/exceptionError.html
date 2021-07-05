@@ -3,16 +3,18 @@
       layout:decorate="~{fragments/base}">
 <head>
   <meta charset="UTF-8">
-  <title>Missatge d'excepció</title>
+  <title>Mensaje de error</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet"
         href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/espacios_naturales.css"
+        th:href="@{/css/espacios_naturales.css}"/>
 </head>
 <body>
 <div class="container" layout:fragment="content">
   <div class="alert" th:classappend="${#strings.equals(errorName, 'CPduplicada')} ? 'alert-danger' : 'alert-info'">
     <h3 th:text="${message}"></h3>
-    <p>Pulsa el botó per anar a l'inici o el botó del navegador per anar cap enrere</p>
+    <p>Pulsa el botón para ir al inicoi o el botón del navegador para ir hacia atrás</p>
   </div>
   <div th:align="center">
     <a href="/" class="btn btn-primary" th:align="left">Inicio</a>
