@@ -38,7 +38,6 @@
                     <option value="bosque">bosque</option>
                     <option value="otros">otros</option>
                 </select>
-<!--                <input type="text" class="form-control" id="tEspacio" th:field="*{tEspacio}" />-->
             </div>
             <div class="error" th:if="${#fields.hasErrors('tEspacio')}" th:errors="*{tEspacio}"></div>
         </div>
@@ -52,7 +51,6 @@
                     <option value="roca">roca</option>
                     <option value="piedra">piedra</option>
                 </select>
-<!--                <input type="text" class="form-control" id="tSuelo" th:field="*{tSuelo}"/>-->
             </div>
             <div class="error" th:if="${#fields.hasErrors('tSuelo')}" th:errors="*{tSuelo}"></div>
         </div>
@@ -66,7 +64,6 @@
                     <option value="restringido">restringido</option>
                     <option value="cerrado">cerrado</option>
                 </select>
-<!--                <input type="text" class="form-control" id="tAcceso" th:field="*{tAcceso}"/>-->
             </div>
             <div class="error" th:if="${#fields.hasErrors('tAcceso')}" th:errors="*{tAcceso}"></div>
         </div>
@@ -102,7 +99,7 @@
         <div class="form-group row">
             <label class="control-label col-sm-2" for="idMunicipio">ID municipio:</label>
             <div class="col-sm-4">
-                <input type="number" class="form-control" id="idMunicipio" th:field="*{idMunicipio}"/>
+                <input type="number" class="form-control" id="idMunicipio" th:field="*{idMunicipio}" readonly/>
             </div>
         </div>
 

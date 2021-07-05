@@ -24,7 +24,7 @@ public class ReservaController extends RolController{
     private ZonaDAO zonaDAO;
     private EmailDAO emailDAO;
     private CiudadanoDAO ciudadanoDAO;
-
+    private static final ReservaValidator validator = new ReservaValidator();
 
     @Autowired
     public void setCiudadanoDAO(CiudadanoDAO c) {
@@ -132,13 +132,15 @@ public class ReservaController extends RolController{
     public String processAddReserva(HttpSession session, @ModelAttribute("reserva") Reserva r,
                                        BindingResult bindingResult) {
         UserInterno user = (UserInterno) session.getAttribute("user");
-        if (bindingResult.hasErrors()) {
-            return "reserva/add";
-        }
         try {
             r.setDni(user.getDni());
             r.setEstado(EstadoReserva.PENDIENTE_USO.getId());
             r.setFechaCreacion(LocalDate.now());
+
+            validator.validate(r, bindingResult);
+            if (bindingResult.hasErrors()) {
+                return validator.getPath();
+            }
 
             Zona zona = zonaDAO.getZona(r.getZona());
             if(zona.getOcupacion() + r.getNumPersonas() > zona.getCapacidad())
@@ -182,6 +184,7 @@ public class ReservaController extends RolController{
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String processUpdateSubmit(@ModelAttribute("reserva") Reserva r,
                                       BindingResult bindingResult) {
+        validator.validate(r, bindingResult);
         if (bindingResult.hasErrors()) return "reserva/update";
         if(r.getHoraAcceso()!=null){
             if(r.getHoraSalida()==null){
@@ -198,7 +201,7 @@ public class ReservaController extends RolController{
         Reserva reserva = reservaDAO.getReserva(r.getNumReserva());
         Zona zona = zonaDAO.getZona(reserva.getZona());
 
-        if(zona.getOcupacion()+r.getNumPersonas()-reserva.getNumPersonas()>zona.getCapacidad())
+        if(zona.getOcupacion() + r.getNumPersonas() - reserva.getNumPersonas() > zona.getCapacidad())
             throw new EspaciosNaturalesException("Número de plazas disponibles insuficientes", "ErrorAccidiendoDatos", "/");
         zonaDAO.updateOcupacionZonas(reserva.getZona(), zona.getOcupacion()+r.getNumPersonas()-reserva.getNumPersonas());
 

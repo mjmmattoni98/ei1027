@@ -1,6 +1,7 @@
 package com.ams.ei1027espaciosnaturales.controller;
 
 import com.ams.ei1027espaciosnaturales.dao.EspacioPublicoDAO;
+import com.ams.ei1027espaciosnaturales.dao.GestorMunicipalDAO;
 import com.ams.ei1027espaciosnaturales.model.EspacioPublico;
 
 import com.ams.ei1027espaciosnaturales.model.UserInterno;
@@ -24,11 +25,18 @@ import java.util.List;
 public class EspacioPublicoController extends RolController{
 
     private EspacioPublicoDAO espacioPublicoDAO;
+    private GestorMunicipalDAO gestorMunicipalDAO;
+
     private static final EspacioPublicoValidator validator = new EspacioPublicoValidator();
 
     @Autowired
     public void setEspacioPublicoDAO(EspacioPublicoDAO e) {
         this.espacioPublicoDAO = e;
+    }
+
+    @Autowired
+    public void setGestorMunicipalDAO(GestorMunicipalDAO gestorMunicipalDAO) {
+        this.gestorMunicipalDAO = gestorMunicipalDAO;
     }
 
     // Listar los espacios publicos
@@ -47,7 +55,10 @@ public class EspacioPublicoController extends RolController{
             return "login";
         }
 
-        model.addAttribute("espacioPublico", new EspacioPublico());
+        int municipio = gestorMunicipalDAO.getGestorMunicipal(user.getDni()).getIdMunicipio();
+        EspacioPublico espacioPublico = new EspacioPublico();
+        espacioPublico.setIdMunicipio(municipio);
+        model.addAttribute("espacioPublico", espacioPublico);
         return "espacioPublico/add";
     }
 
