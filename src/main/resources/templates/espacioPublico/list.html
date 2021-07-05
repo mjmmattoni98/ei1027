@@ -33,6 +33,7 @@
             <th></th>
             <th></th>
             <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -62,6 +63,10 @@
             <td>
                 <a th:href="@{/imagen/list/{nombre}(nombre=${espacioPublico.nombre})}" class="btn btn-info"
                    role="button">Ver imágenes</a>
+            </td>
+            <td>
+                <a th:href="@{/comentario/list/{nombre}(nombre=${espacioPublico.nombre})}" class="btn btn-info"
+                   role="button">Ver comentarios</a>
             </td>
             <td th:if="${#strings.equals(espacioPublico.tAcceso, 'restringido')}">
                 <a th:href="@{/zona/list/{nombre}(nombre=${espacioPublico.nombre})}" class="btn btn-info"
