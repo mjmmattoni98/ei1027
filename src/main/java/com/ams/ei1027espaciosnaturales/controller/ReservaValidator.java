@@ -1,6 +1,5 @@
 package com.ams.ei1027espaciosnaturales.controller;
 
-import com.ams.ei1027espaciosnaturales.model.EspacioPublico;
 import com.ams.ei1027espaciosnaturales.model.Reserva;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.validation.Errors;
@@ -18,7 +17,7 @@ public class ReservaValidator implements Validator {
 
     @Override
     public boolean supports(@NotNull Class<?> cls) {
-        return EspacioPublico.class.equals(cls);
+        return Reserva.class.equals(cls);
         // o, si volguérem tractar també les subclasses:
         // return Nadador.class.isAssignableFrom(cls);
     }

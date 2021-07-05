@@ -1,6 +1,5 @@
 package com.ams.ei1027espaciosnaturales.controller;
 
-import com.ams.ei1027espaciosnaturales.model.EspacioPublico;
 import com.ams.ei1027espaciosnaturales.model.Zona;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.validation.Errors;
@@ -9,7 +8,7 @@ import org.springframework.validation.Validator;
 public class ZonaValidator implements Validator {
     @Override
     public boolean supports(@NotNull Class<?> cls) {
-        return EspacioPublico.class.equals(cls);
+        return Zona.class.equals(cls);
         // o, si volguérem tractar també les subclasses:
         // return Nadador.class.isAssignableFrom(cls);
     }

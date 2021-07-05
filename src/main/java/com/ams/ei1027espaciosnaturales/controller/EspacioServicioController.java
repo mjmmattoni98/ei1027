@@ -25,7 +25,7 @@ public class EspacioServicioController extends RolController{
     private EspacioServicioEstacionalDAO estacionalDAO;
     private EspacioServicioPermanenteDAO permanenteDAO;
     private ServicioDAO servicioDAO;
-
+    private static final EspacioServcicioEstacionalValidator validator = new EspacioServcicioEstacionalValidator();
 
     @Autowired
     public void setServicioDAO(ServicioDAO ese) {
@@ -100,7 +100,7 @@ public class EspacioServicioController extends RolController{
     @RequestMapping(value = "/add/estacional/{espacioPublico}", method = RequestMethod.POST)
     public String processAddServicioe(@ModelAttribute("servicio") EspacioServicioEstacional s,
                                      BindingResult bindingResult,  @PathVariable String espacioPublico) {
-        System.out.println("patata");
+        validator.validate(s, bindingResult);
         if (bindingResult.hasErrors()) {
             System.out.println("error");
 
@@ -117,42 +117,6 @@ public class EspacioServicioController extends RolController{
         }
         return "redirect:../../list/"+espacioPublico;
     }
-
-
-//    @RequestMapping(value = "/add", method = RequestMethod.POST)
-//    public String processAddEspacioServicioPermanente(@ModelAttribute("espacios_servicios") EspacioServicioEstacional ese,
-//                                                      BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            return "espacios_servicios/add";
-//        }
-//        try {
-//            espacioServicioEstacionalDAO.addEspacioServicioEstacional(ese);
-//        }
-//        catch (DuplicateKeyException e){
-//            throw new EspaciosNaturalesException("Ya existe el servicio estacional en el esapcio público",
-//                    "CPDuplicada", "espacio_servicio_estacional/add");
-//        }
-//        catch (DataAccessException e){
-//            throw new EspaciosNaturalesException("Error accediendo a la base de datos", "ErrorAccidiendoDatos", "/");
-//        }
-//        return "redirect:list";
-//    }
-//
-//    @RequestMapping(value = "/update/{nombre}/{tipo}/{fechaIni}/{horaIni}", method = RequestMethod.GET)
-//    public String updateEspacioServicio(Model model, @PathVariable String nombre, @PathVariable String tipo,
-//                                                  @PathVariable LocalDate fechaIni, @PathVariable LocalTime horaIni) {
-//        model.addAttribute("espacio_servicio_estacional",
-//                espacioServicioEstacionalDAO.getEspacioServicioEstacional(nombre, tipo, fechaIni, horaIni));
-//        return "espacios_servicios/update";
-//    }
-//
-//    @RequestMapping(value = "/update", method = RequestMethod.POST)
-//    public String processUpdateSubmit(@ModelAttribute("espacios_servicios") EspacioServicioEstacional ese,
-//                                      BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) return "espacios_servicios/update";
-//        espacioServicioEstacionalDAO.updateEspacioServicioEstacional(ese);
-//        return "redirect:list";
-//    }
 
     @RequestMapping(value = "/delete_permanente/{nombre}/{tipo}")
     public String processDeleteEspacioServicioPermanente(HttpSession session, Model model, @PathVariable String nombre,
