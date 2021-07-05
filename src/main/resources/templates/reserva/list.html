@@ -87,8 +87,12 @@
         </tr>
         </tbody>
     </table>
-    <p th:if="${session.user != null and #strings.equals(session.user.rol, 'ciudadano')}">
+    <p th:if="${session.user != null and #strings.equals(session.user.rol, 'ciudadano') and not #strings.equals(zona, '')}">
         <a th:href="@{/reserva/add/{zona}/{espacio}(zona=${zona}, espacio=${espacio_publico})}"
+           class="btn btn-success" role="button">Agregar reserva</a>
+    </p>
+    <p th:if="${session.user != null and #strings.equals(session.user.rol, 'ciudadano') and #strings.equals(zona, '')}">
+        <a th:href="@{/reserva/add/}"
            class="btn btn-success" role="button">Agregar reserva</a>
     </p>
 

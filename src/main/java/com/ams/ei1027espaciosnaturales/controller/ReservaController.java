@@ -100,6 +100,23 @@ public class ReservaController extends RolController{
         Reserva reserva = new Reserva();
         reserva.setZona(zona);
         reserva.setEspacioPublico(espacio);
+        System.out.println(reserva.getEspacioPublico());
+        model.addAttribute("reserva", reserva);
+        model.addAttribute("espaciosPublicos", espacioPublicoDAO.getEspaciosPublicosRestringidos());
+        return "reserva/add";
+    }
+
+    @RequestMapping(value = "/add")
+    public String addReserva(HttpSession session, Model model) {
+        UserInterno user = checkSession(session, ROL_CIUDADANO);
+        if (user == null){
+            model.addAttribute("user", new UserInterno());
+            return "login";
+        }
+
+        Reserva reserva = new Reserva();
+        reserva.setZona(0);
+        System.out.println(reserva.getEspacioPublico());
         model.addAttribute("reserva", reserva);
         model.addAttribute("espaciosPublicos", espacioPublicoDAO.getEspaciosPublicosRestringidos());
         return "reserva/add";
